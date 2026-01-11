@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { heroCopy } from "@/lib/portfolioData";
 import { useScrollToSection } from "@/hooks/useScrollToSection";
 import styles from "./Hero.module.css";
@@ -13,42 +13,6 @@ const heroVariants = {
 
 function Hero() {
   const { scrollToSection } = useScrollToSection();
-
-  const tiltX = useMotionValue(0);
-  const tiltY = useMotionValue(0);
-
-  const shimmer = useSpring(50, {
-    stiffness: 220,
-    damping: 26,
-  });
-
-  const rotateX = useSpring(useTransform(tiltY, [-40, 40], [6, -6]), {
-    stiffness: 180,
-    damping: 20,
-  });
-  const rotateY = useSpring(useTransform(tiltX, [-40, 40], [-8, 8]), {
-    stiffness: 180,
-    damping: 20,
-  });
-
-  const handlePointerMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const x = event.clientX - rect.left - rect.width / 2;
-    const y = event.clientY - rect.top - rect.height / 2;
-    const ratioX = (x / (rect.width / 2)) * 40;
-    const ratioY = (y / (rect.height / 2)) * 40;
-    tiltX.set(ratioX);
-    tiltY.set(ratioY);
-
-    const percent = ((x + rect.width / 2) / rect.width) * 100;
-    shimmer.set(Math.min(100, Math.max(0, percent)));
-  };
-
-  const handlePointerLeave = () => {
-    tiltX.set(0);
-    tiltY.set(0);
-    shimmer.set(50);
-  };
 
   const subtitleParts = heroCopy.subtitle.split("·");
 
@@ -64,9 +28,6 @@ function Hero() {
         animate="visible"
         variants={heroVariants}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        style={{ rotateX, rotateY }}
-        onMouseMove={handlePointerMove}
-        onMouseLeave={handlePointerLeave}
       >
         <div className={styles.heroCopy}>
           <p className={styles.heroEyebrow}>Hi, I&apos;m</p>
@@ -118,50 +79,41 @@ function Hero() {
           </div>
         </div>
 
-        <div className={styles.heroImageWrap}>
-          <span className={styles.orbitNode} aria-hidden="true" />
-          <span className={styles.orbitDiamond} aria-hidden="true" />
-          {/* <span className={styles.orbitStar} aria-hidden="true" /> */}
-          <div className={styles.heroGlow} aria-hidden="true" />
-          <motion.div
-            className={styles.heroPortraitFrame}
-            initial={{ opacity: 0, scale: 0.92, y: 16 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-          >
-            <div className={styles.heroPortraitInner}>
-              <Image
-                src="/prathik-hero.png"
-                alt="Portrait of Prathik Pugazhenthi"
-                width={430}
-                height={560}
-                priority
-              />
+        <div className={styles.heroVisual}>
+          <div className={styles.heroImageWrap}>
+            <div className={styles.orbitRing} aria-hidden="true">
+              <span className={styles.orbitNode} />
             </div>
-          </motion.div>
+            <span className={styles.orbitDiamond} aria-hidden="true" />
+            <div className={styles.heroGlow} aria-hidden="true" />
+            <motion.div
+              className={styles.heroPortraitFrame}
+              initial={{ opacity: 0, scale: 0.92, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+            >
+              <div className={styles.heroPortraitInner}>
+                <Image
+                  src="/prathik-hero.png"
+                  alt="Portrait of Prathik Pugazhenthi"
+                  width={430}
+                  height={560}
+                  priority
+                />
+              </div>
+            </motion.div>
+          </div>
 
           <div className={styles.heroTagRow} aria-hidden="true">
-            <motion.div
-              className={styles.heroTag}
-              whileHover={{ y: -3, rotateX: -4, rotateY: 4 }}
-              transition={{ type: "spring", stiffness: 260, damping: 22 }}
-            >
+            <div className={styles.heroTag}>
               Full-Stack &amp; Cloud Developer
-            </motion.div>
-            <motion.div
-              className={styles.heroTag}
-              whileHover={{ y: -3, rotateX: -4, rotateY: 4 }}
-              transition={{ type: "spring", stiffness: 260, damping: 22 }}
-            >
+            </div>
+            <div className={styles.heroTag}>
               AI-Enabled Systems &amp; Infrastructure
-            </motion.div>
-            <motion.div
-              className={styles.heroTag}
-              whileHover={{ y: -3, rotateX: -4, rotateY: 4 }}
-              transition={{ type: "spring", stiffness: 260, damping: 22 }}
-            >
+            </div>
+            <div className={styles.heroTag}>
               DevOps, Distributed Systems &amp; Modernization
-            </motion.div>
+            </div>
           </div>
         </div>
       </motion.div>
