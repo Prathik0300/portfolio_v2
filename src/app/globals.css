@@ -1,0 +1,108 @@
+:root {
+  --bg-main: #f3f4f6;
+  --bg-elevated: #ffffff;
+  --bg-elevated-soft: rgba(255, 255, 255, 0.92);
+  --accent-primary: #06b6d4; /* teal */
+  --accent-secondary: #f97316; /* orange */
+  --accent-soft: rgba(56, 189, 248, 0.25);
+  --accent-strong: rgba(56, 189, 248, 0.55);
+  --text-main: #111827;
+  --text-muted: #6b7280;
+  --border-soft: rgba(148, 163, 184, 0.3);
+  --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.12);
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-pill: 999px;
+  --transition-fast: 150ms ease-out;
+  --transition-med: 220ms ease-out;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  max-width: 100vw;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  color: var(--text-main);
+  background:
+    radial-gradient(circle at top left, rgba(191, 219, 254, 0.65), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(254, 243, 199, 0.7), transparent 55%),
+    linear-gradient(180deg, #f9fafb, #e5e7eb);
+  font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+}
+
+main {
+  min-height: 100vh;
+}
+
+section {
+  position: relative;
+  scroll-margin-top: 96px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading), var(--font-sans), system-ui, -apple-system,
+    BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.appShell {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.28), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(249, 115, 22, 0.18), transparent 55%),
+    linear-gradient(180deg, #f9fafb, #e5e7eb);
+}
+
+.appInner {
+  max-width: 100%;
+  margin: 0;
+  padding: 1.25rem 1.25rem 3.5rem;
+}
+
+@media (min-width: 768px) {
+  .appInner {
+    padding: 1.5rem 1.75rem 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .appInner {
+    padding-inline: 2.5rem;
+  }
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

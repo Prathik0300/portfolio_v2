@@ -1,0 +1,129 @@
+.section {
+  margin-bottom: 3.25rem;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1.25rem;
+}
+
+.heading {
+  font-size: 1.3rem;
+}
+
+.hint {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  position: relative;
+  padding: 1.05rem 1.05rem 1.1rem;
+  border-radius: var(--radius-md);
+  background:
+    radial-gradient(circle at top left, rgba(191, 219, 254, 0.7), transparent 60%),
+    radial-gradient(circle at bottom right, rgba(254, 249, 195, 0.7), transparent 60%),
+    linear-gradient(135deg, #ffffff, #f9fafb);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.16);
+  overflow: hidden;
+  transition:
+    box-shadow var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.card:hover {
+  border-color: rgba(56, 189, 248, 0.95);
+  box-shadow: 0 22px 60px rgba(15, 23, 42, 1);
+}
+
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.4rem;
+  margin-bottom: 0.3rem;
+}
+
+.title {
+  font-size: 1rem;
+}
+
+.badge {
+  align-self: flex-start;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(239, 246, 255, 0.95);
+  border: 1px solid rgba(56, 189, 248, 0.8);
+  font-size: 0.75rem;
+  color: var(--accent-primary);
+}
+
+.description {
+  font-size: 0.9rem;
+  color: var(--text-main);
+  margin-bottom: 0.55rem;
+}
+
+.techRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.65rem;
+}
+
+.techChip {
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(239, 246, 255, 0.95);
+  border: 1px solid rgba(148, 163, 184, 0.65);
+  font-size: 0.78rem;
+}
+
+.linksRow {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.linkButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.linkButton:hover {
+  background: rgba(15, 23, 42, 0.9);
+  border-color: rgba(56, 189, 248, 0.9);
+  color: var(--text-main);
+  transform: translateY(-1px);
+}
+
+.linkButtonPrimary {
+  border-color: rgba(56, 189, 248, 0.9);
+  color: var(--accent-primary);
+}
+
+@media (max-width: 640px) {
+  .headerRow {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}
+
