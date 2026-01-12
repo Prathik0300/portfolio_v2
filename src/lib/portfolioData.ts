@@ -1,4 +1,4 @@
-export type SkillCategoryId = "primary" | "languages" | "stack";
+export type SkillCategoryId = "languages" | "stack";
 
 export interface SkillCategory {
   id: SkillCategoryId;
@@ -37,6 +37,11 @@ export const heroCopy = {
   ],
 };
 
+export interface AboutFact {
+  label: string;
+  value: string;
+}
+
 export const aboutCopy = {
   title: "About Me",
   body: [
@@ -46,33 +51,32 @@ export const aboutCopy = {
   ],
 };
 
-export const skillCategories: SkillCategory[] = [
+export const aboutFacts: AboutFact[] = [
   {
-    id: "primary",
-    label: "Primary Skills",
-    skills: [
-      "Cassandra",
-      "Software Infrastructure",
-      "AI Agents",
-      "NestJS",
-      "Fastify",
-      "GCP",
-      "GKE",
-      "GitHub Actions",
-      "Google Cloud Build",
-      "CI/CD",
-      "Kubernetes",
-      "Node.js",
-      "React",
-      "TypeScript",
-      "Redis",
-      "ELK",
-      "JWT Auth",
-      "Helm",
-      "Microservices",
-      "Distributed Systems",
-    ],
+    label: "Experience",
+    value: "3+ years building production web platforms and services.",
   },
+  {
+    label: "Cloud & DevOps",
+    value: "GCP, GKE, Kubernetes, CI/CD, observability, automation.",
+  },
+  {
+    label: "Product Impact",
+    value: "Improved performance, SEO, and reliability across B2C modules.",
+  },
+  {
+    label: "What I enjoy",
+    value: "Owning systems end-to-end — from API design to infra and DX.",
+  },
+];
+
+export const aboutHighlights: string[] = [
+  "Currently pursuing an MS in Computer Science at the University of Illinois Chicago with a focus on cloud computing, backend systems, and distributed systems.",
+  "Previously a Software Development Engineer at Bajaj Finserv Health, where I worked on high-traffic B2C modules and performance-critical flows.",
+  "Hands-on with building AI-enabled automation, multi-tenant architectures on GKE, and end-to-end CI/CD pipelines for reliable delivery.",
+];
+
+export const skillCategories: SkillCategory[] = [
   {
     id: "languages",
     label: "Languages Spoken",
@@ -100,6 +104,91 @@ export const skillCategories: SkillCategory[] = [
       "Cloud Build",
       "GitHub Actions",
     ],
+  },
+];
+
+export interface IconSkill {
+  id: string;
+  label: string;
+  iconSrc: string;
+}
+
+export const programmingSkills: IconSkill[] = [
+  { id: "typescript", label: "TypeScript", iconSrc: "/logos/skills/typescript.svg" },
+  { id: "javascript", label: "JavaScript", iconSrc: "/logos/skills/javascript.svg" },
+  { id: "python", label: "Python", iconSrc: "/logos/skills/python.svg" },
+  { id: "sql", label: "SQL", iconSrc: "/logos/skills/sql.svg" },
+  { id: "github", label: "Github", iconSrc: "/logos/skills/github.svg" },
+  { id: "node", label: "Node.js", iconSrc: "/logos/skills/nodejs.svg" },
+  { id: "react", label: "React.js", iconSrc: "/logos/skills/reactjs.svg" },
+  { id: "nextjs", label: "Next.js", iconSrc: "/logos/skills/nextjs.svg" },
+  { id: "nest", label: "NestJS", iconSrc: "/logos/skills/nestjs.svg" },
+  { id: "flask", label: "Flask", iconSrc: "/logos/skills/flask.svg" },
+  { id: "docker", label: "Docker", iconSrc: "/logos/skills/docker.svg" },
+  { id: "kubernetes", label: "Kubernetes", iconSrc: "/logos/skills/kubernetes.svg" },
+  { id: "gcp", label: "GCP", iconSrc: "/logos/skills/gcp.svg" },
+  { id: "azure", label: "Azure", iconSrc: "/logos/skills/azure.svg" },
+  { id: "gke", label: "Google Kubernetes Engine", iconSrc: "/logos/skills/gke.svg" },
+  { id: "aws", label: "AWS", iconSrc: "/logos/skills/aws.svg" },
+  { id: "helm", label: "Helm", iconSrc: "/logos/skills/helm.svg" },
+  { id: "sonarqube", label: "SonarQube", iconSrc: "/logos/skills/sonarqube.svg" },
+  { id: "elk", label: "ELK Stack", iconSrc: "/logos/skills/elk.svg" },
+  { id: "jest", label: "Jest", iconSrc: "/logos/skills/jest.svg" },
+  {
+    id: "github-actions",
+    label: "GitHub Actions",
+    iconSrc: "/logos/skills/github-actions.svg",
+  },
+  {
+    id: "cloud-build",
+    label: "Cloud Build",
+    iconSrc: "/logos/skills/cloud-build.svg",
+  },
+  { id: "cassandra", label: "Cassandra", iconSrc: "/logos/skills/cassandra.svg" },
+  { id: "mongo", label: "MongoDB", iconSrc: "/logos/skills/mongodb.svg" },
+  { id: "redis", label: "Redis", iconSrc: "/logos/skills/redis.svg" },
+  { id: "openai", label: "OpenAI", iconSrc: "/logos/skills/openai.svg" },
+  { id: "tensorflow", label: "Tensorflow", iconSrc: "/logos/skills/tensorflow.svg" },
+  { id: "powerbi", label: "PowerBI", iconSrc: "/logos/skills/powerbi.svg" },
+  { id: "alteryx", label: "Alteryx", iconSrc: "/logos/skills/alteryx.svg" },
+  { id: "rabbitmq", label: "RabbitMQ", iconSrc: "/logos/skills/rabbitmq.svg" },
+  { id: "azureservicebus", label: "Azure Service Bus", iconSrc: "/logos/skills/asb.svg" },
+  { id: "figma", label: "Figma", iconSrc: "/logos/skills/figma.svg" },
+  { id: "pgsql", label: "PostgreSQL", iconSrc: "/logos/skills/pgsql.svg" },
+];
+
+export interface LanguageSkill {
+  id: string;
+  nativeLabel: string;
+  englishName: string;
+  level: string;
+}
+
+export const languageSkills: LanguageSkill[] = [
+  {
+    id: "en",
+    nativeLabel: "English",
+    englishName: "English",
+    level: "Full Professional",
+  },
+  {
+    id: "hi",
+    nativeLabel: "हिन्दी",
+    englishName: "Hindi",
+    level: "Full Professional",
+  },
+  { id: "ta", nativeLabel: "தமிழ்", englishName: "Tamil", level: "Native" },
+  {
+    id: "fr",
+    nativeLabel: "Français",
+    englishName: "French",
+    level: "Elementary",
+  },
+  {
+    id: "gu",
+    nativeLabel: "ગુજરાતી",
+    englishName: "Gujarati",
+    level: "Elementary",
   },
 ];
 

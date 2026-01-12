@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="elastic-stack">
+  <path fill="#EB0D72" d="M.5 2.6C.5 1.16 1.648 0 3.073 0h17.854A2.581 2.581 0 0 1 23.5 2.6v5H.5v-5z"></path>
+  <path fill="#00A9E5" d="M.5 16.4h11.005V24H2.994C1.608 24 .5 22.84.5 21.4v-5z"></path>
+  <path fill="#FED10A" d="M12.455 16.4H23.46v5c0 1.44-1.108 2.6-2.494 2.6h-8.511v-7.6z"></path>
+  <path fill="#3EBEB0" d="M.5 8.4h22.96v7.2H.5V8.4z"></path>
+</svg>

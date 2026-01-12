@@ -1,12 +1,16 @@
-'use client';
+"use client";
 
 import { motion } from "framer-motion";
-import { aboutCopy } from "@/lib/portfolioData";
+import { aboutCopy, aboutFacts, aboutHighlights } from "@/lib/portfolioData";
 import styles from "./AboutSection.module.css";
 
 function AboutSection() {
   return (
-    <section id="about" aria-labelledby="about-heading" className={styles.section}>
+    <section
+      id="about"
+      aria-labelledby="about-heading"
+      className={styles.section}
+    >
       <motion.div
         className={styles.card}
         initial={{ opacity: 0, y: 18 }}
@@ -15,17 +19,26 @@ function AboutSection() {
         whileHover={{ y: -6, rotateX: 2, rotateY: -2 }}
         transition={{ duration: 0.45, ease: "easeOut" }}
       >
-        <div className={styles.pill}>
-          <span className={styles.accentDot} />
-          About
+        <div className={styles.headerRow}>
+          <div>
+            <h2 id="about-heading" className={styles.heading}>
+              {aboutCopy.title}
+            </h2>
+          </div>
+          <p className={styles.subtitle}>
+            A developer who enjoys owning systems end-to-end — from product
+            ideas to cloud infrastructure.
+          </p>
         </div>
-        <h2 id="about-heading" className={styles.heading}>
-          {aboutCopy.title}
-        </h2>
-        <div className={styles.body}>
-          {aboutCopy.body.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
+
+        <div className={styles.layout}>
+          <div className={styles.left}>
+            <div className={styles.body}>
+              {aboutCopy.body.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+          </div>
         </div>
       </motion.div>
     </section>
@@ -33,4 +46,3 @@ function AboutSection() {
 }
 
 export default AboutSection;
-
