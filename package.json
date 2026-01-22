@@ -8,14 +8,13 @@
     "start": "next start",
     "lint": "eslint"
   },
-
   "dependencies": {
     "framer-motion": "^11.3.24",
+    "motion": "^12.26.2",
     "next": "16.1.1",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
-  
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^19",

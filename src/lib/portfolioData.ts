@@ -114,8 +114,16 @@ export interface IconSkill {
 }
 
 export const programmingSkills: IconSkill[] = [
-  { id: "typescript", label: "TypeScript", iconSrc: "/logos/skills/typescript.svg" },
-  { id: "javascript", label: "JavaScript", iconSrc: "/logos/skills/javascript.svg" },
+  {
+    id: "typescript",
+    label: "TypeScript",
+    iconSrc: "/logos/skills/typescript.svg",
+  },
+  {
+    id: "javascript",
+    label: "JavaScript",
+    iconSrc: "/logos/skills/javascript.svg",
+  },
   { id: "python", label: "Python", iconSrc: "/logos/skills/python.svg" },
   { id: "sql", label: "SQL", iconSrc: "/logos/skills/sql.svg" },
   { id: "github", label: "Github", iconSrc: "/logos/skills/github.svg" },
@@ -125,13 +133,25 @@ export const programmingSkills: IconSkill[] = [
   { id: "nest", label: "NestJS", iconSrc: "/logos/skills/nestjs.svg" },
   { id: "flask", label: "Flask", iconSrc: "/logos/skills/flask.svg" },
   { id: "docker", label: "Docker", iconSrc: "/logos/skills/docker.svg" },
-  { id: "kubernetes", label: "Kubernetes", iconSrc: "/logos/skills/kubernetes.svg" },
+  {
+    id: "kubernetes",
+    label: "Kubernetes",
+    iconSrc: "/logos/skills/kubernetes.svg",
+  },
   { id: "gcp", label: "GCP", iconSrc: "/logos/skills/gcp.svg" },
   { id: "azure", label: "Azure", iconSrc: "/logos/skills/azure.svg" },
-  { id: "gke", label: "Google Kubernetes Engine", iconSrc: "/logos/skills/gke.svg" },
+  {
+    id: "gke",
+    label: "Google Kubernetes Engine",
+    iconSrc: "/logos/skills/gke.svg",
+  },
   { id: "aws", label: "AWS", iconSrc: "/logos/skills/aws.svg" },
   { id: "helm", label: "Helm", iconSrc: "/logos/skills/helm.svg" },
-  { id: "sonarqube", label: "SonarQube", iconSrc: "/logos/skills/sonarqube.svg" },
+  {
+    id: "sonarqube",
+    label: "SonarQube",
+    iconSrc: "/logos/skills/sonarqube.svg",
+  },
   { id: "elk", label: "ELK Stack", iconSrc: "/logos/skills/elk.svg" },
   { id: "jest", label: "Jest", iconSrc: "/logos/skills/jest.svg" },
   {
@@ -144,15 +164,27 @@ export const programmingSkills: IconSkill[] = [
     label: "Cloud Build",
     iconSrc: "/logos/skills/cloud-build.svg",
   },
-  { id: "cassandra", label: "Cassandra", iconSrc: "/logos/skills/cassandra.svg" },
+  {
+    id: "cassandra",
+    label: "Cassandra",
+    iconSrc: "/logos/skills/cassandra.svg",
+  },
   { id: "mongo", label: "MongoDB", iconSrc: "/logos/skills/mongodb.svg" },
   { id: "redis", label: "Redis", iconSrc: "/logos/skills/redis.svg" },
   { id: "openai", label: "OpenAI", iconSrc: "/logos/skills/openai.svg" },
-  { id: "tensorflow", label: "Tensorflow", iconSrc: "/logos/skills/tensorflow.svg" },
+  {
+    id: "tensorflow",
+    label: "Tensorflow",
+    iconSrc: "/logos/skills/tensorflow.svg",
+  },
   { id: "powerbi", label: "PowerBI", iconSrc: "/logos/skills/powerbi.svg" },
   { id: "alteryx", label: "Alteryx", iconSrc: "/logos/skills/alteryx.svg" },
   { id: "rabbitmq", label: "RabbitMQ", iconSrc: "/logos/skills/rabbitmq.svg" },
-  { id: "azureservicebus", label: "Azure Service Bus", iconSrc: "/logos/skills/asb.svg" },
+  {
+    id: "azureservicebus",
+    label: "Azure Service Bus",
+    iconSrc: "/logos/skills/asb.svg",
+  },
   { id: "figma", label: "Figma", iconSrc: "/logos/skills/figma.svg" },
   { id: "pgsql", label: "PostgreSQL", iconSrc: "/logos/skills/pgsql.svg" },
 ];
@@ -288,34 +320,52 @@ export const experienceItems: ExperienceItem[] = [
 
 export const serviceItems: ServiceItem[] = [
   {
-    id: "fullstack",
-    title: "Full-Stack Web Development",
+    id: "backend",
+    title: "Cloud-Native Backend Engineering",
     description:
-      "End-to-end product development — from modern React/Next.js frontends to robust Node/NestJS backends and data stores.",
+      "Building distributed backend services, APIs, and authentication using Node/NestJS, Python, and modern cloud patterns.",
   },
   {
-    id: "cloudDevops",
-    title: "Cloud Architecture & DevOps",
+    id: "cloudInfra",
+    title: "Cloud & Kubernetes Infrastructure",
     description:
-      "Designing and operating GCP/GKE-based infrastructure, CI/CD pipelines, and multi-tenant deployments tuned for reliability and velocity.",
+      "Designing and operating cloud workloads on GCP/AWS with Kubernetes (GKE), containers, autoscaling, ingress, and observability.",
   },
   {
-    id: "modernization",
-    title: "Infrastructure Modernization",
+    id: "devops",
+    title: "DevOps & CI/CD Automation",
     description:
-      "Migrating legacy systems into containerized, observable, and scalable architectures with clear rollout and rollback strategies.",
+      "Implementing automated build, test, and deploy pipelines with GitHub Actions and Cloud Build for fast, reliable releases.",
   },
   {
-    id: "performance",
-    title: "Performance & SEO Optimization",
+    id: "platform",
+    title: "Platform & Developer Tooling",
     description:
-      "Improving Core Web Vitals, Lighthouse scores, and overall responsiveness through profiling, caching, and frontend/backend tuning.",
+      "Building internal platforms, validation systems, and developer productivity tooling to accelerate engineering teams.",
   },
   {
     id: "ai",
-    title: "AI & LLM Integrations",
+    title: "AI & LLM Application Integration",
     description:
-      "Embedding AI agents and LLM-driven workflows into products with a focus on safety, observability, and user experience.",
+      "Embedding OpenAI/Gemini-powered agents, automation flows, and intelligent features into real-world products.",
+  },
+  {
+    id: "fullstack",
+    title: "Full-Stack Web Application Development",
+    description:
+      "End-to-end product development using React/Next.js frontends and NestJS-based backends backed by cloud infrastructure.",
+  },
+  {
+    id: "performance",
+    title: "Performance & System Optimization",
+    description:
+      "Improving latency, throughput, Core Web Vitals, and Lighthouse scores through frontend and backend performance tuning.",
+  },
+  {
+    id: "modernization",
+    title: "Cloud Migration & Modernization",
+    description:
+      "Containerizing legacy systems and migrating to cloud-native architectures with zero-downtime rollout strategies.",
   },
 ];
 
