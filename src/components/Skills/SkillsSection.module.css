@@ -122,6 +122,13 @@
 .languageTooltip {
   position: fixed;
   z-index: 60;
+  left: 0;
+  top: 0;
+  transform: translate3d(
+    calc(var(--tooltip-x, 0) * 1px),
+    calc(var(--tooltip-y, 0) * 1px),
+    0
+  );
   background: rgba(15, 23, 42, 0.95);
   color: #f9fafb;
   font-size: 0.7rem;

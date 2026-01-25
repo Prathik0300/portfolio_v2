@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, MouseEvent } from "react";
+import { useEffect, useRef, useState, MouseEvent } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { languageSkills, programmingSkills } from "@/lib/portfolioData";
@@ -12,6 +12,8 @@ function SkillsSection() {
     x: number;
     y: number;
   } | null>(null);
+
+  const tooltipRef = useRef<HTMLDivElement | null>(null);
 
   const handleShowTooltip = (
     event: MouseEvent<HTMLDivElement>,
@@ -29,6 +31,13 @@ function SkillsSection() {
   const handleHideTooltip = () => {
     setTooltip(null);
   };
+
+  useEffect(() => {
+    const el = tooltipRef.current;
+    if (!el || !tooltip) return;
+    el.style.setProperty("--tooltip-x", `${tooltip.x + 10}`);
+    el.style.setProperty("--tooltip-y", `${tooltip.y + 12}`);
+  }, [tooltip]);
 
   return (
     <section
@@ -119,10 +128,7 @@ function SkillsSection() {
         </motion.article>
       </div>
       {tooltip && (
-        <div
-          className={styles.languageTooltip}
-          style={{ left: tooltip.x + 10, top: tooltip.y + 12 }}
-        >
+        <div ref={tooltipRef} className={styles.languageTooltip}>
           {tooltip.label}
         </div>
       )}

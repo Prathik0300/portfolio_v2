@@ -4,7 +4,7 @@ function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className={styles.footer}>
+    <footer id="contact" className={styles.footer}>
       <div className={styles.inner}>
         <div className={styles.left}>
           <span>Available for full-stack, cloud, and infrastructure roles.</span>

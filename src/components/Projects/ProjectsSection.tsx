@@ -1,5 +1,7 @@
-'use client';
+"use client";
 
+import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { projectItems } from "@/lib/portfolioData";
 import styles from "./ProjectsSection.module.css";
@@ -16,55 +18,56 @@ function ProjectsSection() {
           Projects
         </h2>
         <p className={styles.hint}>
-          Selected work that highlights my focus on performance, UX, and reliability.
+          Selected work that highlights my focus on performance, UX, and
+          reliability.
         </p>
       </div>
       <div className={styles.grid}>
         {projectItems.map((project) => (
-          <motion.article
-            key={project.name}
-            className={styles.card}
-            initial={{ opacity: 0, y: 14 }}
-            whileHover={{ y: -6, rotateX: 3, rotateY: -3 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
+          <Link
+            key={project.slug}
+            href={`/projects/${project.slug}`}
+            className={styles.cardLink}
           >
-            <div className={styles.titleRow}>
-              <h3 className={styles.title}>{project.name}</h3>
-              <span className={styles.badge}>Case Study</span>
-            </div>
-            <p className={styles.description}>{project.description}</p>
-            <div className={styles.techRow}>
-              {project.techStack.map((tech) => (
-                <span key={tech} className={styles.techChip}>
-                  {tech}
-                </span>
-              ))}
-            </div>
-            <div className={styles.linksRow}>
-              {project.liveUrl && project.liveUrl !== "#" && (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={`${styles.linkButton} ${styles.linkButtonPrimary}`}
-                >
-                  Live
-                </a>
-              )}
-              {project.githubUrl && project.githubUrl !== "#" && (
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={styles.linkButton}
-                >
-                  GitHub
-                </a>
-              )}
-            </div>
-          </motion.article>
+            <motion.article
+              className={styles.card}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+            >
+              <div className={styles.imageWrapper}>
+                {project.tileMedia.kind === "image" ? (
+                  <Image
+                    src={project.tileMedia.src}
+                    alt={project.tileMedia.alt ?? project.name}
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    className={styles.image}
+                  />
+                ) : (
+                  <video
+                    key={project.tileMedia.src}
+                    src={project.tileMedia.src}
+                    className={styles.image}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                  />
+                )}
+              </div>
+
+              <div className={styles.overlay}>
+                <div className={styles.overlayInner}>
+                  <h3 className={styles.title}>{project.name}</h3>
+                  <p className={styles.techStack}>
+                    {project.techStack.join(" • ")}
+                  </p>
+                </div>
+              </div>
+            </motion.article>
+          </Link>
         ))}
       </div>
     </section>
@@ -72,4 +75,3 @@ function ProjectsSection() {
 }
 
 export default ProjectsSection;
-

@@ -1,13 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
-import {
-  motion,
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { serviceItems } from "@/lib/portfolioData";
 import styles from "./ServicesSection.module.css";
 
@@ -129,38 +124,85 @@ const SERVICE_HIGHLIGHTS: Record<string, ServiceHighlight> = {
 
 function ServicesSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
 
   const totalCards = serviceItems.length;
   const CARD_WIDTH_VW = 94; // match CSS slide width so alignment stays correct
   const totalHorizontalShift = (totalCards - 1) * CARD_WIDTH_VW; // in vw
 
-  // Scroll progress for this section only
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    // 0 when section top hits viewport top,
-    // 1 when section bottom leaves viewport bottom.
-    offset: ["start start", "end end"],
-  });
-
-  // Map vertical scroll progress to horizontal movement of the <ul>
-  const x = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["0vw", `-${totalHorizontalShift}vw`]
-  );
-
   // Track which card is "active" to drive the vertical progress dots on the left.
   const [activeIndex, setActiveIndex] = useState(0);
 
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    if (totalCards <= 1) return;
-    const index = Math.round(latest * (totalCards - 1));
-    const clamped = Math.min(totalCards - 1, Math.max(0, index));
-    setActiveIndex(clamped);
-  });
+  const clamp = (value: number, min: number, max: number) =>
+    Math.min(max, Math.max(min, value));
 
-  // Height of the section: enough vertical space for the whole horizontal journey
-  const sectionHeightVh = (totalCards + 1) * 100; // tweak if you want faster/slower horizontal
+  // Height of the section: enough vertical space for the whole horizontal journey,
+  // tightly (no dead scroll after the last card).
+  const sectionHeightExpression = `calc(${totalCards * 100}vh - 4.5rem)`;
+
+  useEffect(() => {
+    const sectionEl = sectionRef.current;
+    if (!sectionEl) return;
+    sectionEl.style.setProperty("--services-height", sectionHeightExpression);
+  }, [sectionHeightExpression]);
+
+  useEffect(() => {
+    const listEl = listRef.current;
+    const sectionEl = sectionRef.current;
+    if (!listEl) return;
+    if (!sectionEl) return;
+
+    // Center the first and last slides without adding leading/trailing blank space.
+    listEl.style.setProperty(
+      "--start-offset",
+      `${(100 - CARD_WIDTH_VW) / 2}vw`
+    );
+
+    let rafId = 0;
+
+    const update = () => {
+      rafId = 0;
+
+      const remPx = Number.parseFloat(
+        window.getComputedStyle(document.documentElement).fontSize || "16"
+      );
+
+      // Must match CSS: .scrollTrack height is calc(100vh - 4.5rem)
+      const stickyHeightPx = window.innerHeight - remPx * 4.5;
+      // Must match CSS: .scrollTrack top is 2.25rem (so pinned viewport is centered)
+      const stickyTopPx = remPx * 2.25;
+
+      const rect = sectionEl.getBoundingClientRect();
+      const totalScrollable = rect.height - stickyHeightPx;
+      const rawProgress =
+        totalScrollable > 0 ? (stickyTopPx - rect.top) / totalScrollable : 0;
+      const progress = clamp(rawProgress, 0, 1);
+
+      const translateVw = -totalHorizontalShift * progress;
+      listEl.style.setProperty("--x", `${translateVw}vw`);
+
+      if (totalCards > 1) {
+        const idx = Math.round(progress * (totalCards - 1));
+        setActiveIndex(clamp(idx, 0, totalCards - 1));
+      } else {
+        setActiveIndex(0);
+      }
+    };
+
+    const requestUpdate = () => {
+      if (rafId) return;
+      rafId = window.requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+    return () => {
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+      if (rafId) window.cancelAnimationFrame(rafId);
+    };
+  }, [CARD_WIDTH_VW, totalCards, totalHorizontalShift]);
 
   return (
     <article className={styles.article}>
@@ -174,9 +216,6 @@ function ServicesSection() {
         ref={sectionRef}
         key={`services-section-${serviceItems.length}`}
         className={styles.groupContainer}
-        style={{
-          height: `${sectionHeightVh}vh`,
-        }}
       >
         <div className={styles.scrollTrack}>
           <div className={styles.progressDots} aria-hidden="true">
@@ -190,7 +229,7 @@ function ServicesSection() {
             ))}
           </div>
 
-          <motion.ul style={{ x }} className={styles.itemGroup}>
+          <motion.ul ref={listRef} className={styles.itemGroup}>
             {serviceItems.map((service) => {
               const highlight = SERVICE_HIGHLIGHTS[service.id];
 

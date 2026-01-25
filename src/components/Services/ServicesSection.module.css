@@ -1,9 +1,9 @@
 .article {
-  margin-bottom: 3.25rem;
+  margin-bottom: 0.25rem;
 }
 
 .heading {
-  font-size: 3.3rem;
+  font-size: 2.2rem;
 }
 
 .header {
@@ -14,13 +14,18 @@
 
 .groupContainer {
   position: relative;
+  height: var(--services-height, 300vh);
 }
 
 /* Sticky viewport for the horizontal track */
 .scrollTrack {
   position: sticky;
-  /* Match the navbar offset so this sits just below it */
-  top: 4.5rem;
+  /*
+    Center the pinned viewport. We previously used 4.5rem to sit under the navbar,
+    but that makes the track's center sit below the viewport center.
+    Half of 4.5rem keeps the track centered while still leaving room near the top.
+  */
+  top: 2.25rem;
   height: calc(100vh - 4.5rem);
   /* Make the services row full-bleed, independent of page padding */
   width: 100vw;
@@ -28,7 +33,7 @@
   transform: translateX(-50%);
   overflow: hidden; /* This clips the horizontal items */
   display: flex;
-  align-items: stretch; /* Let each slide fill the sticky viewport vertically */
+  align-items: center; /* Let each slide be centered in the pinned viewport */
 }
 
 .scrollTrack::before,
@@ -93,6 +98,8 @@
   list-style: none;
   width: max-content;
   will-change: transform;
+  /* Keep first and last slides centered without adding extra gutter. */
+  transform: translate3d(calc(var(--start-offset, 0vw) + var(--x, 0vw)), 0, 0);
 }
 
 .itemList {
@@ -102,7 +109,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   padding: 0 1.25rem 1.5rem 1.25rem;
 }
 
