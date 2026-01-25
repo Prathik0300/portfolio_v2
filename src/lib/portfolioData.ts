@@ -71,6 +71,11 @@ export interface ProjectItem {
   }>;
   liveUrl?: string;
   githubUrl?: string;
+  detailLinks?: Array<{
+    label: string;
+    url: string;
+    icon: "paper" | "github" | "chrome" | "website";
+  }>;
 }
 
 export const heroCopy = {
@@ -419,17 +424,221 @@ export const projectItems: ProjectItem[] = [
     slug: "crlite-plus-cert-revocation",
     description:
       "Research work on CRLite+, a lightweight browser extension approach for practical certificate revocation and safer TLS connections.",
-    techStack: ["Security", "Browser Extensions", "CRLite"],
+    techStack: [
+      "Chrome Extension",
+      "Node.js",
+      "Python",
+      "Bloom Filters",
+      "TLS",
+      "Security",
+      "CRLite",
+    ],
     tileMedia: {
       kind: "image",
-      src: "/window.svg",
-      alt: "CRLite+ certificate revocation visuals",
+      src: "/projects/crlite/crlite_cover.png",
+      alt: "CRLite+ certificate revocation extension blocking revoked certificate",
     },
+    designImages: [
+      {
+        src: "/window.svg",
+        alt: "CRLite+ architecture and workflow",
+      },
+    ],
     detailMedia: [
       {
         kind: "image",
         src: "/window.svg",
         alt: "CRLite+ certificate revocation visuals",
+      },
+    ],
+    detailSubtitle: "Lightweight Browser Extension for Dynamic Certificate Revocation Enforcement",
+    detailDateRange: "April 2025",
+    detailOrganization: {
+      name: "University of Illinois Chicago",
+      logoSrc: "/logos/uic-logo.png",
+    },
+    detailAssociation: "Associated with University of Illinois Chicago",
+    detailProjectType: "Research Project | CS588 – Security and Privacy in Networked and Distributed Systems",
+    detailTechStack:
+      "Tech Stack: Chrome Extension (Manifest V3) · Node.js · Python · Bloom Filters · TLS · SHA-256 · MurmurHash3",
+    detailOverview:
+      "CRLite+ is a fully functional Chrome extension that introduces CRLite-style revocation enforcement for Chromium-based browsers. It incorporates both static and dynamic Bloom filters to enable local verification of certificate revocation without real-time network checks, providing fast, privacy-preserving revocation checking.",
+    detailProblem:
+      "Certificate revocation remains one of the most critical yet under-addressed components in web security. Traditional mechanisms like Certificate Revocation Lists (CRLs) and Online Certificate Status Protocol (OCSP) are ineffective for on-demand validations due to latency, inefficiency, and privacy issues. CRLs can grow large and are infrequently updated, while OCSP adds latency to every connection and reveals users' browsing behavior. Although Firefox has implemented CRLite, Chromium-based browsers lack a similar solution.",
+    detailMotivation:
+      "Mozilla's CRLite provides a scalable, privacy-protecting solution using cascaded Bloom filters that enable local verification without real-time network checks. However, no similar solution existed for Chromium-based browsers. CRLite+ bridges this gap by bringing CRLite-style revocation enforcement to Chrome and other Chromium browsers, demonstrating that fast, privacy-respecting revocation checking is achievable for modern browsers.",
+    detailSolution:
+      "CRLite+ combines static and dynamic Bloom filters in a hybrid revocation scheme. The extension continuously checks TLS certificates and denies access if a certificate is flagged as revoked. A Node.js backend retrieves certificates and maintains revocation lists, while a Python-based Bloom filter generator builds efficient two-level static filter cascades. The system achieves 100% accuracy in detecting revocations with negligible performance overhead.",
+    detailSolutionPoints: [
+      "Static Bloom filter cascade (blacklist and whitelist) built from known revoked certificate serials, enabling instant local verification without network roundtrips.",
+      "Dynamic filter updates via Node.js backend that fetches TLS certificates and maintains live revocation lists for real-time enforcement.",
+      "Chrome extension with Manifest V3 that intercepts certificate validation, performs Bloom filter lookups, and blocks access to revoked domains.",
+      "Cascading filter architecture that reduces false positives through layered filtering—first checking a blacklist, then verifying against a whitelist.",
+      "Privacy-preserving operation with all filtering performed locally, eliminating the need to reveal browsing behavior to third-party servers.",
+      "Memory-efficient design with static filters taking less than 512 KB compressed and dynamic filters using less than 200 KB in memory.",
+    ],
+    detailReflectionOutcomes:
+      "CRLite+ successfully detected all test domains with 100% accuracy when they were injected into the revocation list. The system achieved average certificate checking times of 2-5 ms per site visit with negligible page loading latency. The cascading Bloom filter architecture effectively eliminated false positives through the two-layer approach. The extension demonstrated complete enforcement flow from certificate parsing through Bloom filter lookup to page blocking, validating that fast, privacy-respecting revocation checking is practical for Chromium-based browsers.",
+    detailReflectionMoreTime:
+      "Future enhancements could include integration with real CA feeds for live CRL/OCSP-to-Bloom conversion, support for intermediate CA revocations, native Chromium browser integration, and revocation transparency logging. The current implementation focuses on serial number-based revocations and could be extended to handle OCSP stapling anomalies and indirect revocation scenarios.",
+    detailDesignProcess:
+      "The system was architected with a modular approach: a Python script generates static Bloom filter cascades using MurmurHash3 for performance, a Node.js backend creates raw TLS connections to fetch certificate chains and maintains revocation lists, and a Chrome extension performs real-time certificate validation using the local filters. The evaluation simulated revocations by injecting trusted domains into the revocation list to verify the complete enforcement flow.",
+    detailDesignProcessSteps: [
+      {
+        id: "requirement-analysis",
+        title: "Requirement Analysis",
+        subtitle: "Understanding the revocation problem space",
+        paragraphs: [
+          "We analyzed the limitations of existing certificate revocation mechanisms—CRLs, OCSP, and OCSP stapling—to identify core requirements for a practical solution. The analysis revealed critical needs: low latency, privacy preservation, scalability to web-scale PKI, and compatibility with Chromium browsers.",
+          "Why this mattered: understanding the trade-offs between performance, privacy, and accuracy was essential. Traditional approaches either sacrificed privacy (OCSP) or performance (CRLs), while Firefox's CRLite demonstrated that local Bloom filter-based checking could address both concerns.",
+          "How it helps: the requirement analysis shaped our design decisions, leading us to adopt cascaded Bloom filters for accuracy, local-only checking for privacy, and a hybrid static-dynamic approach for flexibility. This foundation ensured CRLite+ would meet real-world constraints while solving the revocation problem effectively.",
+        ],
+        bullets: [
+          "Analyzed limitations of CRLs (large size, infrequent updates) and OCSP (latency, privacy leaks).",
+          "Studied Mozilla's CRLite approach to understand cascaded Bloom filter benefits and implementation patterns.",
+          "Identified key requirements: sub-10ms checking time, zero network roundtrips, privacy-preserving operation, and Chromium compatibility.",
+          "Evaluated trade-offs between false positive rates, memory footprint, and filter update frequency.",
+          "Defined success criteria: 100% revocation detection accuracy, negligible performance overhead, and memory efficiency under 1MB.",
+        ],
+        summary:
+          "Requirement analysis revealed that existing revocation mechanisms fail to balance performance, privacy, and scalability. By studying CRLite's approach and identifying core constraints, we established clear requirements that guided the design of CRLite+ as a fast, private, and scalable solution for Chromium browsers.",
+      },
+      {
+        id: "system-architecture",
+        title: "System Architecture and Algorithm Design",
+        subtitle: "Designing the modular revocation system and cascaded filters",
+        images: [
+          {
+            src: "/projects/crlite/system_architecture.png",
+            alt: "CRLite+ System Architecture diagram showing Frontend (Chrome), Backend (Node.js), Bloom Filters, and Static Filter Generator (Python)",
+          },
+        ],
+        paragraphs: [
+          "We architected CRLite+ as a three-component system: a Python-based Bloom filter generator, a Node.js backend for certificate retrieval, and a Chrome extension for real-time enforcement. The algorithm design centered on cascaded Bloom filters—a blacklist containing all revoked serials and a whitelist to eliminate false positives.",
+          "Why this mattered: the modular architecture enables independent optimization of each component while maintaining clear interfaces. The cascaded filter algorithm ensures high accuracy (zero false positives) while keeping memory footprint minimal, making it practical for browser deployment at web scale.",
+          "How it helps: this design pattern ensures certificate checking remains fast and local, while revocation list updates can happen asynchronously without impacting browser performance. The cascade architecture enables CRLite+ to scale to millions of entries with only a few megabytes of memory.",
+        ],
+        bullets: [
+          "Designed three-component architecture: Python filter generator (bloomFilter.py), Node.js backend (server.js), and Chrome extension (Manifest V3).",
+          "Architected cascaded Bloom filter algorithm with blacklist (all revoked serials) and whitelist (false positive elimination) layers.",
+          "Selected MurmurHash3 for fast, non-cryptographic hashing during filter construction to optimize performance.",
+          "Designed JSON-based filter serialization (cascadeFilters.json) for efficient distribution and browser loading.",
+          "Specified filter parameters (bit array size, hash functions) to balance false positive rate and memory usage.",
+          "Defined certificate serial number extraction and SHA-256 hashing protocol for consistent filter lookups.",
+        ],
+        summary:
+          "The system architecture separates filter generation, certificate retrieval, and browser enforcement into independent, optimized components. The cascaded Bloom filter algorithm enables accurate, scalable revocation checking with minimal memory overhead, making local verification practical for web-scale PKI.",
+      },
+      {
+        id: "data-pipeline",
+        title: "Data Pipeline",
+        subtitle: "Building the certificate retrieval and filter generation pipeline",
+        images: [
+          {
+            src: "/projects/crlite/data-flow-diagram.png",
+            alt: "CRLite+ data flow diagram showing offline generation, distribution, runtime browser, and Node.js backend stages",
+          },
+        ],
+        paragraphs: [
+          "We built a data pipeline that flows from certificate retrieval through serial extraction, filter construction, and browser distribution. The Node.js backend creates raw TLS connections to fetch certificate chains, extracts serial numbers, and maintains dynamic revocation lists. The Python script processes revocation data to generate static Bloom filter cascades.",
+          "Why this mattered: an efficient data pipeline is critical for keeping revocation lists current and filters optimized. The pipeline must handle certificate parsing, hash computation, filter updates, and seamless distribution to the browser extension without disrupting user experience.",
+          "How it helps: the pipeline enables both static pre-computed filters (for known revocations) and dynamic runtime updates (for newly revoked certificates), providing flexibility while maintaining performance. The modular design allows each stage to be optimized independently.",
+        ],
+        bullets: [
+          "Implemented Node.js backend that creates raw TLS socket connections to destination domains and intercepts certificate chains.",
+          "Built certificate parsing pipeline to extract X.509 serial numbers, issuer metadata, and validity information.",
+          "Designed serial number hashing pipeline using SHA-256 for consistent Bloom filter lookups.",
+          "Created Python script (bloomFilter.py) to process revocation lists and generate cascaded Bloom filters using MurmurHash3.",
+          "Implemented JSON endpoints (/getSerial, /revokedList) for extension-backend communication and live revocation updates.",
+          "Designed filter serialization format (cascadeFilters.json) for efficient browser loading and distribution.",
+          "Built dynamic revocation list management system that supports runtime updates without filter regeneration.",
+        ],
+        summary:
+          "The data pipeline enables seamless flow from certificate retrieval through filter generation to browser distribution. By separating static filter construction from dynamic revocation updates, the pipeline provides both efficiency and flexibility, ensuring revocation lists stay current while maintaining fast local checking.",
+      },
+      {
+        id: "implementation",
+        title: "Implementation",
+        subtitle: "Building the Chrome extension and backend components",
+        images: [
+          {
+            src: "/projects/crlite/pic1.png",
+            alt: "CRLite+ extension blocking access to revoked certificate for github.com",
+          },
+          {
+            src: "/projects/crlite/pic2.png",
+            alt: "CRLite+ certificate status popup showing revoked certificate details",
+          },
+          {
+            src: "/projects/crlite/pic3.png",
+            alt: "CRLite+ certificate status popup showing valid certificate for piazza.com",
+          },
+        ],
+        paragraphs: [
+          "We implemented CRLite+ across three codebases: the Python filter generator, Node.js backend, and Chrome extension. The extension uses Manifest V3 with content scripts and background workers to intercept certificate validation, perform Bloom filter lookups, and block revoked domains. The backend provides certificate retrieval and revocation list management via REST endpoints.",
+          "Why this mattered: implementation details determine the system's performance, security, and user experience. Careful attention to certificate interception timing, filter lookup efficiency, and blocking mechanisms ensures the extension operates seamlessly without impacting browser performance.",
+          "How it helps: the implementation delivers real-time revocation enforcement with 2-5 ms checking overhead, demonstrating that privacy-preserving revocation checking is practical. The modular codebase enables independent testing and optimization of each component.",
+        ],
+        bullets: [
+          "Implemented Chrome extension using Manifest V3 with content scripts, background workers, and popup UI (popup.html).",
+          "Built certificate interception mechanism that extracts serial numbers during TLS handshake validation.",
+          "Implemented Bloom filter lookup algorithm that checks blacklist first, then whitelist to eliminate false positives.",
+          "Created domain blocking mechanism that denies access to revoked certificates with user notification and clear error messages.",
+          "Developed Node.js backend (server.js) with raw TLS socket connections and certificate chain extraction.",
+          "Implemented JSON API endpoints for certificate serial retrieval and revocation list management.",
+          "Built Python script (bloomFilter.py) for cascaded Bloom filter construction with configurable parameters.",
+          "Created utility functions (utils.js) for certificate format conversion, serial number parsing, and base64 operations.",
+          "Designed popup UI to display certificate metadata, issuer, validity period, and revocation status for user transparency.",
+        ],
+        summary:
+          "Implementation delivers a fully functional Chrome extension that performs real-time revocation checking with minimal performance overhead. The modular codebase enables efficient certificate interception, fast Bloom filter lookups, and seamless domain blocking, demonstrating that privacy-preserving revocation enforcement is practical for Chromium browsers.",
+      },
+      {
+        id: "evaluation-iteration",
+        title: "Evaluation & Iteration",
+        subtitle: "Validating accuracy, performance, and iterating on design",
+        paragraphs: [
+          "We evaluated CRLite+ using controlled experiments, simulating revocations by injecting trusted domains (github.com, uic.blackboard.com) into the revocation list. This enabled us to verify the complete enforcement flow—from certificate retrieval through filter lookup to domain blocking—without needing actual revoked certificates. Iterations refined filter parameters, improved lookup performance, and optimized memory usage.",
+          "Why this mattered: evaluation validates that the system meets requirements for accuracy, performance, and privacy. Iteration ensures the design is optimized for real-world constraints, balancing false positive rates, memory footprint, and checking latency.",
+          "How it helps: the evaluation demonstrated 100% accuracy in revocation detection, 2-5 ms average checking time, and effective false positive elimination. Iterations improved filter efficiency, reducing memory usage to under 512 KB for static filters and under 200 KB for dynamic filters.",
+        ],
+        bullets: [
+          "Simulated revocations by injecting trusted domains (github.com, uic.blackboard.com) into the backend revocation list for controlled testing.",
+          "Tested revocation detection accuracy across multiple domains and certificate types, achieving 100% success rate.",
+          "Measured performance overhead and confirmed 2-5 ms average checking time with negligible page loading latency.",
+          "Validated cascade filter effectiveness in eliminating false positives through two-layer verification.",
+          "Iterated on filter parameters (bit array size, hash count) to optimize memory usage and false positive rates.",
+          "Captured complete demo workflow from certificate retrieval through Bloom filter lookup to domain blocking.",
+          "Refined blocking mechanism and user notification design based on testing feedback.",
+          "Optimized filter serialization format to reduce load time and memory footprint.",
+        ],
+        summary:
+          "Evaluation confirmed that CRLite+ achieves accurate revocation detection with minimal performance overhead. Iterations refined filter parameters and implementation details, resulting in a system that successfully blocks revoked certificates while maintaining fast, privacy-preserving operation. The controlled experiments validated the practical feasibility of client-side revocation enforcement for Chromium browsers.",
+      },
+    ],
+    detailHighlights: [
+      "Cascading Bloom Filters – Two-layer filter architecture (blacklist + whitelist) for accurate, scalable revocation checking with minimal memory footprint.",
+      "Privacy-Preserving Operation – All revocation checks performed locally without revealing browsing behavior to third-party servers.",
+      "Real-Time Enforcement – Chrome extension intercepts certificates and blocks revoked domains instantly with 2-5 ms checking overhead.",
+      "Hybrid Revocation Scheme – Combines static pre-computed filters with dynamic runtime updates for flexibility and scalability.",
+      "Memory Efficient – Static filters under 512 KB compressed, dynamic filters under 200 KB in memory, suitable for resource-constrained environments.",
+      "100% Detection Accuracy – Successfully detects all revoked certificates with zero false positives through cascade architecture.",
+    ],
+    detailLinks: [
+      {
+        label: "Paper",
+        url: "https://www.academia.edu/144366111/CRLite_A_lightweight_browser_extension_for_dynamic_certificate_revocation_enforcement?source=swp_share",
+        icon: "paper",
+      },
+      {
+        label: "GitHub",
+        url: "https://github.com/Prathik0300/CRLite",
+        icon: "github",
+      },
+      {
+        label: "Chrome Extension",
+        url: "https://chromewebstore.google.com/detail/crlite-extension/mkapckifchidaldnnnoipmcamgcefobj",
+        icon: "chrome",
       },
     ],
   },
@@ -471,7 +680,7 @@ export const projectItems: ProjectItem[] = [
       },
     ],
     detailSubtitle: "Personal AI Garden Companion",
-    detailDateRange: "Apr 2025 – Apr 2025",
+    detailDateRange: "April 2025",
     detailOrganization: {
       name: "University of Illinois Chicago",
       logoSrc: "/logos/uic-logo.png",
@@ -609,6 +818,18 @@ export const projectItems: ProjectItem[] = [
       "Gamified Tracker – Visual growth timelines and milestone badges to keep momentum.",
       "Hyperlocal Community – Connect nearby gardeners for compost pickups, seed swaps, and tips.",
       "Ask‑Me‑Anything Bot – AI chatbot trained on gardening forums and agri‑research.",
+    ],
+    detailLinks: [
+      {
+        label: "GitHub",
+        url: "https://github.com/Prathik0300/ensogrow-fe",
+        icon: "github",
+      },
+      {
+        label: "Website",
+        url: "https://ensogrow-fe.vercel.app/login",
+        icon: "website",
+      },
     ],
   },
   {

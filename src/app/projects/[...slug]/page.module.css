@@ -70,6 +70,59 @@
   color: var(--text-muted);
 }
 
+.projectLinks {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.projectLinkButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border: 1.5px solid rgba(148, 163, 184, 0.4);
+  border-radius: 8px;
+  color: var(--text-main);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.projectLinkButton:hover {
+  background: rgba(15, 23, 42, 0.04);
+  border-color: rgba(148, 163, 184, 0.6);
+  transform: translateY(-1px);
+}
+
+.projectLinkButton:active {
+  transform: translateY(0);
+}
+
+.projectLinkIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.projectLinkText {
+  flex-shrink: 0;
+}
+
+.projectLinkArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
 .metaCard {
   background: rgba(56, 189, 248, 0.08);
   border-radius: 8px;
@@ -592,6 +645,15 @@
 
   .subtitle {
     font-size: 1rem;
+  }
+
+  .projectLinks {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .projectLinkButton {
+    width: 100%;
   }
 
   .metaCard {
