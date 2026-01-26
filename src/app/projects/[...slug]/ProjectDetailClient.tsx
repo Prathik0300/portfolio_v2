@@ -59,6 +59,16 @@ export function ProjectDetailClient({ project }: Props) {
       ? (designSteps.find((s) => s.id === "system-architecture")?.images ?? [])
       : [];
 
+  const emotionPipelineBlocks =
+    designSteps.find((s) => s.id === "emotion-pipeline")?.images?.length
+      ? (designSteps.find((s) => s.id === "emotion-pipeline")?.images ?? [])
+      : [];
+
+  const recommendationEngineBlocks =
+    designSteps.find((s) => s.id === "recommendation-engine")?.images?.length
+      ? (designSteps.find((s) => s.id === "recommendation-engine")?.images ?? [])
+      : [];
+
   return (
     <main className={styles.page}>
       <div className={styles.container}>
@@ -199,7 +209,15 @@ export function ProjectDetailClient({ project }: Props) {
                   </div>
                 )}
                 {project.detailAssociation && (
-                  <div className={styles.associationText}>{project.detailAssociation}</div>
+                  <div
+                    className={
+                      project.detailAssociation === "Solo Project"
+                        ? styles.associationText
+                        : styles.associationTextDefault
+                    }
+                  >
+                    {project.detailAssociation}
+                  </div>
                 )}
               </div>
             </div>
@@ -377,6 +395,63 @@ export function ProjectDetailClient({ project }: Props) {
                               <div key={`${img.src}-${idx}`}>
                                 <div
                                   className={styles.diagramFrame}
+                                  role="button"
+                                  tabIndex={0}
+                                  onClick={() => modal.open({ src: img.src, alt: img.alt, title: "" })}
+                                  onKeyDown={(e) => {
+                                    if (e.key === "Enter") modal.open({ src: img.src, alt: img.alt, title: "" });
+                                  }}
+                                >
+                                  <Image
+                                    src={img.src}
+                                    alt={img.alt}
+                                    fill
+                                    sizes="(min-width: 1024px) 70vw, 100vw"
+                                    className={styles.diagramImage}
+                                  />
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+
+                      {step.id === "emotion-pipeline" && emotionPipelineBlocks.length > 0 && (
+                        <div className={styles.stepImagesGrid}>
+                          {emotionPipelineBlocks.map((img, idx) => {
+                            return (
+                              <div key={`${img.src}-${idx}`}>
+                                <div
+                                  className={styles.diagramFrame}
+                                  role="button"
+                                  tabIndex={0}
+                                  onClick={() => modal.open({ src: img.src, alt: img.alt, title: "" })}
+                                  onKeyDown={(e) => {
+                                    if (e.key === "Enter") modal.open({ src: img.src, alt: img.alt, title: "" });
+                                  }}
+                                >
+                                  <Image
+                                    src={img.src}
+                                    alt={img.alt}
+                                    fill
+                                    sizes="(min-width: 1024px) 70vw, 100vw"
+                                    className={styles.diagramImage}
+                                  />
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+
+                      {step.id === "recommendation-engine" && recommendationEngineBlocks.length > 0 && (
+                        <div className={styles.stepImagesGrid}>
+                          {recommendationEngineBlocks.map((img, idx) => {
+                            const isSequenceDiagram = img.src.includes("sequence_diagram");
+                            return (
+                              <div key={`${img.src}-${idx}`}>
+                                <div
+                                  className={`${styles.diagramFrame} ${isSequenceDiagram ? styles.diagramFrameTall : ""}`}
                                   role="button"
                                   tabIndex={0}
                                   onClick={() => modal.open({ src: img.src, alt: img.alt, title: "" })}

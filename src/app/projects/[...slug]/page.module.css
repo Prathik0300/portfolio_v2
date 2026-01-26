@@ -168,8 +168,14 @@
 }
 
 .associationText {
-  font-size: 0.9rem;
-  color: var(--text-muted);
+  font-size: 1.5rem;
+  color: #000000;
+  font-weight: 700;
+}
+
+.associationTextDefault {
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .divider {
@@ -195,6 +201,7 @@
   margin: 0;
   font-size: 1rem;
   color: var(--text-muted);
+  line-height: 1.7;
 }
 
 .mutedTextSpacing {
@@ -206,7 +213,7 @@
 }
 
 .bullets {
-  margin: 0;
+  margin: 1rem 0 0;
   padding-left: 1.1rem;
   color: var(--text-muted);
   display: grid;
@@ -371,6 +378,7 @@
   max-width: 100%;
   overflow-wrap: anywhere;
   word-break: break-word;
+  line-height: 1.7;
 }
 
 .stepImagesGrid {
@@ -406,6 +414,11 @@
   cursor: pointer;
 }
 
+.diagramFrameTall {
+  aspect-ratio: 3 / 4;
+  min-height: clamp(400px, 50vw, 800px);
+}
+
 .diagramImage {
   object-fit: contain;
   /* Avoid transform scaling here; Next/Image wrappers can clip overflow on some breakpoints. */
@@ -432,7 +445,7 @@
 }
 
 .stepBullets {
-  margin: 0;
+  margin: 1rem 0 0;
   padding-left: 1.1rem;
   color: var(--text-muted);
   display: grid;
@@ -672,6 +685,10 @@
   .diagramFrame {
     min-height: 220px;
     padding: 0.75rem;
+  }
+
+  .diagramFrameTall {
+    min-height: 400px;
   }
 
   .designImageFrame {

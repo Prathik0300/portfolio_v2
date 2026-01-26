@@ -462,51 +462,46 @@ export const projectItems: ProjectItem[] = [
     detailTechStack:
       "Tech Stack: Chrome Extension (Manifest V3) · Node.js · Python · Bloom Filters · TLS · SHA-256 · MurmurHash3",
     detailOverview:
-      "CRLite+ is a fully functional Chrome extension that introduces CRLite-style revocation enforcement for Chromium-based browsers. It incorporates both static and dynamic Bloom filters to enable local verification of certificate revocation without real-time network checks, providing fast, privacy-preserving revocation checking.",
+      "A Chrome extension that brings CRLite-style certificate revocation to Chromium browsers. Uses cascaded Bloom filters for local, privacy-preserving revocation checking without network roundtrips. Achieves 100% accuracy with 2-5ms overhead.",
     detailProblem:
-      "Certificate revocation remains one of the most critical yet under-addressed components in web security. Traditional mechanisms like Certificate Revocation Lists (CRLs) and Online Certificate Status Protocol (OCSP) are ineffective for on-demand validations due to latency, inefficiency, and privacy issues. CRLs can grow large and are infrequently updated, while OCSP adds latency to every connection and reveals users' browsing behavior. Although Firefox has implemented CRLite, Chromium-based browsers lack a similar solution.",
+      "Traditional revocation (CRLs, OCSP) is slow, inefficient, and privacy-invasive. CRLs are large and infrequently updated; OCSP adds latency and leaks browsing behavior. Firefox has CRLite, but Chromium browsers lack a similar solution.",
     detailMotivation:
-      "Mozilla's CRLite provides a scalable, privacy-protecting solution using cascaded Bloom filters that enable local verification without real-time network checks. However, no similar solution existed for Chromium-based browsers. CRLite+ bridges this gap by bringing CRLite-style revocation enforcement to Chrome and other Chromium browsers, demonstrating that fast, privacy-respecting revocation checking is achievable for modern browsers.",
+      "Mozilla's CRLite proves local Bloom filter-based checking works. CRLite+ brings this approach to Chrome, demonstrating fast, private revocation is achievable for Chromium browsers.",
     detailSolution:
-      "CRLite+ combines static and dynamic Bloom filters in a hybrid revocation scheme. The extension continuously checks TLS certificates and denies access if a certificate is flagged as revoked. A Node.js backend retrieves certificates and maintains revocation lists, while a Python-based Bloom filter generator builds efficient two-level static filter cascades. The system achieves 100% accuracy in detecting revocations with negligible performance overhead.",
+      "Hybrid revocation scheme: static cascaded Bloom filters (blacklist + whitelist) for known revocations, dynamic filters for real-time updates. Chrome extension intercepts certificates, performs local lookups, and blocks revoked domains. Node.js backend manages revocation lists; Python generates filter cascades.",
     detailSolutionPoints: [
-      "Static Bloom filter cascade (blacklist and whitelist) built from known revoked certificate serials, enabling instant local verification without network roundtrips.",
-      "Dynamic filter updates via Node.js backend that fetches TLS certificates and maintains live revocation lists for real-time enforcement.",
-      "Chrome extension with Manifest V3 that intercepts certificate validation, performs Bloom filter lookups, and blocks access to revoked domains.",
-      "Cascading filter architecture that reduces false positives through layered filtering—first checking a blacklist, then verifying against a whitelist.",
-      "Privacy-preserving operation with all filtering performed locally, eliminating the need to reveal browsing behavior to third-party servers.",
-      "Memory-efficient design with static filters taking less than 512 KB compressed and dynamic filters using less than 200 KB in memory.",
+      "Cascaded Bloom Filters – Two-layer architecture (blacklist + whitelist) eliminates false positives while keeping memory under 512KB.",
+      "Local Verification – All checks performed client-side, no network roundtrips, zero privacy leaks.",
+      "Real-Time Enforcement – Chrome extension intercepts certificates, performs lookups in 2-5ms, blocks revoked domains instantly.",
+      "Hybrid Scheme – Static pre-computed filters for known revocations, dynamic filters for real-time updates.",
+      "100% Accuracy – Zero false positives through cascade architecture, successfully detects all revoked certificates.",
     ],
     detailReflectionOutcomes:
-      "CRLite+ successfully detected all test domains with 100% accuracy when they were injected into the revocation list. The system achieved average certificate checking times of 2-5 ms per site visit with negligible page loading latency. The cascading Bloom filter architecture effectively eliminated false positives through the two-layer approach. The extension demonstrated complete enforcement flow from certificate parsing through Bloom filter lookup to page blocking, validating that fast, privacy-respecting revocation checking is practical for Chromium-based browsers.",
+      "Achieved 100% detection accuracy with 2-5ms checking overhead. Cascaded filters eliminated false positives. Complete enforcement flow validated—from certificate parsing to domain blocking. Proves fast, privacy-respecting revocation is practical for Chromium browsers.",
     detailReflectionMoreTime:
-      "Future enhancements could include integration with real CA feeds for live CRL/OCSP-to-Bloom conversion, support for intermediate CA revocations, native Chromium browser integration, and revocation transparency logging. The current implementation focuses on serial number-based revocations and could be extended to handle OCSP stapling anomalies and indirect revocation scenarios.",
+      "Future: integrate real CA feeds for live CRL/OCSP conversion, support intermediate CA revocations, native browser integration, revocation transparency logging.",
     detailDesignProcess:
-      "The system was architected with a modular approach: a Python script generates static Bloom filter cascades using MurmurHash3 for performance, a Node.js backend creates raw TLS connections to fetch certificate chains and maintains revocation lists, and a Chrome extension performs real-time certificate validation using the local filters. The evaluation simulated revocations by injecting trusted domains into the revocation list to verify the complete enforcement flow.",
+      "Modular three-component architecture: Python generates static filter cascades, Node.js backend fetches certificates and manages revocation lists, Chrome extension performs real-time validation. Evaluation simulated revocations by injecting trusted domains to verify complete enforcement flow.",
     detailDesignProcessSteps: [
       {
         id: "requirement-analysis",
         title: "Requirement Analysis",
-        subtitle: "Understanding the revocation problem space",
+        subtitle: "Understanding the revocation problem",
         paragraphs: [
-          "We analyzed the limitations of existing certificate revocation mechanisms—CRLs, OCSP, and OCSP stapling—to identify core requirements for a practical solution. The analysis revealed critical needs: low latency, privacy preservation, scalability to web-scale PKI, and compatibility with Chromium browsers.",
-          "Why this mattered: understanding the trade-offs between performance, privacy, and accuracy was essential. Traditional approaches either sacrificed privacy (OCSP) or performance (CRLs), while Firefox's CRLite demonstrated that local Bloom filter-based checking could address both concerns.",
-          "How it helps: the requirement analysis shaped our design decisions, leading us to adopt cascaded Bloom filters for accuracy, local-only checking for privacy, and a hybrid static-dynamic approach for flexibility. This foundation ensured CRLite+ would meet real-world constraints while solving the revocation problem effectively.",
+          "Analyzed CRLs and OCSP limitations: CRLs are large and slow, OCSP adds latency and leaks privacy. Studied Mozilla's CRLite to understand cascaded Bloom filters. Requirements: sub-10ms checking, zero network roundtrips, privacy-preserving, Chromium-compatible.",
         ],
         bullets: [
-          "Analyzed limitations of CRLs (large size, infrequent updates) and OCSP (latency, privacy leaks).",
-          "Studied Mozilla's CRLite approach to understand cascaded Bloom filter benefits and implementation patterns.",
-          "Identified key requirements: sub-10ms checking time, zero network roundtrips, privacy-preserving operation, and Chromium compatibility.",
-          "Evaluated trade-offs between false positive rates, memory footprint, and filter update frequency.",
-          "Defined success criteria: 100% revocation detection accuracy, negligible performance overhead, and memory efficiency under 1MB.",
+          "Identified core needs: low latency, privacy, scalability, Chromium compatibility",
+          "Studied CRLite's cascaded Bloom filter approach",
+          "Defined success: 100% accuracy, <1MB memory, negligible overhead",
         ],
         summary:
-          "Requirement analysis revealed that existing revocation mechanisms fail to balance performance, privacy, and scalability. By studying CRLite's approach and identifying core constraints, we established clear requirements that guided the design of CRLite+ as a fast, private, and scalable solution for Chromium browsers.",
+          "Analysis revealed existing mechanisms fail to balance performance, privacy, and scalability. CRLite's approach provided the foundation for CRLite+.",
       },
       {
         id: "system-architecture",
-        title: "System Architecture and Algorithm Design",
-        subtitle: "Designing the modular revocation system and cascaded filters",
+        title: "System Architecture",
+        subtitle: "Modular three-component design",
         images: [
           {
             src: "/projects/crlite/system_architecture.png",
@@ -514,25 +509,21 @@ export const projectItems: ProjectItem[] = [
           },
         ],
         paragraphs: [
-          "We architected CRLite+ as a three-component system: a Python-based Bloom filter generator, a Node.js backend for certificate retrieval, and a Chrome extension for real-time enforcement. The algorithm design centered on cascaded Bloom filters—a blacklist containing all revoked serials and a whitelist to eliminate false positives.",
-          "Why this mattered: the modular architecture enables independent optimization of each component while maintaining clear interfaces. The cascaded filter algorithm ensures high accuracy (zero false positives) while keeping memory footprint minimal, making it practical for browser deployment at web scale.",
-          "How it helps: this design pattern ensures certificate checking remains fast and local, while revocation list updates can happen asynchronously without impacting browser performance. The cascade architecture enables CRLite+ to scale to millions of entries with only a few megabytes of memory.",
+          "Three-component system: Python filter generator, Node.js backend for certificate retrieval, Chrome extension for enforcement. Cascaded Bloom filters: blacklist (revoked serials) + whitelist (eliminates false positives). Uses MurmurHash3 for performance, SHA-256 for certificate hashing.",
         ],
         bullets: [
-          "Designed three-component architecture: Python filter generator (bloomFilter.py), Node.js backend (server.js), and Chrome extension (Manifest V3).",
-          "Architected cascaded Bloom filter algorithm with blacklist (all revoked serials) and whitelist (false positive elimination) layers.",
-          "Selected MurmurHash3 for fast, non-cryptographic hashing during filter construction to optimize performance.",
-          "Designed JSON-based filter serialization (cascadeFilters.json) for efficient distribution and browser loading.",
-          "Specified filter parameters (bit array size, hash functions) to balance false positive rate and memory usage.",
-          "Defined certificate serial number extraction and SHA-256 hashing protocol for consistent filter lookups.",
+          "Python generates static filter cascades",
+          "Node.js backend manages certificates and revocation lists",
+          "Chrome extension performs real-time validation",
+          "Cascaded filters ensure zero false positives with minimal memory",
         ],
         summary:
-          "The system architecture separates filter generation, certificate retrieval, and browser enforcement into independent, optimized components. The cascaded Bloom filter algorithm enables accurate, scalable revocation checking with minimal memory overhead, making local verification practical for web-scale PKI.",
+          "Modular architecture enables independent optimization. Cascaded filters provide accurate, scalable checking with minimal memory overhead.",
       },
       {
         id: "data-pipeline",
         title: "Data Pipeline",
-        subtitle: "Building the certificate retrieval and filter generation pipeline",
+        subtitle: "Certificate retrieval to filter generation",
         images: [
           {
             src: "/projects/crlite/data-flow-diagram.png",
@@ -540,26 +531,20 @@ export const projectItems: ProjectItem[] = [
           },
         ],
         paragraphs: [
-          "We built a data pipeline that flows from certificate retrieval through serial extraction, filter construction, and browser distribution. The Node.js backend creates raw TLS connections to fetch certificate chains, extracts serial numbers, and maintains dynamic revocation lists. The Python script processes revocation data to generate static Bloom filter cascades.",
-          "Why this mattered: an efficient data pipeline is critical for keeping revocation lists current and filters optimized. The pipeline must handle certificate parsing, hash computation, filter updates, and seamless distribution to the browser extension without disrupting user experience.",
-          "How it helps: the pipeline enables both static pre-computed filters (for known revocations) and dynamic runtime updates (for newly revoked certificates), providing flexibility while maintaining performance. The modular design allows each stage to be optimized independently.",
+          "Pipeline: Node.js backend creates raw TLS connections, extracts certificate serials, maintains revocation lists. Python processes data to generate static filter cascades. JSON endpoints enable extension-backend communication for live updates.",
         ],
         bullets: [
-          "Implemented Node.js backend that creates raw TLS socket connections to destination domains and intercepts certificate chains.",
-          "Built certificate parsing pipeline to extract X.509 serial numbers, issuer metadata, and validity information.",
-          "Designed serial number hashing pipeline using SHA-256 for consistent Bloom filter lookups.",
-          "Created Python script (bloomFilter.py) to process revocation lists and generate cascaded Bloom filters using MurmurHash3.",
-          "Implemented JSON endpoints (/getSerial, /revokedList) for extension-backend communication and live revocation updates.",
-          "Designed filter serialization format (cascadeFilters.json) for efficient browser loading and distribution.",
-          "Built dynamic revocation list management system that supports runtime updates without filter regeneration.",
+          "Node.js fetches certificates via raw TLS, extracts serials with SHA-256",
+          "Python generates cascaded filters from revocation lists",
+          "JSON API enables dynamic updates without filter regeneration",
         ],
         summary:
-          "The data pipeline enables seamless flow from certificate retrieval through filter generation to browser distribution. By separating static filter construction from dynamic revocation updates, the pipeline provides both efficiency and flexibility, ensuring revocation lists stay current while maintaining fast local checking.",
+          "Pipeline separates static filter construction from dynamic updates, enabling efficiency and flexibility while keeping revocation lists current.",
       },
       {
         id: "implementation",
         title: "Implementation",
-        subtitle: "Building the Chrome extension and backend components",
+        subtitle: "Chrome extension and backend",
         images: [
           {
             src: "/projects/crlite/pic1.png",
@@ -575,54 +560,39 @@ export const projectItems: ProjectItem[] = [
           },
         ],
         paragraphs: [
-          "We implemented CRLite+ across three codebases: the Python filter generator, Node.js backend, and Chrome extension. The extension uses Manifest V3 with content scripts and background workers to intercept certificate validation, perform Bloom filter lookups, and block revoked domains. The backend provides certificate retrieval and revocation list management via REST endpoints.",
-          "Why this mattered: implementation details determine the system's performance, security, and user experience. Careful attention to certificate interception timing, filter lookup efficiency, and blocking mechanisms ensures the extension operates seamlessly without impacting browser performance.",
-          "How it helps: the implementation delivers real-time revocation enforcement with 2-5 ms checking overhead, demonstrating that privacy-preserving revocation checking is practical. The modular codebase enables independent testing and optimization of each component.",
+          "Chrome extension (Manifest V3) intercepts certificates during TLS handshake, performs Bloom filter lookups, blocks revoked domains. Node.js backend manages revocation lists via REST API. Python generates filter cascades. Achieves 2-5ms checking overhead.",
         ],
         bullets: [
-          "Implemented Chrome extension using Manifest V3 with content scripts, background workers, and popup UI (popup.html).",
-          "Built certificate interception mechanism that extracts serial numbers during TLS handshake validation.",
-          "Implemented Bloom filter lookup algorithm that checks blacklist first, then whitelist to eliminate false positives.",
-          "Created domain blocking mechanism that denies access to revoked certificates with user notification and clear error messages.",
-          "Developed Node.js backend (server.js) with raw TLS socket connections and certificate chain extraction.",
-          "Implemented JSON API endpoints for certificate serial retrieval and revocation list management.",
-          "Built Python script (bloomFilter.py) for cascaded Bloom filter construction with configurable parameters.",
-          "Created utility functions (utils.js) for certificate format conversion, serial number parsing, and base64 operations.",
-          "Designed popup UI to display certificate metadata, issuer, validity period, and revocation status for user transparency.",
+          "Extension: certificate interception, cascade lookup (blacklist → whitelist), domain blocking",
+          "Backend: raw TLS connections, certificate extraction, revocation list management",
+          "Python: filter generation with configurable parameters",
         ],
         summary:
-          "Implementation delivers a fully functional Chrome extension that performs real-time revocation checking with minimal performance overhead. The modular codebase enables efficient certificate interception, fast Bloom filter lookups, and seamless domain blocking, demonstrating that privacy-preserving revocation enforcement is practical for Chromium browsers.",
+          "Fully functional extension with real-time revocation checking. Modular codebase enables efficient interception, fast lookups, and seamless blocking.",
       },
       {
         id: "evaluation-iteration",
-        title: "Evaluation & Iteration",
-        subtitle: "Validating accuracy, performance, and iterating on design",
+        title: "Evaluation & Results",
+        subtitle: "Validating accuracy and performance",
         paragraphs: [
-          "We evaluated CRLite+ using controlled experiments, simulating revocations by injecting trusted domains (github.com, uic.blackboard.com) into the revocation list. This enabled us to verify the complete enforcement flow—from certificate retrieval through filter lookup to domain blocking—without needing actual revoked certificates. Iterations refined filter parameters, improved lookup performance, and optimized memory usage.",
-          "Why this mattered: evaluation validates that the system meets requirements for accuracy, performance, and privacy. Iteration ensures the design is optimized for real-world constraints, balancing false positive rates, memory footprint, and checking latency.",
-          "How it helps: the evaluation demonstrated 100% accuracy in revocation detection, 2-5 ms average checking time, and effective false positive elimination. Iterations improved filter efficiency, reducing memory usage to under 512 KB for static filters and under 200 KB for dynamic filters.",
+          "Simulated revocations by injecting trusted domains (github.com, uic.blackboard.com) to verify complete enforcement flow. Results: 100% detection accuracy, 2-5ms checking time, zero false positives. Iterations optimized filter parameters, reducing memory to <512KB (static) and <200KB (dynamic).",
         ],
         bullets: [
-          "Simulated revocations by injecting trusted domains (github.com, uic.blackboard.com) into the backend revocation list for controlled testing.",
-          "Tested revocation detection accuracy across multiple domains and certificate types, achieving 100% success rate.",
-          "Measured performance overhead and confirmed 2-5 ms average checking time with negligible page loading latency.",
-          "Validated cascade filter effectiveness in eliminating false positives through two-layer verification.",
-          "Iterated on filter parameters (bit array size, hash count) to optimize memory usage and false positive rates.",
-          "Captured complete demo workflow from certificate retrieval through Bloom filter lookup to domain blocking.",
-          "Refined blocking mechanism and user notification design based on testing feedback.",
-          "Optimized filter serialization format to reduce load time and memory footprint.",
+          "100% accuracy across multiple domains and certificate types",
+          "2-5ms average checking time, negligible page load impact",
+          "Zero false positives through cascade architecture",
+          "Memory optimized: <512KB static, <200KB dynamic",
         ],
         summary:
-          "Evaluation confirmed that CRLite+ achieves accurate revocation detection with minimal performance overhead. Iterations refined filter parameters and implementation details, resulting in a system that successfully blocks revoked certificates while maintaining fast, privacy-preserving operation. The controlled experiments validated the practical feasibility of client-side revocation enforcement for Chromium browsers.",
+          "Evaluation confirms accurate revocation detection with minimal overhead. Iterations optimized parameters, resulting in a practical client-side revocation system for Chromium browsers.",
       },
     ],
     detailHighlights: [
-      "Cascading Bloom Filters – Two-layer filter architecture (blacklist + whitelist) for accurate, scalable revocation checking with minimal memory footprint.",
-      "Privacy-Preserving Operation – All revocation checks performed locally without revealing browsing behavior to third-party servers.",
-      "Real-Time Enforcement – Chrome extension intercepts certificates and blocks revoked domains instantly with 2-5 ms checking overhead.",
-      "Hybrid Revocation Scheme – Combines static pre-computed filters with dynamic runtime updates for flexibility and scalability.",
-      "Memory Efficient – Static filters under 512 KB compressed, dynamic filters under 200 KB in memory, suitable for resource-constrained environments.",
-      "100% Detection Accuracy – Successfully detects all revoked certificates with zero false positives through cascade architecture.",
+      "Cascaded Bloom Filters – Two-layer architecture eliminates false positives, <512KB memory",
+      "Privacy-Preserving – All checks local, zero network roundtrips, no browsing leaks",
+      "Real-Time Enforcement – 2-5ms checking, instant domain blocking",
+      "Hybrid Scheme – Static filters for known revocations, dynamic for real-time updates",
+      "100% Accuracy – Zero false positives, detects all revoked certificates",
     ],
     detailLinks: [
       {
@@ -681,11 +651,7 @@ export const projectItems: ProjectItem[] = [
     ],
     detailSubtitle: "Personal AI Garden Companion",
     detailDateRange: "April 2025",
-    detailOrganization: {
-      name: "University of Illinois Chicago",
-      logoSrc: "/logos/uic-logo.png",
-    },
-    detailAssociation: "Associated with University of Illinois Chicago",
+    detailAssociation: "Hackathon",
     detailProjectType: "Hackathon Project | WildHacks 2025",
     detailTechStack:
       "Tech Stack: React PWA · TailwindCSS · Gemini API · Computer Vision",
@@ -838,21 +804,19 @@ export const projectItems: ProjectItem[] = [
     description:
       "An AI-driven facial emotion recognition system that analyzes real-time expressions to recommend personalized content and surface long-term emotional trends.",
     techStack: [
-      "Next.js",
-      "React",
+      "React.js",
+      "NestJS",
       "Python",
       "TensorFlow",
-      "Flask",
-      "NestJS",
       "MongoDB",
+      "Computer Vision",
+      "Deep Learning",
       "REST APIs",
-      "AWS",
-      "AI",
     ],
     tileMedia: {
       kind: "image",
-      src: "/vercel.svg",
-      alt: "Virtual Emotion Mirror interface concept",
+      src: "/projects/vem/vem_tile.png",
+      alt: "Virtual Emotion Mirror multi-device interface showing emotion detection, content recommendations, and analytics dashboard",
     },
     detailMedia: [
       {
@@ -861,23 +825,320 @@ export const projectItems: ProjectItem[] = [
         alt: "Virtual Emotion Mirror interface concept",
       },
     ],
+    detailSubtitle: "AI-Driven Facial Emotion Recognition & Personalized Content System",
+    detailDateRange: "Jan 2025 - Mar 2025",
+    detailAssociation: "Solo Project",
+    detailTechStack:
+      "Tech Stack: React.js · NestJS (Node.js) · Python · TensorFlow · MongoDB · Computer Vision · Deep Learning · REST APIs",
+    detailOverview:
+      "An AI-powered emotion intelligence platform that detects facial expressions in real time and personalizes content (movies, music) based on emotional state. Hybrid architecture: client-side face detection, server-side emotion classification, MongoDB analytics. Provides both real-time recommendations and long-term emotional insights.",
+    detailProblem:
+      "Traditional recommendations rely on explicit actions (likes, history) and miss emotional context. Real-time emotion recognition can act as an implicit signal for better personalization and self-awareness.",
+    detailMotivation:
+      "Explore how facial emotion recognition enables emotion-aware personalization and how emotional data can provide self-awareness insights over time.",
+    detailSolution:
+      "Hybrid architecture: React frontend performs face detection, Python backend classifies emotions (Happy, Sad, Angry, Surprised, Neutral), NestJS orchestrates. Maps emotions to content recommendations and tracks patterns over time for analytics.",
+    detailSolutionPoints: [
+      "Hybrid Architecture – Client-side face detection reduces latency; server-side emotion classification ensures accuracy. NestJS orchestrates, Python handles inference.",
+      "Real-Time Emotion Pipeline – Face detection → feature extraction → emotion classification (5 emotions) → temporal smoothing for stable predictions.",
+      "Personalized Recommendations – Maps emotions to content: calm/uplifting music for stress/sadness, high-energy for happiness. Movies filtered by emotional compatibility.",
+      "Emotional Analytics – Tracks patterns over days/weeks/months, identifies mood cycles and stress trends for self-awareness insights.",
+      "Scalable Design – Modular services enable independent scaling of frontend, inference, and data storage.",
+    ],
+    detailDesignProcess:
+      "Architecture optimized for real-time performance and scalability. Key decisions: client-side face detection to reduce backend load, batched inference requests, hybrid architecture balances speed and accuracy, modular services enable independent scaling.",
+    detailDesignProcessSteps: [
+      {
+        id: "system-architecture",
+        title: "System Architecture",
+        subtitle: "Hybrid, low-latency design",
+        images: [
+          {
+            src: "/projects/vem/vem_system_architecture.png",
+            alt: "Virtual Emotion Mirror system architecture diagram showing Frontend (React App, Webcam Integration, Emotion Dashboard), Backend (NestJS API Gateway, Python Inference Service, Spotify API Connector, IMDB API Connector), and Data Layer (MongoDB)",
+          },
+        ],
+        paragraphs: [
+          "Three-layer architecture: React frontend for client-side face detection, NestJS backend for orchestration, Python service for emotion classification, MongoDB for data persistence. Offloading face detection to client reduces backend load and latency.",
+        ],
+        bullets: [
+          "Frontend: React.js with webcam integration, lightweight browser-based face detection",
+          "Backend: NestJS API gateway, Python deep learning service for emotion classification",
+          "Data: MongoDB for timestamped predictions, patterns, and trends",
+        ],
+        summary:
+          "Hybrid architecture balances real-time performance and scalability. Modular design enables independent optimization and scaling of each component.",
+      },
+      {
+        id: "emotion-pipeline",
+        title: "Emotion Recognition Pipeline",
+        subtitle: "Real-time detection system",
+        images: [
+          {
+            src: "/projects/vem/emotion_recognition_pipeline.png",
+            alt: "Virtual Emotion Mirror emotion recognition pipeline diagram showing the flow from video stream through face detection, feature extraction, emotion classification, temporal smoothing, to personalization and recommendations",
+          },
+        ],
+        paragraphs: [
+          "Four-stage pipeline: face detection → feature extraction → emotion classification (Happy, Sad, Angry, Surprised, Neutral) → temporal smoothing. Processes live video frames with probabilistic outputs and confidence scores. Temporal smoothing prevents abrupt changes from noisy frames.",
+        ],
+        bullets: [
+          "Face detection via browser webcam APIs",
+          "Feature extraction: facial landmarks and expression features",
+          "Emotion classification: TensorFlow models with confidence scores",
+          "Temporal smoothing: averages predictions across time windows",
+        ],
+        summary:
+          "Pipeline enables real-time emotion detection with stable predictions. Probabilistic outputs support confidence-based personalization.",
+      },
+      {
+        id: "recommendation-engine",
+        title: "Recommendation Engine",
+        subtitle: "Emotion-to-content mapping",
+        images: [
+          {
+            src: "/projects/vem/sequence_diagram.png",
+            alt: "Virtual Emotion Mirror sequence diagram showing the data flow from user login through face capture, emotion detection, genre mapping, API integration with Spotify and IMDB, to personalized recommendations with feedback loop",
+          },
+        ],
+        paragraphs: [
+          "Maps detected emotions to content suggestions. Music: calm/uplifting for stress/sadness, high-energy for happiness. Movies: genre filtering by emotional compatibility. Updates in real time as emotional state changes via feedback loop.",
+        ],
+        bullets: [
+          "Emotion-to-content mapping for music and movies",
+          "Real-time updates as emotional state changes",
+          "Integration with Spotify and IMDB APIs",
+          "Caching and optimization for fast retrieval",
+        ],
+        summary:
+          "Engine creates adaptive recommendations that respond to current emotional state, not just historical behavior. Feedback loop keeps content relevant to user's mood.",
+      },
+      {
+        id: "analytics-insights",
+        title: "Emotional Analytics",
+        subtitle: "Long-term emotional intelligence",
+        paragraphs: [
+          "Transforms raw emotion data into insights. Tracks distribution over days/weeks/months, identifies recurring patterns, mood cycles, and stress trends. Dashboard visualizes trends for self-awareness and well-being reflection.",
+        ],
+        bullets: [
+          "Tracks emotional distribution over time",
+          "Identifies recurring patterns and mood cycles",
+          "Visualization dashboard for trends and insights",
+          "Privacy-preserving aggregation",
+        ],
+        summary:
+          "Analytics layer provides long-term value beyond real-time recommendations, enabling users to understand emotional patterns and reflect on well-being.",
+      },
+      {
+        id: "implementation",
+        title: "Implementation",
+        subtitle: "Production-ready system",
+        images: [
+          {
+            src: "/projects/vem/vem.png",
+            alt: "Virtual Emotion Mirror dashboard interface showing laptop and smartphone views with emotion analytics dashboard, daily/weekly/monthly charts, and personalized movie and music recommendations",
+          },
+        ],
+        paragraphs: [
+          "React frontend, NestJS backend, Python inference service, MongoDB data layer. Key solutions: client-side preprocessing, batched inference requests, temporal smoothing, modular architecture. Achieves real-time performance with minimal latency and scalable design.",
+        ],
+        bullets: [
+          "Frontend: React.js with webcam integration, browser-based face detection",
+          "Backend: NestJS API with authentication and orchestration",
+          "Inference: Python TensorFlow models for emotion classification",
+          "Data: MongoDB for predictions, patterns, and trends",
+        ],
+        summary:
+          "Production-ready system with real-time emotion detection, accurate predictions, and scalable architecture. Modular design enables independent optimization and scaling.",
+      },
+    ],
+    detailHighlights: [
+      "Real-Time Detection – Live facial expression analysis with minimal latency",
+      "Hybrid Architecture – Client-side preprocessing, server-side inference for performance and scalability",
+      "Personalized Recommendations – Music and movies adapt to emotional state in real time",
+      "Emotional Analytics – Tracks patterns, mood cycles, and stress trends for self-awareness",
+      "Temporal Smoothing – Stable predictions by averaging across time windows",
+    ],
+    detailReflectionOutcomes:
+      "Successfully built a production-ready hybrid AI architecture integrating deep learning into real-time web apps. Demonstrated real-time emotion detection with personalized recommendations and long-term insights. Explored ethical and technical considerations of emotion-based systems, validating feasibility of emotion-aware applications.",
+    detailReflectionMoreTime:
+      "Future: multi-modal detection (voice + facial), on-device inference for privacy, emotion-aware UI themes, advanced analytics dashboards with sophisticated pattern recognition.",
+    detailLinks: [
+      {
+        label: "GitHub",
+        url: "https://github.com/Prathik0300/Virtual_Emotion_Mirror",
+        icon: "github",
+      },
+      {
+        label: "Website",
+        url: "https://vem-prathik0300s-projects.vercel.app/",
+        icon: "website",
+      },
+    ],
   },
   {
     name: "Automated Program Repair Using LLM",
     slug: "automated-program-repair-llm",
     description:
-      "An LLM-powered bug-fixing pipeline that integrates AFL fuzzing and GDB traces with a three-round LangChain loop to iteratively repair crash-inducing defects.",
-    techStack: ["Python", "AFL", "LLMs", "LangChain", "Program Repair"],
+      "An LLM-powered bug-fixing pipeline that integrates coverage-guided fuzzing (AFL/AFL++) and runtime stack traces (GDB) with LLM reasoning to automatically repair crash-inducing defects in C/C++ programs.",
+    techStack: [
+      "Python",
+      "AFL/AFL++",
+      "GDB",
+      "LLMs",
+      "GPT-4o mini",
+      "C/C++",
+      "Fuzzing",
+      "Automated Program Repair",
+    ],
     tileMedia: {
       kind: "image",
-      src: "/file.svg",
-      alt: "Automated program repair with LLMs",
+      src: "/projects/llm/llm_tile.png",
+      alt: "Automated program repair with LLMs integrating fuzzing and debugging",
     },
     detailMedia: [
       {
         kind: "image",
         src: "/file.svg",
-        alt: "Automated program repair with LLMs",
+        alt: "Automated program repair system architecture",
+      },
+    ],
+    detailSubtitle:
+      "Integrating Coverage-Guided Fuzzing and LLM Reasoning for Automated Repair of Crash-Inducing Bugs",
+    detailDateRange: "Sept 2024 - Dec 2024",
+    detailOrganization: {
+      name: "University of Illinois Chicago",
+      logoSrc: "/logos/uic-logo.png",
+    },
+    detailAssociation: "Associated with University of Illinois Chicago",
+    detailProjectType: "Research Project | Automated Program Repair",
+    detailTechStack:
+      "Tech Stack: Python · AFL/AFL++ · GDB · GPT-4o mini · C/C++ · Fuzzing · Stack Trace Analysis · FNV-1a Hashing · Patch Scoring",
+    detailOverview:
+      "An automated repair pipeline that combines AFL/AFL++ fuzzing, GDB stack traces, and LLM reasoning to fix crash-inducing bugs in C/C++ programs. The system achieves 85% success rate (11/13 programs) by providing LLMs with concrete execution context—minimized crash inputs and stack traces—rather than code alone.",
+    detailProblem:
+      "LLMs can reason about code but lack execution context. Traditional repair methods struggle with runtime defects like buffer overflows that need precise crash-triggering inputs and stack traces for accurate localization.",
+    detailMotivation:
+      "By combining fuzzing to discover crashes, GDB to extract stack traces, and LLM reasoning with execution context, we create an execution-aware repair loop that significantly improves bug localization and repair accuracy.",
+    detailSolution:
+      "A five-stage pipeline: (1) preprocess code to remove hints, (2) generate seed inputs via LLM, (3) fuzz with AFL to discover and minimize crashes, (4) extract stack traces with GDB, (5) iteratively repair with LLM using execution context. Crash deduplication and patch scoring optimize the process.",
+    detailSolutionPoints: [
+      "Fuzzing & Crash Discovery – AFL mutates inputs to find crashes, then minimizes them to create focused test cases that capture exact failure conditions.",
+      "Stack Trace Extraction – GDB extracts execution paths for each crash, with FNV-1a hashing to deduplicate and preserve only unique failure signatures.",
+      "Execution-Aware Prompting – LLM receives sanitized code, minimized crash inputs, and stack traces (not just code), enabling precise bug localization.",
+      "Iterative Repair Loop – Each patch is compiled and tested. The model refines repairs across iterations, with persistent memory of previous attempts.",
+      "Patch Scoring – Ranks candidates by compilation success, crash elimination, test passing, and edit distance to select optimal fixes.",
+    ],
+    detailDesignProcess:
+      "The pipeline integrates fuzzing, debugging, and LLM reasoning into a cohesive workflow. Key design: preprocessing removes hints, LLM generates seed inputs, AFL discovers/minimizes crashes, GDB extracts traces, and iterative LLM repair uses execution context. Evaluation compared three conditions: code-only (38% success), +traces (69%), and +traces+crashes (85%).",
+    detailDesignProcessSteps: [
+      {
+        id: "preprocessing",
+        title: "Preprocessing",
+        subtitle: "Clean code baseline",
+        paragraphs: [
+          "Strips comments and annotations to force the LLM to reason from code structure and execution evidence alone. In later iterations, the model's own comments are retained as self-generated memory.",
+        ],
+        bullets: [
+          "Removes human-written hints before first repair attempt",
+          "Retains LLM-generated comments in subsequent cycles for memory",
+        ],
+        summary:
+          "Preprocessing creates a clean baseline by removing hints, then builds memory by retaining the model's own comments across iterations.",
+      },
+      {
+        id: "input-generation",
+        title: "Seed Input Generation",
+        subtitle: "LLM creates fuzzing seeds",
+        paragraphs: [
+          "The LLM writes Python scripts to generate syntactically valid seed inputs for AFL. This automates seed creation and ensures the fuzzer starts with diverse test cases that exercise different code paths.",
+        ],
+        bullets: [
+          "LLM generates Python scripts for seed input creation",
+          "Identifies input method (stdin vs. file) for AFL configuration",
+          "Populates AFL seed corpus automatically",
+        ],
+        summary:
+          "Automates seed input generation, giving AFL high-quality starting points for efficient crash discovery.",
+      },
+      {
+        id: "fuzzing",
+        title: "Fuzzing & Crash Discovery",
+        subtitle: "AFL finds and minimizes crashes",
+        paragraphs: [
+          "AFL performs coverage-guided fuzzing, mutating inputs to explore execution paths and discover crashes. When crashes occur, afl-tmin shrinks inputs while keeping them reproducible. These minimized inputs become focused test cases that show exactly what triggers the bug.",
+        ],
+        bullets: [
+          "Coverage-guided mutation explores new execution paths",
+          "Minimizes crash inputs to capture exact failure conditions",
+          "Provides concrete examples for LLM repair",
+        ],
+        summary:
+          "Fuzzing discovers crashes and minimizes inputs to create precise test cases that help the LLM understand and fix the bug.",
+      },
+      {
+        id: "stacktrace-collection",
+        title: "Stack Trace Extraction",
+        subtitle: "GDB identifies fault location",
+        paragraphs: [
+          "GDB extracts stack traces for each crash, showing the execution path that led to failure. FNV-1a hashing deduplicates crashes, preserving only the five most representative traces. This pinpoints the exact function and line where the bug occurs.",
+        ],
+        bullets: [
+          "Extracts execution paths via GDB batch mode",
+          "Deduplicates using FNV-1a hashing to preserve unique signatures",
+          "Identifies exact function and line of failure",
+        ],
+        summary:
+          "Stack traces provide precise fault localization, showing where crashes occur so the LLM can target repairs accurately.",
+      },
+      {
+        id: "llm-repair",
+        title: "LLM Repair",
+        subtitle: "Execution-aware iterative fixing",
+        paragraphs: [
+          "The LLM receives code, crash inputs, and stack traces—not just code. It generates patches that are compiled and tested iteratively. Execution context (traces + crashes) improves success from 38% (code-only) to 85% (+traces+crashes) with fewer attempts.",
+        ],
+        bullets: [
+          "Structured prompt includes code, crash inputs, and stack traces",
+          "Iterative compilation and testing validates each patch",
+          "85% success rate with execution context vs 38% without",
+        ],
+        summary:
+          "Execution-aware prompting with concrete crash data enables precise bug localization and repair, achieving 85% success rate.",
+      },
+      {
+        id: "evaluation-results",
+        title: "Results",
+        subtitle: "Execution context improves repair",
+        paragraphs: [
+          "Tested on 13 crash-inducing programs. Results: code-only (38% success, 4 attempts), +traces (69%, 3 attempts), +traces+crashes (85%, 2 attempts). Execution context cuts attempts in half and doubles success rate.",
+        ],
+        bullets: [
+          "13 programs tested: 10 synthetic + 3 from AFL demos",
+          "Best: 85% success with 2 median attempts (+traces+crashes)",
+          "Baseline: 38% success with 4 median attempts (code-only)",
+          "11 of 13 programs fixed within 3 iterations",
+        ],
+        summary:
+          "Execution-aware prompting doubles success rate (38% → 85%) and halves repair attempts, proving execution context is essential for automated repair.",
+      },
+    ],
+    detailHighlights: [
+      "85% Success Rate – 11 of 13 programs fixed within 3 iterations",
+      "Execution-Aware Prompting – Crash inputs + stack traces improve repair from 38% to 85%",
+      "Iterative Repair Loop – Persistent memory across iterations refines patches",
+      "Crash Deduplication – FNV-1a hashing preserves unique failure signatures",
+      "Model-Agnostic – Works with various LLM backends",
+    ],
+    detailReflectionOutcomes:
+      "Execution-aware prompting doubles repair success (38% → 85%) and halves attempts needed. Key insight: LLMs need concrete execution context (crashes + traces), not just code. The pipeline demonstrates that combining fuzzing, debugging, and LLM reasoning creates a practical solution for automated repair of runtime defects.",
+    detailReflectionMoreTime:
+      "Future work: extend to multi-file projects, integrate symbolic execution for richer fault localization, evaluate on SARD/Juliet benchmarks, and explore parallel fuzzing for faster crash discovery.",
+    detailLinks: [
+      {
+        label: "Paper",
+        url: "https://www.academia.edu/144366072/Integrating_Coverage_Guided_Fuzzing_and_LLM_Reasoning_for_Automated_Repair_of_Crash_Inducing_Bugs?source=swp_share",
+        icon: "paper",
       },
     ],
   },
