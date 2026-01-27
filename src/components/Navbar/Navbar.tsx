@@ -35,9 +35,9 @@ function Navbar() {
         <motion.button
           type="button"
           className={styles.logo}
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.96 }}
-          transition={{ type: "spring", stiffness: 260, damping: 18 }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          transition={{ type: "spring", stiffness: 400, damping: 25 }}
           onClick={() => handleNavClick("home")}
         >
           <span className={styles.logoBracket}>&lt;</span>
@@ -51,13 +51,14 @@ function Navbar() {
               <motion.button
                 key={link.id}
                 type="button"
+                data-scroll-to-section={link.id}
                 onClick={() => handleNavClick(link.id)}
                 className={`${styles.navLinkButton} ${
                   activeSection === link.id ? styles.navLinkButtonActive : ""
                 }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.92 }}
-                transition={{ type: "spring", stiffness: 260, damping: 18 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
               >
                 {link.label}
               </motion.button>
@@ -69,9 +70,9 @@ function Navbar() {
             download
             className={styles.resumeButton}
             aria-label="Download resume"
-            whileHover={{ scale: 1.03, translateY: -1 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 260, damping: 18 }}
+            whileHover={{ scale: 1.02, y: -1 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 400, damping: 25 }}
           >
             <span>Download Resume</span>
             <span className={styles.resumeIcon}>↓</span>

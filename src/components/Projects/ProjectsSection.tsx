@@ -14,7 +14,7 @@ function ProjectsSection() {
       className={styles.section}
     >
       <div className={styles.headerRow}>
-        <h2 id="projects-heading" className={styles.heading}>
+        <h2 id="projects-heading" className={`${styles.heading} sectionTitle`}>
           Projects
         </h2>
         <p className={styles.hint}>

@@ -10,7 +10,6 @@
 }
 
 .heading {
-  font-size: 1.3rem;
 }
 
 .hint {
@@ -52,10 +51,13 @@
   height: 100%;
   transform-origin: center;
   transition: transform 220ms ease-out;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .card:hover .image {
-  transform: scale(1.05);
+  transform: scale(1.05) translateZ(0);
 }
 
 .overlay {

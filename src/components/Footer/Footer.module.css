@@ -1,6 +1,6 @@
 .footer {
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(148, 163, 184, 0.35);
+  border-top: 1px solid rgba(1, 135, 144, 0.25);
   margin-top: 1.5rem;
 }
 
@@ -20,6 +20,45 @@
   gap: 0.25rem;
 }
 
+.contactIcons {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.iconButton {
+  padding: 0.4rem;
+  border-radius: 999px;
+  border: 1px solid rgba(1, 135, 144, 0.4);
+  color: var(--accent-primary);
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  width: 32px;
+  height: 32px;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.iconButton:hover {
+  background: rgba(244, 244, 244, 0.95);
+  border-color: rgba(1, 135, 144, 0.7);
+  color: var(--accent-secondary);
+  transform: translateY(-1px) translateZ(0);
+}
+
 .emailLink {
   color: var(--accent-primary);
 }
@@ -31,23 +70,79 @@
   align-items: center;
 }
 
+.resumeButton {
+  padding: 0.35rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 82, 88, 0.9);
+  background: linear-gradient(135deg, #004b52, #00636c);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    filter var(--transition-fast);
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.resumeButton:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px) translateZ(0);
+  box-shadow: 0 8px 18px rgba(1, 135, 144, 0.35);
+}
+
+.callButton {
+  padding: 0.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 82, 88, 0.9);
+  background: linear-gradient(135deg, #004b52, #00636c);
+  color: #ffffff;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    filter var(--transition-fast);
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  width: 36px;
+  height: 36px;
+}
+
+.callButton:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px) translateZ(0);
+  box-shadow: 0 8px 18px rgba(1, 135, 144, 0.35);
+}
+
 .socialLink {
   padding: 0.2rem 0.5rem;
   border-radius: 999px;
-  border: 1px solid rgba(148, 163, 184, 0.6);
+  border: 1px solid rgba(1, 135, 144, 0.4);
   color: var(--text-muted);
+  font-weight: 700;
   transition:
     background var(--transition-fast),
     border-color var(--transition-fast),
     color var(--transition-fast),
     transform var(--transition-fast);
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .socialLink:hover {
-  background: rgba(243, 244, 246, 0.95);
-  border-color: rgba(56, 189, 248, 0.9);
+  background: rgba(244, 244, 244, 0.95);
+  border-color: rgba(1, 135, 144, 0.7);
   color: var(--text-main);
-  transform: translateY(-1px);
+  transform: translateY(-1px) translateZ(0);
 }
 
 @media (max-width: 640px) {

@@ -46,7 +46,7 @@ function SkillsSection() {
       className={styles.section}
     >
       <div className={styles.headerRow}>
-        <h2 id="skills-heading" className={styles.heading}>
+        <h2 id="skills-heading" className={`${styles.heading} sectionTitle`}>
           Skills
         </h2>
         <p className={styles.hint}>

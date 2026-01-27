@@ -256,10 +256,10 @@ export function ProjectDetailClient({ project }: Props) {
           {designSteps.length > 0 && (
             <>
               <div className={styles.designStepsGrid}>
-                {designSteps.map((step) => (
+                {designSteps.map((step, index) => (
                   <div key={step.id} className={styles.designStep}>
                     <div className={styles.designStepIcon}>
-                      <DesignStepIcon id={step.id} />
+                      <DesignStepIcon stepIndex={index} />
                     </div>
                     <div className={styles.designStepTitle}>{step.title}</div>
                     <div className={styles.designStepSubtitle}>{step.subtitle}</div>

@@ -1,38 +1,32 @@
 .heroSection {
   margin-bottom: 3.5rem;
   padding: 1.25rem 0 3rem;
-  background: radial-gradient(
-      circle at top left,
-      rgba(191, 219, 254, 0.5),
-      transparent 55%
-    ),
-    radial-gradient(
-      circle at bottom right,
-      rgba(254, 249, 195, 0.5),
-      transparent 55%
-    );
+  background: transparent;
   cursor: default;
 }
 
 .heroInner {
-  max-width: 1120px;
+  max-width: 100%;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-  gap: 2rem;
+  display: flex;
   align-items: center;
-  grid-template-areas: "copy visual";
+  justify-content: space-between;
+  gap: 2rem;
 }
 
 .heroCopy {
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
-  grid-area: copy;
+  flex: 1 1 0;
+  max-width: 36rem;
+  width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .heroEyebrow {
-  font-size: 1.2rem;
+  font-size: clamp(0.85rem, 1.5vw + 0.5rem, 1.5rem);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -41,7 +35,7 @@
 }
 
 .heroTitle {
-  font-size: clamp(2.4rem, 3.4vw, 2.9rem);
+  font-size: clamp(1.8rem, 4vw + 1rem, 4rem);
   line-height: 1.1;
 }
 
@@ -49,14 +43,17 @@
   font-weight: 800;
   margin: 0;
   cursor: default;
+  font-size: clamp(1.8rem, 4vw + 1rem, 4rem);
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .heroName span {
-  background: linear-gradient(120deg, #0f172a, #0ea5e9, #0369a1, #0f172a);
+  background: linear-gradient(120deg, #005461, #018790, #00B7B5, #005461);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  text-shadow: 0 6px 18px rgba(15, 23, 42, 0.25);
+  text-shadow: 0 6px 18px rgba(0, 84, 97, 0.25);
   background-size: 200% auto;
   transition: background-position 0.6s ease-out;
 }
@@ -66,9 +63,11 @@
 }
 
 .heroSubtitle {
-  font-size: 1rem;
+  font-size: clamp(0.85rem, 1.2vw + 0.5rem, 1.3rem);
   color: var(--text-muted);
   margin: 1.5rem 0 0;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .subtitleSegment {
@@ -81,10 +80,12 @@
 }
 
 .heroBlurb {
-  font-size: 0.98rem;
+  font-size: clamp(0.85rem, 1.1vw + 0.5rem, 1.2rem);
   color: var(--text-main);
   max-width: 34rem;
   margin: 0.1rem 0 0;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .heroBlurb p + p {
@@ -116,35 +117,38 @@
   transition: transform var(--transition-fast),
     box-shadow var(--transition-fast), background var(--transition-fast),
     border-color var(--transition-fast);
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .primaryCta {
   background: radial-gradient(
       circle at top left,
-      rgba(56, 189, 248, 0.3),
+      rgba(0, 84, 97, 0.3),
       transparent 55%
     ),
-    linear-gradient(135deg, #0ea5e9, #22c55e);
-  border-color: rgba(56, 189, 248, 0.9);
-  color: #f9fafb;
-  box-shadow: 0 18px 40px rgba(37, 99, 235, 0.35);
+    linear-gradient(135deg, #005461, #018790);
+  border-color: rgba(0, 84, 97, 0.9);
+  color: #F4F4F4;
+  box-shadow: 0 18px 40px rgba(0, 84, 97, 0.35);
 }
 
 .primaryCta:hover {
   transform: translateY(-1px);
-  border-color: rgba(56, 189, 248, 1);
-  box-shadow: 0 20px 55px rgba(8, 47, 73, 1);
+  border-color: rgba(1, 135, 144, 1);
+  box-shadow: 0 20px 55px rgba(0, 84, 97, 0.5);
 }
 
 .secondaryCta {
-  background: rgba(243, 244, 246, 0.95);
-  border-color: rgba(156, 163, 175, 0.8);
+  background: rgba(244, 244, 244, 0.95);
+  border-color: rgba(1, 135, 144, 0.5);
   color: var(--text-main);
 }
 
 .secondaryCta:hover {
   transform: translateY(-1px);
-  border-color: rgba(148, 163, 184, 0.9);
+  border-color: rgba(1, 135, 144, 0.7);
 }
 
 .heroImageWrap {
@@ -156,10 +160,10 @@
 }
 
 .heroVisual {
-  grid-area: visual;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
+  flex: 1 1 0;
 }
 
 .orbitRing {
@@ -312,24 +316,28 @@
 .heroTag {
   padding: 0.25rem 0.7rem;
   border-radius: 999px;
-  border: 1px solid rgba(148, 163, 184, 0.4);
+  border: 1px solid rgba(1, 135, 144, 0.3);
   background: radial-gradient(
       circle at top left,
-      rgba(191, 219, 254, 0.9),
+      rgba(0, 84, 97, 0.3),
       transparent 65%
     ),
-    linear-gradient(135deg, #e0f2fe, #fef3c7, #e0f2fe);
+    linear-gradient(135deg, #005461, #018790, #005461);
   font-size: 0.75rem;
-  color: var(--text-main);
+  color: #F4F4F4;
   cursor: pointer;
   background-size: 200% auto;
   transition: background-position 0.6s ease-out,
     box-shadow var(--transition-fast), transform var(--transition-fast);
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  font-weight: 500;
 }
 
 .heroTag:hover {
   background-position: 100% 0;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.18);
+  box-shadow: 0 10px 30px rgba(0, 84, 97, 0.2);
 }
 
 .heroPortraitFrame::before {
@@ -389,15 +397,46 @@
 
 @media (max-width: 900px) {
   .heroInner {
-    grid-template-columns: minmax(0, 1fr);
+    flex-direction: column-reverse; /* image on top, text below */
+    width: 100%;
+    max-width: 100%;
+    gap: 4rem; /* add vertical space between image and text */
+    padding: 0 1rem;
+    box-sizing: border-box;
   }
 
-  .heroImageWrap {
-    order: -1;
+  .heroCopy {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    box-sizing: border-box;
   }
 
   .heroSection {
     margin-top: 0.5rem;
+    padding: 1.25rem 0 3rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .heroTitle {
+    font-size: clamp(3rem, 4vw + 1rem, 4.5rem);
+  }
+
+  .heroName {
+    font-size: clamp(3rem, 4vw + 1rem, 4.5rem);
+  }
+
+  .heroEyebrow {
+    font-size: clamp(1.2rem, 1.5vw + 0.5rem, 1.8rem);
+  }
+
+  .heroSubtitle {
+    font-size: clamp(1rem, 1.2vw + 0.5rem, 1.5rem);
+  }
+
+  .heroBlurb {
+    font-size: clamp(1rem, 1.1vw + 0.5rem, 1.3rem);
   }
 }
 
@@ -406,11 +445,23 @@
     padding: 1.25rem 1rem;
   }
 
-  .heroBlurb {
-    font-size: 0.95rem;
+  .heroCopy {
+    padding: 0;
+  }
+
+  .heroTitle {
+    font-size: clamp(1.5rem, 8vw, 2rem);
+  }
+
+  .heroName {
+    font-size: clamp(1.5rem, 8vw, 2rem);
   }
 
   .heroCtas {
     gap: 0.5rem;
+  }
+
+  .heroBlurb {
+    font-size: clamp(0.8rem, 3vw, 0.95rem);
   }
 }

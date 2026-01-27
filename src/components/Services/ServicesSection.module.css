@@ -3,258 +3,225 @@
 }
 
 .heading {
-  font-size: 2.2rem;
+  margin-bottom: 2rem;
 }
 
 .header {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
 }
 
-.groupContainer {
-  position: relative;
-  height: var(--services-height, 300vh);
+.subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  max-width: 22rem;
+  text-align: right;
 }
 
-/* Sticky viewport for the horizontal track */
-.scrollTrack {
-  position: sticky;
-  /*
-    Center the pinned viewport. We previously used 4.5rem to sit under the navbar,
-    but that makes the track's center sit below the viewport center.
-    Half of 4.5rem keeps the track centered while still leaving room near the top.
-  */
-  top: 2.25rem;
-  height: calc(100vh - 4.5rem);
-  /* Make the services row full-bleed, independent of page padding */
+.container {
   width: 100vw;
-  margin-left: 50%;
-  transform: translateX(-50%);
-  overflow: hidden; /* This clips the horizontal items */
+  margin-left: calc(-50vw + 50%);
+  padding: 2rem 0;
+  position: relative;
+}
+
+.scrollWrapper {
+  width: 100%;
+  position: relative;
+  margin-bottom: 2rem;
+  padding: 0 60px;
+  overflow: visible;
   display: flex;
-  align-items: center; /* Let each slide be centered in the pinned viewport */
+  align-items: center;
+  gap: 20px;
+  box-sizing: border-box;
 }
 
-.scrollTrack::before,
-.scrollTrack::after {
-  content: "";
+/* Navigation Arrows */
+.navArrow {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 3.2rem; /* match progress dots column width */
-  pointer-events: none;
-  backdrop-filter: blur(10px);
-}
-
-.scrollTrack::before {
-  left: 0;
-}
-
-.scrollTrack::after {
-  right: 0;
-}
-
-.progressDots {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3.2rem; /* full-width vertical strip for the dot column */
+  top: 50%;
+  transform: translateY(-50%) translateZ(0);
+  z-index: 30;
+  background: #F4F4F4;
+  border: 1px solid rgba(1, 135, 144, 0.3);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.55rem;
-  z-index: 2;
-  pointer-events: none;
-  /* Keep only a subtle blur so the dots feel integrated with the row
-     instead of sitting inside a separate opaque container. */
-  background: transparent;
-  backdrop-filter: blur(10px);
+  cursor: pointer;
+  color: #005461;
+  transition: all 0.3s ease;
+  left: 10px;
+  box-shadow: 0 4px 12px rgba(0, 84, 97, 0.15);
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
-.progressDot {
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 999px;
-  position: relative;
-  border: 2px solid rgba(148, 163, 184, 0.7); /* grey outline for inactive */
-  background: #e5e7eb; /* light grey fill for inactive */
-  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.06);
+.navArrow:hover {
+  background: #F4F4F4;
+  color: #005461;
+  border-color: rgba(1, 135, 144, 0.5);
+  box-shadow: 0 6px 16px rgba(0, 84, 97, 0.2);
+  transform: translateY(-50%) scale(1.05) translateZ(0);
 }
 
-.progressDotActive {
-  /* Blue-white gradient fill for the active state */
-  /* background: linear-gradient(135deg, rgb(77, 227, 247), #ffffff); */
-  background: #49b3f5;
-  border-color: transparent;
+.navArrowRight {
+  left: auto;
+  right: 10px;
 }
 
-.itemGroup {
+.navArrow svg {
+  width: 24px;
+  height: 24px;
+}
+
+.scrollContainer {
   display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  padding: 20px 80px;
+  cursor: grab;
+  width: 100%;
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.scrollContainer::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.scrollContainer:active {
+  cursor: grabbing;
+}
+
+.card {
+  position: relative;
+  width: 450px;
+  min-width: 450px;
+  max-width: calc(100vw - 200px); /* Ensure at least one card is visible (accounting for padding and arrows) */
+  height: 500px;
+  background: #005461;
+  border: 1px solid rgba(1, 135, 144, 0.3);
+  box-shadow: none;
+  border-radius: 15px;
+  flex-shrink: 0;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+@media (max-width: 1400px) {
+  .card {
+    width: min(400px, calc(100vw - 200px));
+    min-width: min(400px, calc(100vw - 200px));
+    height: 450px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .card {
+    width: min(350px, calc(100vw - 200px));
+    min-width: min(350px, calc(100vw - 200px));
+    height: 400px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .card {
+    width: min(320px, calc(100vw - 160px));
+    min-width: min(320px, calc(100vw - 160px));
+    height: 380px;
+  }
+}
+
+.card:hover {
+  border-color: rgba(1, 135, 144, 0.5);
+  z-index: 5;
+  cursor: pointer;
+}
+
+.card .face1,
+.card .face2 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card .face1 {
+  box-sizing: border-box;
+  padding: clamp(15px, 4vw, 20px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #005461;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card .face1 h2 {
   margin: 0;
   padding: 0;
-  list-style: none;
-  width: max-content;
-  will-change: transform;
-  /* Keep first and last slides centered without adding extra gutter. */
-  transform: translate3d(calc(var(--start-offset, 0vw) + var(--x, 0vw)), 0, 0);
-}
-
-.itemList {
-  width: 94vw;
-  height: 100%;
-  flex: 0 0 94vw; /* Prevents items from shrinking */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0 1.25rem 1.5rem 1.25rem;
-}
-
-.icon {
-  width: 1.75rem;
-  height: 1.75rem;
-  border-radius: 0.75rem;
-  background: rgba(239, 246, 255, 0.95);
-  border: 1px solid rgba(56, 189, 248, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.95rem;
-  margin-bottom: 0.6rem;
-}
-
-.title {
-  font-size: 1.4rem;
+  font-size: clamp(1.1rem, 3.5vw, 0.9375rem);
   font-weight: 600;
-  margin-bottom: 0.25rem;
-  text-align: left;
+  color: #F4F4F4;
 }
 
-.description {
-  font-size: 1rem;
-  color: var(--text-main);
-  max-width: 34rem;
-  text-align: left;
-  line-height: 1.6;
-  opacity: 0.95;
-}
-
-.itemContent {
-  max-width: 1120px;
+.card .face1 .content {
+  font-size: clamp(0.85rem, 3vw, 0.9375rem);
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+  color: #F4F4F4;
+  line-height: 1.5;
   width: 100%;
-  margin: 0 auto;
-  display: flex;
-  gap: 2.75rem;
-  align-items: stretch;
-  padding: 2rem 2.1rem;
-  border-radius: 20px;
-  background: radial-gradient(
-      circle at top left,
-      rgba(191, 219, 254, 0.35),
-      transparent 55%
-    ),
-    radial-gradient(
-      circle at bottom right,
-      rgba(254, 243, 199, 0.35),
-      transparent 55%
-    ),
-    rgba(255, 255, 255, 0.96);
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.18);
-}
-
-.itemCopy {
-  flex: 1.15;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  gap: 0.4rem;
+  overflow-y: auto;
+  gap: clamp(0.75rem, 2.5vw, 1rem);
+  text-align: left;
 }
 
-.itemEyebrow {
-  display: none;
-}
-
-.itemHighlight {
-  flex: 1;
-  align-self: stretch;
-  padding: 1.4rem 1.5rem 1.6rem;
-  border-radius: 18px;
-  background: linear-gradient(
-      135deg,
-      rgba(56, 189, 248, 0.12),
-      rgba(249, 115, 22, 0.08)
-    ),
-    rgba(255, 255, 255, 0.96);
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-  width: 100%;
-  max-width: 490px;
-  aspect-ratio: 490 / 323;
-  box-sizing: border-box;
-}
-
-.highlightHeader {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-}
-
-.highlightAvatar {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.highlightImage {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
-
-.highlightMeta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
-
-.highlightMeta p {
+.card .face1 .content p {
   margin: 0;
+  font-size: clamp(0.75rem, 2.8vw, 0.9375rem);
+  color: rgba(244, 244, 244, 0.9);
+  line-height: 1.6;
+  text-align: left;
+  width: 100%;
 }
 
-.highlightLabel {
-  font-size: 0.8rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-.highlightTitle {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-main);
-}
-
-.highlightServiceTag {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
+/* Highlight styles for example work */
 .highlightSummary {
-  font-size: 0.95rem;
-  color: var(--text-main);
-  line-height: 1.5;
+  font-size: clamp(0.75rem, 2.8vw, 0.9375rem);
+  color: rgba(244, 244, 244, 0.9);
+  line-height: 1.6;
+  margin: 0;
   opacity: 0.95;
+  flex-shrink: 0;
+  text-align: left;
+  width: 100%;
 }
 
 .highlightList {
@@ -263,24 +230,33 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: clamp(0.5rem, 2vw, 0.65rem);
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  width: 100%;
+  align-items: flex-start;
 }
 
 .highlightPoint {
-  font-size: 0.9rem;
-  color: var(--text-main);
+  font-size: clamp(0.7rem, 2.5vw, 0.9375rem);
+  color: rgba(244, 244, 244, 0.9);
   position: relative;
-  padding-left: 0.9rem;
+  padding-left: clamp(1rem, 3vw, 1.25rem);
+  line-height: 1.5;
+  margin: 0;
+  text-align: left;
+  width: 100%;
 }
 
 .highlightPoint::before {
   content: "";
   position: absolute;
-  left: 0;
-  top: 0.55rem;
-  width: 0.3rem;
-  height: 0.3rem;
-  border-radius: 999px;
+  left: clamp(0.25rem, 1vw, 0.5rem);
+  top: 0.5rem;
+  width: clamp(0.3rem, 1.2vw, 0.35rem);
+  height: clamp(0.3rem, 1.2vw, 0.35rem);
+  border-radius: 50%;
   background: linear-gradient(
     120deg,
     var(--accent-primary),
@@ -288,38 +264,244 @@
   );
 }
 
-@media (max-width: 1110px) {
-  .itemContent {
-    flex-direction: column;
-    align-items: center;
-    gap: 1.75rem;
-    /* Let the container be just a bit wider than its contents on mobile */
+/* Face2 - Cover with icon, title, and description */
+.card .face2 {
+  background: #005461;
+  transition: 0.5s;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 30px;
+}
+
+.card:hover .face2 {
+  height: 60px;
+  border-radius: 0 0 15px 15px;
+  padding: 10px 20px;
+}
+
+.card .face2::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: rgba(0, 84, 97, 0.15);
+  border-radius: 15px 0 0 15px;
+}
+
+.face2Content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  transition: all 0.5s ease;
+}
+
+.serviceIcon {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  opacity: 0.9;
+  transition: all 0.5s ease;
+}
+
+.serviceIcon img {
+  filter: brightness(0) invert(1);
+  opacity: 0.8;
+}
+
+.card:hover .serviceIcon {
+  width: 0;
+  height: 0;
+  margin: 0;
+  opacity: 0;
+}
+
+.card .face2 h2 {
+  margin: 0 0 16px 0;
+  padding: 0;
+  font-size: clamp(1.2em, 4vw, 0.9375rem);
+  color: #F4F4F4;
+  transition: 0.5s;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.2;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.card:hover .face2 h2 {
+  font-size: clamp(0.75em, 2.2vw, 0.75rem);
+  margin: 0;
+}
+
+.card .face2 p {
+  margin: 0;
+  padding: 0;
+  font-size: clamp(0.85rem, 2.2vw, 1rem);
+  color: rgba(244, 244, 244, 0.9);
+  line-height: 1.5;
+  text-align: center;
+  transition: all 0.5s ease;
+  opacity: 1;
+}
+
+.card:hover .face2 p {
+  opacity: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+}
+
+/* Scroll dots */
+.dotsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--text-muted, #6b7280);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.5;
+}
+
+.dotActive {
+  background: var(--text-muted, #6b7280);
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem 0;
+    width: 100vw;
+  }
+
+  .scrollWrapper {
+    padding: 0 60px;
     width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    height: 600px;
-    padding: 1.1rem 1.2rem;
-    /* Remove the desktop card styling in mobile for a cleaner column UI */
-    background: transparent;
-    border: none;
-    box-shadow: none;
+    position: relative;
+    overflow: visible;
   }
 
-  .itemCopy {
-    align-items: center;
-    text-align: center;
+  .navArrow {
+    width: 40px;
+    height: 40px;
+    left: 10px;
+    z-index: 30;
+    position: absolute !important;
   }
 
-  .title,
-  .description {
-    text-align: center;
+  .navArrowRight {
+    right: 10px !important;
+    left: auto !important;
   }
 
-  .itemHighlight {
-    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.14);
-    flex: 0 0 auto;
-    margin: 0 auto;
-    height: 400px;
-    max-height: 400px;
+  .navArrow svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .scrollContainer {
+    padding: 20px 0;
+    width: 100%;
+  }
+
+  .card {
+    width: calc(100vw - 120px); /* Ensure one full card is visible */
+    min-width: calc(100vw - 120px);
+    max-width: calc(100vw - 120px);
+    height: calc((100vw - 120px) * 1.1); /* Maintain aspect ratio */
+    max-height: 500px;
+    scroll-snap-align: center;
+  }
+
+  .card .face2 h2 {
+    font-size: 1.5em;
+  }
+
+  .card:hover .face2 h2 {
+    font-size: 0.85em;
+  }
+
+  .heading {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .scrollWrapper {
+    padding: 0 50px;
+    width: 100%;
+    position: relative;
+    overflow: visible;
+  }
+
+  .navArrow {
+    width: 36px;
+    height: 36px;
+    left: 5px;
+    z-index: 30;
+    position: absolute !important;
+  }
+
+  .navArrowRight {
+    right: 5px !important;
+    left: auto !important;
+  }
+
+  .navArrow svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .card {
+    width: calc(100vw - 100px); /* Ensure one full card is visible with arrow space */
+    min-width: calc(100vw - 100px);
+    max-width: calc(100vw - 100px);
+    height: calc((100vw - 100px) * 1.1); /* Maintain aspect ratio */
+    max-height: 450px;
+  }
+
+  .card .face1 h2 {
+    font-size: 1.2rem;
+  }
+
+  .card .face1 .content {
+    font-size: 1em;
+  }
+
+  .card .face2 h2 {
+    font-size: 1.3em;
+  }
+
+  .card:hover .face2 h2 {
+    font-size: 0.8em;
+  }
+
+  .serviceIcon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 16px;
   }
 }

@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { serviceItems } from "@/lib/portfolioData";
 import styles from "./ServicesSection.module.css";
 
@@ -15,18 +14,29 @@ type ServiceHighlight = {
   points: string[];
 };
 
+// Service icons mapping
+const SERVICE_ICONS: Record<string, string> = {
+  backend: "/logos/skills/nodejs.svg",
+  cloudInfra: "/logos/skills/gke.svg",
+  devops: "/logos/skills/github-actions.svg",
+  platform: "/logos/skills/kubernetes.svg",
+  ai: "/logos/skills/openai.svg",
+  fullstack: "/logos/skills/reactjs.svg",
+  performance: "/logos/skills/elk.svg",
+  modernization: "/logos/skills/docker.svg",
+};
+
 const SERVICE_HIGHLIGHTS: Record<string, ServiceHighlight> = {
   backend: {
     label: "Real-world backend impact",
     title: "Multi-tenant content & streaming platform for student radio",
     imageSrc: "/logos/rfx-logo.png",
     imageAlt: "RadioFX logo",
-    summary:
-      "Designed a NestJS + Cassandra backbone that keeps content, schedules, and real-time streams in sync across many college stations.",
+    summary: "NestJS + Cassandra backend for multi-tenant content and streaming.",
     points: [
-      "Modeled multi-tenant data in Cassandra with DTO validation and guards.",
-      "Built token-based auth (JWT/opaque tokens) for secure partner integrations.",
-      "Exposed modular APIs for embeddable streaming, chat, and polling widgets.",
+      "Multi-tenant data modeling with validation.",
+      "Token-based auth for secure integrations.",
+      "Modular APIs for streaming widgets.",
     ],
   },
   cloudInfra: {
@@ -34,12 +44,11 @@ const SERVICE_HIGHLIGHTS: Record<string, ServiceHighlight> = {
     title: "GKE-based multi-tenant hosting for generated websites",
     imageSrc: "/logos/skills/gke.svg",
     imageAlt: "GKE icon",
-    summary:
-      "Moved legacy services into Kubernetes and shaped a GKE layout where hundreds of tenant sites can be deployed, isolated, and updated safely.",
+    summary: "Kubernetes migration for scalable multi-tenant deployments.",
     points: [
-      "Isolated tenants via namespaces, network policies, and Helm-driven releases.",
-      "Used NGINX ingress, autoscaling, and health checks for robust rollouts.",
-      "Integrated internal Node modules through Google Artifact Registry.",
+      "Namespace isolation and Helm releases.",
+      "NGINX ingress and autoscaling.",
+      "Artifact Registry integration.",
     ],
   },
   devops: {
@@ -47,12 +56,11 @@ const SERVICE_HIGHLIGHTS: Record<string, ServiceHighlight> = {
     title: "Release pipelines that keep production boring",
     imageSrc: "/logos/skills/github-actions.svg",
     imageAlt: "GitHub Actions icon",
-    summary:
-      "Set up CI/CD flows so every commit is built, tested, and rolled out with guardrails instead of one-off manual deploys.",
+    summary: "CI/CD pipelines for automated, safe deployments.",
     points: [
-      "Built zero-downtime rollout pipelines for GKE-based services.",
-      "Implemented selective redeployments based on diff detection.",
-      "Improved feedback loops with automated checks and notifications.",
+      "Zero-downtime rollouts.",
+      "Selective redeployments.",
+      "Automated checks and notifications.",
     ],
   },
   platform: {
@@ -60,12 +68,11 @@ const SERVICE_HIGHLIGHTS: Record<string, ServiceHighlight> = {
     title: "CanvasRx & portal tooling that doctors actually use",
     imageSrc: "/logos/bfhl-logo.png",
     imageAlt: "Bajaj Finserv Health logo",
-    summary:
-      "Built product-facing tools like CanvasRx that slot into daily clinical workflows instead of living as side projects in a backlog.",
+    summary: "Product tools integrated into clinical workflows.",
     points: [
-      "Built CanvasRx, an image-annotation tool used in doctor consultations.",
-      "Owned modules within the doctor portal that streamlined daily operations.",
-      "Helped reduce bugs and improve stability across B2C flows.",
+      "CanvasRx image-annotation tool.",
+      "Doctor portal modules.",
+      "Improved B2C stability.",
     ],
   },
   ai: {
@@ -73,12 +80,11 @@ const SERVICE_HIGHLIGHTS: Record<string, ServiceHighlight> = {
     title: "Multi-agent pipeline from prompt → running website",
     imageSrc: "/logos/skills/openai.svg",
     imageAlt: "AI icon",
-    summary:
-      "Orchestrated Gemini and Vercel v0 into a pipeline that plans, generates, and refines complete sites instead of just UI snippets.",
+    summary: "AI pipeline for automated website generation.",
     points: [
-      "Chained Gemini and Vercel v0 to generate, evaluate, and refine layouts.",
-      "Automated code generation and deployment into a GKE-backed environment.",
-      "Designed evaluation agents to keep UX and content on-spec.",
+      "Gemini + Vercel v0 integration.",
+      "Automated code generation.",
+      "Evaluation agents for quality.",
     ],
   },
   fullstack: {
@@ -86,12 +92,11 @@ const SERVICE_HIGHLIGHTS: Record<string, ServiceHighlight> = {
     title: "Owning high-traffic B2C flows front to back",
     imageSrc: "/logos/bfhl-logo.png",
     imageAlt: "Bajaj Finserv Health logo",
-    summary:
-      "Took responsibility for full slices of modules—from React UIs to APIs—so that the experience stayed coherent across the stack.",
+    summary: "Full-stack ownership of high-traffic modules.",
     points: [
-      "Improved stability across critical booking and discovery flows.",
-      "Optimized frontend and backend pieces for performance and SEO.",
-      "Collaborated closely with design and product to ship features safely.",
+      "Improved booking flows.",
+      "Performance and SEO optimization.",
+      "Cross-functional collaboration.",
     ],
   },
   performance: {
@@ -99,12 +104,11 @@ const SERVICE_HIGHLIGHTS: Record<string, ServiceHighlight> = {
     title: "Page experience work that users (and Google) notice",
     imageSrc: "/logos/skills/elk.svg",
     imageAlt: "Observability icon",
-    summary:
-      "Focused on load time, Core Web Vitals, and search signals so critical pages feel instant instead of merely acceptable.",
+    summary: "Performance optimization and Core Web Vitals improvements.",
     points: [
-      "Boosted PageSpeed scores from 65 → 99 on high-traffic pages.",
-      "Reduced poor URLs from 11,380 → 562 via targeted technical SEO fixes.",
-      "Introduced ELK-based logging to uncover bottlenecks and errors.",
+      "PageSpeed 65 → 99.",
+      "SEO fixes: 11,380 → 562 poor URLs.",
+      "ELK logging for monitoring.",
     ],
   },
   modernization: {
@@ -112,189 +116,324 @@ const SERVICE_HIGHLIGHTS: Record<string, ServiceHighlight> = {
     title: "Taking legacy services into containerized stacks",
     imageSrc: "/logos/skills/docker.svg",
     imageAlt: "Docker icon",
-    summary:
-      'Helped teams move from brittle VMs to containerized services with rollout plans that avoided risky "flag day" cutovers.',
+    summary: "Containerized legacy services with zero-downtime migrations.",
     points: [
-      "Containerized services and orchestrated them with Kubernetes.",
-      "Planned zero-downtime migrations with blue/green and canary strategies.",
-      "Improved build times and deployment reliability for legacy services.",
+      "Kubernetes orchestration.",
+      "Blue/green and canary strategies.",
+      "Improved build reliability.",
     ],
   },
 };
 
 function ServicesSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const listRef = useRef<HTMLUListElement>(null);
-
-  const totalCards = serviceItems.length;
-  const CARD_WIDTH_VW = 94; // match CSS slide width so alignment stays correct
-  const totalHorizontalShift = (totalCards - 1) * CARD_WIDTH_VW; // in vw
-
-  // Track which card is "active" to drive the vertical progress dots on the left.
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const scrollWrapperRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const autoScrollRef = useRef<NodeJS.Timeout | null>(null);
+  const isScrollingRef = useRef(false);
+  const scrollPositions = 7; // Fixed to 7 scroll dots
 
-  const clamp = (value: number, min: number, max: number) =>
-    Math.min(max, Math.max(min, value));
+  // Auto-scroll functionality
+  const startAutoScroll = useCallback(() => {
+    const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer || isHovered) return;
 
-  // Height of the section: enough vertical space for the whole horizontal journey,
-  // tightly (no dead scroll after the last card).
-  const sectionHeightExpression = `calc(${totalCards * 100}vh - 4.5rem)`;
+    // Clear existing auto-scroll
+    if (autoScrollRef.current) {
+      clearInterval(autoScrollRef.current);
+    }
 
-  useEffect(() => {
-    const sectionEl = sectionRef.current;
-    if (!sectionEl) return;
-    sectionEl.style.setProperty("--services-height", sectionHeightExpression);
-  }, [sectionHeightExpression]);
+    autoScrollRef.current = setInterval(() => {
+      if (isHovered || isScrollingRef.current) return;
 
-  useEffect(() => {
-    const listEl = listRef.current;
-    const sectionEl = sectionRef.current;
-    if (!listEl) return;
-    if (!sectionEl) return;
+      const scrollContainer = scrollContainerRef.current;
+      if (!scrollContainer) return;
 
-    // Center the first and last slides without adding leading/trailing blank space.
-    listEl.style.setProperty(
-      "--start-offset",
-      `${(100 - CARD_WIDTH_VW) / 2}vw`
-    );
+      const firstCard = scrollContainer.querySelector(`.${styles.card}`) as HTMLElement;
+      const cardWidth = firstCard ? firstCard.offsetWidth : 450;
+      const gap = 20;
+      const scrollWidth = cardWidth + gap;
+      const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+      const currentScroll = scrollContainer.scrollLeft;
 
-    let rafId = 0;
-
-    const update = () => {
-      rafId = 0;
-
-      const remPx = Number.parseFloat(
-        window.getComputedStyle(document.documentElement).fontSize || "16"
-      );
-
-      // Must match CSS: .scrollTrack height is calc(100vh - 4.5rem)
-      const stickyHeightPx = window.innerHeight - remPx * 4.5;
-      // Must match CSS: .scrollTrack top is 2.25rem (so pinned viewport is centered)
-      const stickyTopPx = remPx * 2.25;
-
-      const rect = sectionEl.getBoundingClientRect();
-      const totalScrollable = rect.height - stickyHeightPx;
-      const rawProgress =
-        totalScrollable > 0 ? (stickyTopPx - rect.top) / totalScrollable : 0;
-      const progress = clamp(rawProgress, 0, 1);
-
-      const translateVw = -totalHorizontalShift * progress;
-      listEl.style.setProperty("--x", `${translateVw}vw`);
-
-      if (totalCards > 1) {
-        const idx = Math.round(progress * (totalCards - 1));
-        setActiveIndex(clamp(idx, 0, totalCards - 1));
+      // If at the end, reset to beginning
+      if (currentScroll >= maxScroll - 10) {
+        scrollContainer.scrollTo({ left: 0, behavior: "smooth" });
       } else {
-        setActiveIndex(0);
+        // Scroll one card at a time
+        const nextScroll = Math.min(
+          currentScroll + scrollWidth,
+          maxScroll
+        );
+        scrollContainer.scrollTo({ left: nextScroll, behavior: "smooth" });
+      }
+    }, 3000); // Auto-scroll every 3 seconds
+  }, [isHovered]);
+
+  // Helper function to update active index
+  const updateActiveIndex = useCallback(() => {
+    const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer) return;
+
+    const firstCard = scrollContainer.querySelector(`.${styles.card}`) as HTMLElement;
+    const cardWidth = firstCard ? firstCard.offsetWidth : 450;
+    const gap = 20;
+    const scrollWidth = cardWidth + gap;
+    const { scrollLeft } = scrollContainer;
+    
+    // Calculate which scroll position we're at based on scroll offset
+    // Each scroll position represents moving one card forward
+    // Position 0 = first card(s) visible, Position 1 = second card becomes first, etc.
+    const scrollPosition = Math.round(scrollLeft / scrollWidth);
+    
+    // Clamp to valid range (0 to scrollPositions - 1)
+    const maxScrollPosition = scrollPositions - 1;
+    const clampedIndex = Math.min(Math.max(0, scrollPosition), maxScrollPosition);
+    setActiveIndex(clampedIndex);
+  }, []);
+
+  // Calculate active card and scroll positions based on scroll position
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer) return;
+
+    const handleScroll = () => {
+      if (!isScrollingRef.current) {
+        isScrollingRef.current = true;
+        updateActiveIndex();
+        
+        // Clear auto-scroll when user manually scrolls
+        const currentAutoScroll = autoScrollRef.current;
+        if (currentAutoScroll) {
+          clearInterval(currentAutoScroll);
+          autoScrollRef.current = null;
+        }
+
+        // Restart auto-scroll after user stops scrolling
+        setTimeout(() => {
+          isScrollingRef.current = false;
+          startAutoScroll();
+        }, 3000);
       }
     };
 
-    const requestUpdate = () => {
-      if (rafId) return;
-      rafId = window.requestAnimationFrame(update);
-    };
+    scrollContainer.addEventListener("scroll", handleScroll);
+    updateActiveIndex();
 
-    update();
-    window.addEventListener("scroll", requestUpdate, { passive: true });
-    window.addEventListener("resize", requestUpdate);
     return () => {
-      window.removeEventListener("scroll", requestUpdate);
-      window.removeEventListener("resize", requestUpdate);
-      if (rafId) window.cancelAnimationFrame(rafId);
+      scrollContainer.removeEventListener("scroll", handleScroll);
     };
-  }, [CARD_WIDTH_VW, totalCards, totalHorizontalShift]);
+  }, [startAutoScroll, updateActiveIndex]);
+
+  // Start auto-scroll on mount
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      startAutoScroll();
+    }, 2000); // Start after 2 seconds
+
+    return () => {
+      clearTimeout(timer);
+      if (autoScrollRef.current) {
+        clearInterval(autoScrollRef.current);
+      }
+    };
+  }, [startAutoScroll]);
+
+  // Pause auto-scroll on hover
+  useEffect(() => {
+    if (isHovered && autoScrollRef.current) {
+      clearInterval(autoScrollRef.current);
+      autoScrollRef.current = null;
+    } else if (!isHovered && !isScrollingRef.current) {
+      startAutoScroll();
+    }
+  }, [isHovered]);
+
+  // Navigation functions - scroll one card at a time with circular scrolling
+  const scrollLeft = () => {
+    const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer) return;
+
+    const firstCard = scrollContainer.querySelector(`.${styles.card}`) as HTMLElement;
+    const cardWidth = firstCard ? firstCard.offsetWidth : 450;
+    const gap = 20;
+    const scrollWidth = cardWidth + gap;
+    const currentScroll = scrollContainer.scrollLeft;
+    const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+    
+    // If at the beginning (scrollLeft is 0 or very close), scroll to the end (circular)
+    if (currentScroll <= 10) {
+      scrollContainer.scrollTo({ left: maxScroll, behavior: "smooth" });
+    } else {
+      const newScroll = currentScroll - scrollWidth;
+      scrollContainer.scrollTo({ left: Math.max(0, newScroll), behavior: "smooth" });
+    }
+    
+    isScrollingRef.current = true;
+    // Update active index after scroll animation completes
+    setTimeout(() => {
+      updateActiveIndex();
+      isScrollingRef.current = false;
+      if (!isHovered) {
+        startAutoScroll();
+      }
+    }, 1000);
+  };
+
+  const scrollRight = () => {
+    const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer) return;
+
+    const firstCard = scrollContainer.querySelector(`.${styles.card}`) as HTMLElement;
+    const cardWidth = firstCard ? firstCard.offsetWidth : 450;
+    const gap = 20;
+    const scrollWidth = cardWidth + gap;
+    const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+    const currentScroll = scrollContainer.scrollLeft;
+    
+    // If at the end (or very close), scroll to the beginning (circular)
+    if (currentScroll >= maxScroll - 10) {
+      scrollContainer.scrollTo({ left: 0, behavior: "smooth" });
+    } else {
+      const newScroll = currentScroll + scrollWidth;
+      scrollContainer.scrollTo({ left: Math.min(maxScroll, newScroll), behavior: "smooth" });
+    }
+    
+    isScrollingRef.current = true;
+    // Update active index after scroll animation completes
+    setTimeout(() => {
+      updateActiveIndex();
+      isScrollingRef.current = false;
+      if (!isHovered) {
+        startAutoScroll();
+      }
+    }, 1000);
+  };
 
   return (
-    <article className={styles.article}>
+    <article id="services" className={styles.article}>
       <header className={styles.header}>
-        <h2 id="services-heading" className={styles.heading}>
+        <h2 id="services-heading" className={`${styles.heading} sectionTitle`}>
           What I Offer
         </h2>
+        <p className={styles.subtitle}>
+          Services I provide to design, build, and run reliable, scalable systems.
+        </p>
       </header>
 
-      <section
-        ref={sectionRef}
-        key={`services-section-${serviceItems.length}`}
-        className={styles.groupContainer}
-      >
-        <div className={styles.scrollTrack}>
-          <div className={styles.progressDots} aria-hidden="true">
-            {serviceItems.map((service, index) => (
-              <span
-                key={service.id}
-                className={`${styles.progressDot} ${
-                  index <= activeIndex ? styles.progressDotActive : ""
-                }`}
-              />
-            ))}
-          </div>
+      <div className={styles.container}>
+        <div
+          className={styles.scrollWrapper}
+          ref={scrollWrapperRef}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          {/* Left Navigation Arrow */}
+          <button
+            className={styles.navArrow}
+            onClick={scrollLeft}
+            aria-label="Scroll left"
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
 
-          <motion.ul ref={listRef} className={styles.itemGroup}>
-            {serviceItems.map((service) => {
+          <div
+            className={styles.scrollContainer}
+            ref={scrollContainerRef}
+          >
+            {serviceItems.map((service, index) => {
               const highlight = SERVICE_HIGHLIGHTS[service.id];
+              const iconSrc = SERVICE_ICONS[service.id] || "/logos/skills/nodejs.svg";
 
               return (
-                <li
-                  key={service.id}
-                  className={styles.itemList}
-                  aria-labelledby={`${service.id}-title`}
-                >
-                  <div className={styles.itemContent}>
-                    <div className={styles.itemCopy}>
-                      <h3 id={`${service.id}-title`} className={styles.title}>
-                        {service.title}
-                      </h3>
-                      <p className={styles.description}>
-                        {service.description}
-                      </p>
+                <div key={service.id} className={styles.card}>
+                  <div className={styles.face1}>
+                    <div className={styles.content}>
+                      {highlight ? (
+                        <>
+                          <p className={styles.highlightSummary}>
+                            {highlight.summary}
+                          </p>
+                          <ul className={styles.highlightList}>
+                            {highlight.points.map((point) => (
+                              <li key={point} className={styles.highlightPoint}>
+                                {point}
+                              </li>
+                            ))}
+                          </ul>
+                        </>
+                      ) : (
+                        <>
+                          <h2>{service.title}</h2>
+                          <p>{service.description}</p>
+                        </>
+                      )}
                     </div>
-
-                    {highlight && (
-                      <aside
-                        className={styles.itemHighlight}
-                        aria-label="Example work"
-                      >
-                        <div className={styles.highlightHeader}>
-                          <div className={styles.highlightAvatar}>
-                            <Image
-                              src={highlight.imageSrc}
-                              alt={highlight.imageAlt}
-                              className={styles.highlightImage}
-                              width={48}
-                              height={48}
-                            />
-                          </div>
-                          <div className={styles.highlightMeta}>
-                            <p className={styles.highlightLabel}>
-                              {highlight.label}
-                            </p>
-                            <p className={styles.highlightTitle}>
-                              {highlight.title}
-                            </p>
-                            {/* <p className={styles.highlightServiceTag}>
-                              For: {service.title}
-                            </p> */}
-                          </div>
-                        </div>
-                        <p className={styles.highlightSummary}>
-                          {highlight.summary}
-                        </p>
-                        <ul className={styles.highlightList}>
-                          {highlight.points.map((point) => (
-                            <li key={point} className={styles.highlightPoint}>
-                              {point}
-                            </li>
-                          ))}
-                        </ul>
-                      </aside>
-                    )}
                   </div>
-                </li>
+                  <div className={styles.face2}>
+                    <div className={styles.face2Content}>
+                      <div className={styles.serviceIcon}>
+                        <Image
+                          src={iconSrc}
+                          alt={`${service.title} icon`}
+                          width={64}
+                          height={64}
+                        />
+                      </div>
+                      <h2>{service.title}</h2>
+                      <p>{service.description}</p>
+                    </div>
+                  </div>
+                </div>
               );
             })}
-          </motion.ul>
+          </div>
+
+          {/* Right Navigation Arrow */}
+          <button
+            className={`${styles.navArrow} ${styles.navArrowRight}`}
+            onClick={scrollRight}
+            aria-label="Scroll right"
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
         </div>
-      </section>
+
+        {/* Scroll dots */}
+        <div className={styles.dotsContainer}>
+          {Array.from({ length: scrollPositions }).map((_, index) => (
+            <span
+              key={index}
+              className={`${styles.dot} ${
+                index === activeIndex ? styles.dotActive : ""
+              }`}
+            />
+          ))}
+        </div>
+      </div>
     </article>
   );
 }

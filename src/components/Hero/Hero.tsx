@@ -59,9 +59,9 @@ function Hero() {
             <motion.button
               type="button"
               className={styles.primaryCta}
-              whileHover={{ scale: 1.04, translateY: -2 }}
-              whileTap={{ scale: 0.96 }}
-              transition={{ type: "spring", stiffness: 260, damping: 20 }}
+              whileHover={{ scale: 1.02, y: -1 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
               onClick={() => scrollToSection("projects")}
             >
               View Projects
@@ -69,9 +69,10 @@ function Hero() {
             <motion.button
               type="button"
               className={styles.secondaryCta}
-              whileHover={{ scale: 1.03, translateY: -1 }}
-              whileTap={{ scale: 0.96 }}
-              transition={{ type: "spring", stiffness: 260, damping: 20 }}
+              data-scroll-to-section="services"
+              whileHover={{ scale: 1.02, y: -1 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
               onClick={() => scrollToSection("services")}
             >
               What I Offer

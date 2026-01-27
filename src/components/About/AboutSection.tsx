@@ -21,7 +21,7 @@ function AboutSection() {
       >
         <div className={styles.headerRow}>
           <div>
-            <h2 id="about-heading" className={styles.heading}>
+            <h2 id="about-heading" className={`${styles.heading} sectionTitle`}>
               {aboutCopy.title}
             </h2>
           </div>
