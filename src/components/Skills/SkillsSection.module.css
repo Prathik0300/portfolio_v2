@@ -162,4 +162,18 @@
     flex-direction: column;
     align-items: flex-start;
   }
+
+  .iconGrid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: 100%;
+    gap: 0.9rem;
+    justify-items: center;
+    align-items: center;
+  }
+
+  .iconBadge {
+    width: 44px;
+    height: 44px;
+  }
 }
