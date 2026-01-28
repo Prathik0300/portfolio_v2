@@ -161,9 +161,15 @@
 .heroVisual {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   flex: 0 0 50%;
   width: 50%;
+}
+
+@media (min-width: 901px) {
+  .heroVisual {
+    align-items: flex-end;
+  }
 }
 
 .orbitRing {
@@ -417,6 +423,11 @@
   .heroVisual {
     flex: 0 0 100%;
     width: 100%;
+    align-items: center;
+  }
+
+  .heroImageWrap {
+    align-self: center;
   }
 
   .heroSection {
@@ -466,6 +477,16 @@
     padding: 0;
   }
 
+  .heroVisual {
+    align-items: center;
+  }
+
+  .heroImageWrap {
+    width: min(280px, 78vw);
+    height: min(280px, 78vw);
+    margin-inline: auto;
+  }
+
   .heroTitle {
     font-size: clamp(1.5rem, 8vw, 2rem);
   }
@@ -480,5 +501,12 @@
 
   .heroBlurb {
     font-size: clamp(0.8rem, 3vw, 0.95rem);
+  }
+}
+
+@media (max-width: 420px) {
+  .heroImageWrap {
+    width: min(240px, 76vw);
+    height: min(240px, 76vw);
   }
 }

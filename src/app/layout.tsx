@@ -3,6 +3,7 @@ import { Ubuntu, Raleway, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { UIProvider } from "@/context/UIContext";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { StructuredData } from "@/components/SEO/StructuredData";
 
 const ubuntu = Ubuntu({
   variable: "--font-sans",
@@ -22,35 +23,98 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Prathik Pugazhenthi | Software Developer",
+  metadataBase: new URL("https://prathikpugazhenthi.dev"), // Update with your actual domain
+  title: {
+    default: "Prathik Pugazhenthi | Full-Stack & Cloud Developer",
+    template: "%s | Prathik Pugazhenthi",
+  },
   description:
-    "Portfolio of Prathik Pugazhenthi, a software developer specializing in full-stack engineering, cloud infrastructure, CI/CD automation, and scalable product architectures.",
-  metadataBase: new URL("https://www.example.com"),
+    "Software Developer specializing in full-stack engineering, cloud infrastructure, CI/CD automation, and scalable product architectures. 3+ years of experience building production web platforms, AI-enabled systems, and Kubernetes workloads.",
+  keywords: [
+    "Prathik Pugazhenthi",
+    "Software Developer",
+    "Full-Stack Developer",
+    "Cloud Developer",
+    "DevOps Engineer",
+    "Kubernetes",
+    "GCP",
+    "AWS",
+    "CI/CD",
+    "Node.js",
+    "React",
+    "TypeScript",
+    "NestJS",
+    "Python",
+    "AI Automation",
+    "Distributed Systems",
+    "Chicago Developer",
+    "Portfolio",
+  ],
+  authors: [{ name: "Prathik Pugazhenthi", url: "https://github.com/Prathik0300" }],
+  creator: "Prathik Pugazhenthi",
+  publisher: "Prathik Pugazhenthi",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Prathik Pugazhenthi | Software Developer",
-    description:
-      "Explore experience, research, and services from Prathik Pugazhenthi, a full-stack and cloud developer working on distributed, production-ready systems.",
-    url: "/",
+    type: "website",
+    locale: "en_US",
+    url: "https://prathikpugazhenthi.dev", // Update with your actual domain
     siteName: "Prathik Pugazhenthi Portfolio",
+    title: "Prathik Pugazhenthi | Full-Stack & Cloud Developer",
+    description:
+      "Software Developer specializing in full-stack engineering, cloud infrastructure, CI/CD automation, and scalable product architectures. Explore my projects, experience, and services.",
     images: [
       {
-        url: "/images/prathik-hero.png",
-        width: 768,
-        height: 1024,
-        alt: "Portrait of Prathik Pugazhenthi",
+        url: "/prathik-hero.png",
+        width: 430,
+        height: 560,
+        alt: "Prathik Pugazhenthi - Full-Stack & Cloud Developer",
+        type: "image/png",
       },
     ],
-    type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Prathik Pugazhenthi | Software Developer",
+    title: "Prathik Pugazhenthi | Full-Stack & Cloud Developer",
     description:
-      "Software developer focused on full-stack systems, cloud infrastructure, DevOps, and AI-enabled automation.",
-    images: ["/images/prathik-hero.png"],
+      "Software Developer specializing in full-stack engineering, cloud infrastructure, CI/CD automation, and scalable product architectures.",
+    images: ["/prathik-hero.png"],
+    creator: "@prathik0300", // Update with your Twitter handle if available
+  },
+  verification: {
+    // Add verification codes when you have them
+    // google: "your-google-verification-code",
+    // yandex: "your-yandex-verification-code",
+    // yahoo: "your-yahoo-verification-code",
+  },
+  category: "Technology",
+  classification: "Portfolio",
+  other: {
+    "contact:email": "prathik0300@gmail.com",
+    "contact:phone_number": "+13128893640",
+    "contact:locality": "Chicago",
+    "contact:region": "IL",
+    "contact:country_name": "United States",
+  },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    themeColor: "#005461",
+  },
+  formatDetection: {
+    telephone: true,
   },
 };
 
@@ -64,6 +128,7 @@ export default function RootLayout({
       <body
         className={`${ubuntu.variable} ${raleway.variable} ${jetBrainsMono.variable} appShell`}
       >
+        <StructuredData />
         <UIProvider>
           <ScrollToTop />
           <div className="appInner">{children}</div>
