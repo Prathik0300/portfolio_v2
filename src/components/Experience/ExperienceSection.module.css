@@ -73,6 +73,11 @@
   border: 1px solid rgba(148, 163, 184, 0.3);
   box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
   transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.card * {
+  cursor: pointer;
 }
 
 .card:hover {
@@ -110,6 +115,7 @@
 .accordionContent {
   overflow: hidden;
   padding-top: 0;
+  cursor: pointer;
 }
 
 .accordionContent[data-state="open"] {

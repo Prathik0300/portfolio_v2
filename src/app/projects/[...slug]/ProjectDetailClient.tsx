@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import type { ProjectItem } from "@/lib/portfolioData";
 import styles from "./page.module.css";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
@@ -15,6 +15,23 @@ import { DiagramModal } from "@/components/ProjectDetail/DiagramModal";
 type Props = { project: ProjectItem };
 
 export function ProjectDetailClient({ project }: Props) {
+  // Scroll to top only on page refresh (not navigation)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    
+    // Check if this is a page refresh (not a navigation)
+    const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+    const legacyNav = (window.performance as { navigation?: { type?: number } }).navigation;
+    const isRefresh = navigation?.type === 'reload' || legacyNav?.type === 1; // Fallback for older browsers
+    
+    if (isRefresh) {
+      // Only scroll to top on actual page refresh
+      window.scrollTo({ top: 0, behavior: "instant" });
+    } else if ('scrollRestoration' in window.history) {
+      // Enable scroll restoration for navigation (maintains scroll position)
+      window.history.scrollRestoration = 'auto';
+    }
+  }, []);
   const isMobile = useMediaQuery("(max-width: 768px)");
   const coverMedia = project?.coverMedia ?? null;
   const designSteps = project.detailDesignProcessSteps ?? [];
@@ -188,7 +205,7 @@ export function ProjectDetailClient({ project }: Props) {
             <div>
               <div className={styles.metaLabel}>Tech Stack</div>
               <div className={styles.metaValue}>
-                {project.detailTechStack ?? `Tech Stack: ${project.techStack.join(" · ")}`}
+                {project.detailTechStack ?? `${project.techStack.join(" · ")}`}
               </div>
             </div>
             <div>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Ubuntu, Raleway, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { UIProvider } from "@/context/UIContext";
+import { ScrollToTop } from "@/components/ScrollToTop";
 
 const ubuntu = Ubuntu({
   variable: "--font-sans",
@@ -64,6 +65,7 @@ export default function RootLayout({
         className={`${ubuntu.variable} ${raleway.variable} ${jetBrainsMono.variable} appShell`}
       >
         <UIProvider>
+          <ScrollToTop />
           <div className="appInner">{children}</div>
         </UIProvider>
       </body>

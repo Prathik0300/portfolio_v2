@@ -460,7 +460,7 @@ export const projectItems: ProjectItem[] = [
     detailAssociation: "Associated with University of Illinois Chicago",
     detailProjectType: "Research Project | CS588 – Security and Privacy in Networked and Distributed Systems",
     detailTechStack:
-      "Tech Stack: Chrome Extension (Manifest V3) · Node.js · Python · Bloom Filters · TLS · SHA-256 · MurmurHash3",
+      "Chrome Extension (Manifest V3) · Node.js · Python · Bloom Filters · TLS · SHA-256 · MurmurHash3",
     detailOverview:
       "A Chrome extension that brings CRLite-style certificate revocation to Chromium browsers. Uses cascaded Bloom filters for local, privacy-preserving revocation checking without network roundtrips. Achieves 100% accuracy with 2-5ms overhead.",
     detailProblem:
@@ -654,7 +654,7 @@ export const projectItems: ProjectItem[] = [
     detailAssociation: "Hackathon",
     detailProjectType: "Hackathon Project | WildHacks 2025",
     detailTechStack:
-      "Tech Stack: React PWA · TailwindCSS · Gemini API · Computer Vision",
+      "React PWA · TailwindCSS · Gemini API · Computer Vision",
     detailOverview:
       "EnsoGrow is a minimalist PWA that helps everyday people grow organic food at home without the overwhelm. Built for urban growers, students, and busy professionals, it serves as both a smart gardening coach and a community hub.",
     detailProblem:
@@ -829,7 +829,7 @@ export const projectItems: ProjectItem[] = [
     detailDateRange: "Jan 2025 - Mar 2025",
     detailAssociation: "Solo Project",
     detailTechStack:
-      "Tech Stack: React.js · NestJS (Node.js) · Python · TensorFlow · MongoDB · Computer Vision · Deep Learning · REST APIs",
+      "React.js · NestJS (Node.js) · Python · TensorFlow · MongoDB · Computer Vision · Deep Learning · REST APIs",
     detailOverview:
       "An AI-powered emotion intelligence platform that detects facial expressions in real time and personalizes content (movies, music) based on emotional state. Hybrid architecture: client-side face detection, server-side emotion classification, MongoDB analytics. Provides both real-time recommendations and long-term emotional insights.",
     detailProblem:
@@ -1013,7 +1013,7 @@ export const projectItems: ProjectItem[] = [
     detailAssociation: "Associated with University of Illinois Chicago",
     detailProjectType: "Research Project | Automated Program Repair",
     detailTechStack:
-      "Tech Stack: Python · AFL/AFL++ · GDB · GPT-4o mini · C/C++ · Fuzzing · Stack Trace Analysis · FNV-1a Hashing · Patch Scoring",
+      "Python · AFL/AFL++ · GDB · GPT-4o mini · C/C++ · Fuzzing · Stack Trace Analysis · FNV-1a Hashing · Patch Scoring",
     detailOverview:
       "An automated repair pipeline that combines AFL/AFL++ fuzzing, GDB stack traces, and LLM reasoning to fix crash-inducing bugs in C/C++ programs. The system achieves 85% success rate (11/13 programs) by providing LLMs with concrete execution context—minimized crash inputs and stack traces—rather than code alone.",
     detailProblem:
