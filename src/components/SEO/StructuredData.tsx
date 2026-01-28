@@ -3,43 +3,27 @@
 import { projectItems } from "@/lib/portfolioData";
 
 export function StructuredData() {
-  const websiteSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Prathik Pugazhenthi Portfolio",
-    url: "https://prathikpugazhenthi.dev", // Update with your actual domain
-    description:
-      "Portfolio website of Prathik Pugazhenthi, a software developer specializing in full-stack engineering, cloud infrastructure, and scalable product architectures.",
-    author: {
-      "@type": "Person",
-      name: "Prathik Pugazhenthi",
-      email: "prathik0300@gmail.com",
-      telephone: "+13128893640",
-      url: "https://github.com/Prathik0300",
-      sameAs: [
-        "https://github.com/Prathik0300",
-        "https://www.linkedin.com/in/prathik-pugazhenthi-487855177/",
-      ],
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Chicago",
-        addressRegion: "IL",
-        addressCountry: "US",
-      },
-    },
-  };
+  const baseUrl = "https://prathikpugazhenthi.dev";
+  const primaryName = "Prathik Pugazhenthi";
+  const siteName = "Prathik Pugazhenthi Portfolio";
+
+  const personId = `${baseUrl}/#person`;
+  const orgId = `${baseUrl}/#organization`;
+  const websiteId = `${baseUrl}/#website`;
+  const webpageId = `${baseUrl}/#webpage`;
 
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Prathik Pugazhenthi",
+    "@id": personId,
+    name: primaryName,
     jobTitle: "Software Developer",
     description:
       "Full-Stack & Cloud Developer specializing in distributed systems, Kubernetes, CI/CD automation, and AI-enabled systems.",
     email: "prathik0300@gmail.com",
     telephone: "+13128893640",
-    url: "https://prathikpugazhenthi.dev", // Update with your actual domain
-    image: "https://prathikpugazhenthi.dev/prathik-hero.png", // Update with your actual domain
+    url: baseUrl,
+    image: `${baseUrl}/prathik-hero.png`,
     sameAs: [
       "https://github.com/Prathik0300",
       "https://www.linkedin.com/in/prathik-pugazhenthi-487855177/",
@@ -79,36 +63,81 @@ export function StructuredData() {
     ],
   };
 
-  const projectsSchema = projectItems.map((project) => ({
+  const organizationSchema = {
     "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    name: project.name,
-    description: project.description,
-    url: `https://prathikpugazhenthi.dev/projects/${project.slug}`, // Update with your actual domain
-    keywords: project.techStack.join(", "),
-    creator: {
-      "@type": "Person",
-      name: "Prathik Pugazhenthi",
+    "@type": "Organization",
+    "@id": orgId,
+    name: siteName,
+    url: baseUrl,
+    logo: {
+      "@type": "ImageObject",
+      url: `${baseUrl}/favicon.ico`,
     },
-  }));
+    founder: { "@id": personId },
+  };
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": websiteId,
+    name: siteName,
+    url: baseUrl,
+    description:
+      "Portfolio website of Prathik Pugazhenthi, a software developer specializing in full-stack engineering, cloud infrastructure, and scalable product architectures.",
+    publisher: { "@id": orgId },
+    author: { "@id": personId },
+    inLanguage: "en-US",
+  };
+
+  const webpageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": webpageId,
+    url: baseUrl,
+    name: `${primaryName} | Full-Stack & Cloud Developer`,
+    isPartOf: { "@id": websiteId },
+    about: { "@id": personId },
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      url: `${baseUrl}/prathik-hero.png`,
+    },
+    inLanguage: "en-US",
+  };
+
+  const projectsItemList = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `${primaryName} Projects`,
+    itemListElement: projectItems.map((project, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      url: `${baseUrl}/projects/${project.slug}`,
+      name: project.name,
+    })),
+  };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webpageSchema) }}
       />
-      {projectsSchema.map((project, index) => (
-        <script
-          key={index}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(project) }}
-        />
-      ))}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectsItemList) }}
+      />
     </>
   );
 }

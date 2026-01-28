@@ -11,6 +11,7 @@ import { useImageModal } from "@/hooks/useImageModal";
 import { scrollToId } from "@/utils/dom";
 import { DesignStepIcon } from "@/components/ProjectDetail/DesignStepIcon";
 import { DiagramModal } from "@/components/ProjectDetail/DiagramModal";
+import { ProjectStructuredData } from "@/components/SEO/ProjectStructuredData";
 
 type Props = { project: ProjectItem };
 
@@ -88,6 +89,7 @@ export function ProjectDetailClient({ project }: Props) {
 
   return (
     <main className={styles.page}>
+      <ProjectStructuredData project={project} />
       <div className={styles.container}>
         {coverMedia ? (
           <section className={styles.cover} aria-label="Project cover">
