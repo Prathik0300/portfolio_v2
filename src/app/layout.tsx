@@ -1,9 +1,15 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Ubuntu, Raleway, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { UIProvider } from "@/context/UIContext";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { StructuredData } from "@/components/SEO/StructuredData";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#005461",
+};
 
 const ubuntu = Ubuntu({
   variable: "--font-sans",
@@ -107,11 +113,6 @@ export const metadata: Metadata = {
     "contact:locality": "Chicago",
     "contact:region": "IL",
     "contact:country_name": "United States",
-  },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    themeColor: "#005461",
   },
   formatDetection: {
     telephone: true,
