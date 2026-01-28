@@ -3,10 +3,23 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import { projectItems } from "@/lib/portfolioData";
+import { ProjectTileSkeleton } from "@/components/Skeleton";
 import styles from "./ProjectsSection.module.css";
 
 function ProjectsSection() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate network delay for skeleton demonstration
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1200);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section
       id="projects"
@@ -23,7 +36,12 @@ function ProjectsSection() {
         </p>
       </div>
       <div className={styles.grid}>
-        {projectItems.map((project) => (
+        {isLoading ? (
+          Array.from({ length: 3 }).map((_, index) => (
+            <ProjectTileSkeleton key={`skeleton-${index}`} />
+          ))
+        ) : (
+          projectItems.map((project) => (
           <Link
             key={project.slug}
             href={`/projects/${project.slug}`}
@@ -68,7 +86,8 @@ function ProjectsSection() {
               </div>
             </motion.article>
           </Link>
-        ))}
+        ))
+        )}
       </div>
     </section>
   );

@@ -54,7 +54,7 @@ function Footer() {
           <a
             className={styles.resumeButton}
             href="/Prathik_Pugazhenthi_Resume.pdf"
-            download
+            download="Prathik_Pugazhenthi_Resume.pdf"
           >
             Download resume
           </a>

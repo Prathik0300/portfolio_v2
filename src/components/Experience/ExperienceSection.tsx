@@ -1,9 +1,11 @@
+/* eslint-disable react/jsx-key */
 "use client";
 
 import Image from "next/image";
 import * as Accordion from "@radix-ui/react-accordion";
 import { useState, useEffect, useRef } from "react";
 import { experienceItems } from "@/lib/portfolioData";
+import { ExperienceCardSkeleton } from "@/components/Skeleton";
 import styles from "./ExperienceSection.module.css";
 
 function emphasizeText(text: string) {
@@ -30,12 +32,24 @@ function emphasizeText(text: string) {
 }
 
 function ExperienceSection() {
+  const [isLoading, setIsLoading] = useState(true);
   const [openItems, setOpenItems] = useState<string[]>([]);
   const itemRefs = useRef<Map<string, HTMLElement>>(new Map());
+  const sectionRef = useRef<HTMLElement | null>(null);
   const autoOpenedRef = useRef<Set<string>>(new Set()); // Track items that have been auto-opened
   const manuallyClosedRef = useRef<Set<string>>(new Set()); // Track items that were manually closed
   const lastScrollY = useRef<number>(0);
   const hasScrolledDownRef = useRef<boolean>(false); // Track if we've done the initial scroll down
+  const firstScrollDownHandledRef = useRef<boolean>(false); // Track if we've handled the first scroll down
+
+  useEffect(() => {
+    // Simulate network delay for skeleton demonstration
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1100);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   // Handle manual close - mark item as manually closed
   const handleValueChange = (value: string[]) => {
@@ -70,17 +84,40 @@ function ExperienceSection() {
   };
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (typeof window === "undefined" || isLoading) return;
 
     // Initialize scroll position
     lastScrollY.current = window.scrollY;
 
-    // Track scroll direction
+    // Track scroll direction and handle first scroll down
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollY.current) {
-        hasScrolledDownRef.current = true; // Mark that we've scrolled down at least once
+      const isScrollingDown = currentScrollY > lastScrollY.current;
+      
+      if (isScrollingDown) {
+        hasScrolledDownRef.current = true;
+        
+        // Check if experience section is in view and first item hasn't been opened yet
+        if (!firstScrollDownHandledRef.current && sectionRef.current) {
+          const sectionRect = sectionRef.current.getBoundingClientRect();
+          const isSectionInView = sectionRect.top < window.innerHeight && sectionRect.bottom > 0;
+          
+          if (isSectionInView) {
+            const firstItemValue = 'item-0';
+            // Open the first item on first scroll down through the section
+            // Check current state without causing re-render
+            setOpenItems((prev) => {
+              if (!prev.includes(firstItemValue) && !manuallyClosedRef.current.has(firstItemValue)) {
+                firstScrollDownHandledRef.current = true;
+                autoOpenedRef.current.add(firstItemValue);
+                return [...prev, firstItemValue];
+              }
+              return prev;
+            });
+          }
+        }
       }
+      
       lastScrollY.current = currentScrollY;
     };
 
@@ -104,12 +141,14 @@ function ExperienceSection() {
               // 2. We've scrolled down (first pass)
               // 3. Item hasn't been auto-opened before
               // 4. Item hasn't been manually closed
+              // 5. Skip the first item (item-0) as it's handled by first scroll down
               if (
                 entry.isIntersecting && 
                 entry.intersectionRatio === 1.0 &&
                 hasScrolledDownRef.current &&
                 !autoOpenedRef.current.has(itemValue) &&
-                !manuallyClosedRef.current.has(itemValue)
+                !manuallyClosedRef.current.has(itemValue) &&
+                itemValue !== 'item-0' // First item is handled separately
               ) {
                 // Mark as auto-opened and open it
                 autoOpenedRef.current.add(itemValue);
@@ -138,10 +177,11 @@ function ExperienceSection() {
       clearTimeout(timeoutId);
       observers.forEach((observer) => observer.disconnect());
     };
-  }, []); // Remove openItems from dependencies to prevent re-initialization
+  }, [isLoading]); // Only depend on isLoading
 
   return (
     <section
+      ref={sectionRef}
       id="experience"
       aria-labelledby="experience-heading"
       className={styles.section}
@@ -154,13 +194,20 @@ function ExperienceSection() {
           Where I&apos;ve led full-stack, cloud, and infrastructure impact.
         </p>
       </div>
-      <Accordion.Root 
-        type="multiple" 
-        className={styles.timeline}
-        value={openItems}
-        onValueChange={handleValueChange}
-      >
-        {experienceItems.map((item, index) => {
+      {isLoading ? (
+        <div className={styles.timeline}>
+          {Array.from({ length: 3 }).map((_, index) => (
+            <ExperienceCardSkeleton key={`skeleton-${index}`} />
+          ))}
+        </div>
+      ) : (
+        <Accordion.Root 
+          type="multiple" 
+          className={styles.timeline}
+          value={openItems}
+          onValueChange={handleValueChange}
+        >
+          {experienceItems.map((item, index) => {
           const itemValue = `item-${index}`;
           const isLastItem = index === experienceItems.length - 1;
           
@@ -264,7 +311,8 @@ function ExperienceSection() {
             </div>
           );
         })}
-      </Accordion.Root>
+        </Accordion.Root>
+      )}
     </section>
   );
 }

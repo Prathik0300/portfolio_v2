@@ -4,9 +4,11 @@ import { useEffect, useRef, useState, MouseEvent } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { languageSkills, programmingSkills } from "@/lib/portfolioData";
+import { SkillsCardSkeleton } from "@/components/Skeleton";
 import styles from "./SkillsSection.module.css";
 
 function SkillsSection() {
+  const [isLoading, setIsLoading] = useState(true);
   const [tooltip, setTooltip] = useState<{
     label: string;
     x: number;
@@ -14,6 +16,15 @@ function SkillsSection() {
   } | null>(null);
 
   const tooltipRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    // Simulate network delay for skeleton demonstration
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleShowTooltip = (
     event: MouseEvent<HTMLDivElement>,
@@ -56,24 +67,31 @@ function SkillsSection() {
       </div>
 
       <div className={styles.cardsRow}>
-        <motion.article
-          className={styles.card}
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          whileHover={{ y: -6, rotateX: 3, rotateY: -3 }}
-          transition={{ duration: 0.35, ease: "easeOut" }}
-        >
-          <div className={styles.subHeader}>
-            <h3 className={styles.subHeading}>
-              Programming Languages &amp; Tools
-            </h3>
-            <p className={styles.subHint}>
-              Tech stack I reach for on a daily basis.
-            </p>
-          </div>
-          <div className={styles.iconGrid}>
-            {programmingSkills.map((skill) => (
+        {isLoading ? (
+          <>
+            <SkillsCardSkeleton iconCount={programmingSkills.length} />
+            <SkillsCardSkeleton showLanguages={true} />
+          </>
+        ) : (
+          <>
+            <motion.article
+              className={styles.card}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              whileHover={{ y: -6, rotateX: 3, rotateY: -3 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+            >
+              <div className={styles.subHeader}>
+                <h3 className={styles.subHeading}>
+                  Programming Languages &amp; Tools
+                </h3>
+                <p className={styles.subHint}>
+                  Tech stack I reach for on a daily basis.
+                </p>
+              </div>
+              <div className={styles.iconGrid}>
+                {programmingSkills.map((skill) => (
               <div
                 key={skill.id}
                 className={styles.iconCard}
@@ -91,26 +109,26 @@ function SkillsSection() {
                   />
                 </div>
               </div>
-            ))}
-          </div>
-        </motion.article>
+                ))}
+              </div>
+            </motion.article>
 
-        <motion.article
-          className={styles.card}
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          whileHover={{ y: -6, rotateX: 3, rotateY: -3 }}
-          transition={{ duration: 0.35, ease: "easeOut" }}
-        >
-          <div className={styles.subHeader}>
-            <h3 className={styles.subHeading}>Languages Spoken</h3>
-            <p className={styles.subHint}>
-              How I collaborate with teams across cultures.
-            </p>
-          </div>
-          <div className={styles.languageGrid}>
-            {languageSkills.map((lang) => (
+            <motion.article
+              className={styles.card}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              whileHover={{ y: -6, rotateX: 3, rotateY: -3 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+            >
+              <div className={styles.subHeader}>
+                <h3 className={styles.subHeading}>Languages Spoken</h3>
+                <p className={styles.subHint}>
+                  How I collaborate with teams across cultures.
+                </p>
+              </div>
+              <div className={styles.languageGrid}>
+                {languageSkills.map((lang) => (
               <div
                 key={lang.id}
                 className={styles.languageCard}
@@ -123,9 +141,11 @@ function SkillsSection() {
                 <div className={styles.languageNative}>{lang.nativeLabel}</div>
                 <div className={styles.languageLevel}>{lang.level}</div>
               </div>
-            ))}
-          </div>
-        </motion.article>
+                ))}
+              </div>
+            </motion.article>
+          </>
+        )}
       </div>
       {tooltip && (
         <div ref={tooltipRef} className={styles.languageTooltip}>

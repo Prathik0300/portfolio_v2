@@ -275,17 +275,6 @@ export const languageSkills: LanguageSkill[] = [
 
 export const experienceItems: ExperienceItem[] = [
   {
-    company: "UIC College of Education",
-    role: "Graduate Hourly",
-    period: "May 2025 – Present",
-    location: "Chicago, IL",
-    logoSrc: "/logos/uic-logo.png",
-    points: [
-      "Supporting technical initiatives in education and academic environments.",
-      "Assisting in applied research and software-related tasks.",
-    ],
-  },
-  {
     company: "RadioFX, Inc.",
     role: "Software Development Intern",
     period: "Sept 2025 – Dec 2025",
@@ -311,7 +300,6 @@ export const experienceItems: ExperienceItem[] = [
       "Built CI/CD pipelines using Cloud Build and GitHub Actions enabling zero-downtime rollouts.",
       "Modernized backend microservices to NestJS + Fastify, improving latency and throughput.",
       "Built an AI-powered website builder with evaluation agents and layout generation via Vercel.",
-      "Integrated internal Node modules into Google Artifact Registry for streamlined dependency management.",
     ],
   },
   {
@@ -369,52 +357,40 @@ export const experienceItems: ExperienceItem[] = [
 
 export const serviceItems: ServiceItem[] = [
   {
-    id: "backend",
-    title: "Cloud-Native Backend Engineering",
+    id: "fullstack",
+    title: "Full-Stack Engineering",
     description:
-      "Building distributed backend services, APIs, and authentication using Node/NestJS, Python, and modern cloud patterns.",
+      "Designing and building end-to-end web applications using React, Next.js, NestJS, and scalable backend architectures.",
   },
   {
-    id: "cloudInfra",
-    title: "Cloud & Kubernetes Infrastructure",
+    id: "cloud",
+    title: "Cloud & Platform Engineering",
     description:
-      "Designing and operating cloud workloads on GCP/AWS with Kubernetes (GKE), containers, autoscaling, ingress, and observability.",
+      "Architecting and operating cloud-native systems on GCP/AWS using Kubernetes (GKE), containers, autoscaling, ingress, and observability.",
   },
   {
     id: "devops",
     title: "DevOps & CI/CD Automation",
     description:
-      "Implementing automated build, test, and deploy pipelines with GitHub Actions and Cloud Build for fast, reliable releases.",
-  },
-  {
-    id: "platform",
-    title: "Platform & Developer Tooling",
-    description:
-      "Building internal platforms, validation systems, and developer productivity tooling to accelerate engineering teams.",
+      "Building automated build, test, and deployment pipelines using GitHub Actions and Cloud Build for fast, reliable releases.",
   },
   {
     id: "ai",
-    title: "AI & LLM Application Integration",
+    title: "AI Engineering & LLM Integration",
     description:
-      "Embedding OpenAI/Gemini-powered agents, automation flows, and intelligent features into real-world products.",
+      "Engineering AI-powered features using OpenAI and Gemini, including intelligent agents, automation workflows, and real-world integrations.",
   },
   {
-    id: "fullstack",
-    title: "Full-Stack Web Application Development",
+    id: "security",
+    title: "Security & Reliability Engineering",
     description:
-      "End-to-end product development using React/Next.js frontends and NestJS-based backends backed by cloud infrastructure.",
+      "Ensuring application security and reliability through robust authentication, gateway-level protections, and fault-tolerant system design.",
   },
   {
     id: "performance",
-    title: "Performance & System Optimization",
+    title: "Performance Engineering & Optimization",
     description:
-      "Improving latency, throughput, Core Web Vitals, and Lighthouse scores through frontend and backend performance tuning.",
-  },
-  {
-    id: "modernization",
-    title: "Cloud Migration & Modernization",
-    description:
-      "Containerizing legacy systems and migrating to cloud-native architectures with zero-downtime rollout strategies.",
+      "Optimizing frontend and backend systems to improve latency, throughput, Core Web Vitals, and Lighthouse scores.",
   },
 ];
 

@@ -1,0 +1,88 @@
+.card {
+  position: relative;
+  width: 450px;
+  min-width: 450px;
+  height: 500px;
+  background: #005461;
+  border: 1px solid rgba(1, 135, 144, 0.3);
+  border-radius: 15px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.face1,
+.face2 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.face1 {
+  box-sizing: border-box;
+  padding: clamp(15px, 4vw, 20px);
+  background: #005461;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.face2 {
+  padding: clamp(15px, 4vw, 20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content,
+.face2Content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.75rem, 2.5vw, 1rem);
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.serviceIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.title {
+  margin: 0;
+}
+
+.text {
+  margin: 0;
+}
+
+@media (max-width: 1400px) {
+  .card {
+    width: min(400px, calc(100vw - 200px));
+    min-width: min(400px, calc(100vw - 200px));
+    height: 450px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .card {
+    width: min(350px, calc(100vw - 200px));
+    min-width: min(350px, calc(100vw - 200px));
+    height: 400px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .card {
+    width: min(320px, calc(100vw - 160px));
+    min-width: min(320px, calc(100vw - 160px));
+    height: 380px;
+  }
+}

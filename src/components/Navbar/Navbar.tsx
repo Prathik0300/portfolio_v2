@@ -66,8 +66,8 @@ function Navbar() {
           </div>
 
           <motion.a
-            href="/resume.pdf"
-            download
+            href="/Prathik_Pugazhenthi_Resume.pdf"
+            download="Prathik_Pugazhenthi_Resume.pdf"
             className={styles.resumeButton}
             aria-label="Download resume"
             whileHover={{ scale: 1.02, y: -1 }}

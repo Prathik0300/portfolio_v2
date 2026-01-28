@@ -18,9 +18,8 @@
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
-  flex: 1 1 0;
-  max-width: 36rem;
-  width: 100%;
+  flex: 0 0 50%;
+  width: 50%;
   overflow-wrap: break-word;
   word-wrap: break-word;
 }
@@ -163,7 +162,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  flex: 1 1 0;
+  flex: 0 0 50%;
+  width: 50%;
 }
 
 .orbitRing {
@@ -407,15 +407,25 @@
   }
 
   .heroCopy {
+    flex: 0 0 100%;
     width: 100%;
     max-width: 100%;
     padding: 0;
     box-sizing: border-box;
   }
 
+  .heroVisual {
+    flex: 0 0 100%;
+    width: 100%;
+  }
+
   .heroSection {
     margin-top: 0.5rem;
     padding: 1.25rem 0 3rem;
+  }
+
+  .heroTagRow {
+    display: none;
   }
 }
 
@@ -438,6 +448,12 @@
 
   .heroBlurb {
     font-size: clamp(1rem, 1.1vw + 0.5rem, 1.3rem);
+  }
+}
+
+@media (max-width: 700px) {
+  .heroSubtitle {
+    display: none;
   }
 }
 

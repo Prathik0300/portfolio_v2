@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { serviceItems } from "@/lib/portfolioData";
+import { ServiceCardSkeleton } from "@/components/Skeleton";
 import styles from "./ServicesSection.module.css";
 
 type ServiceHighlight = {
@@ -126,13 +127,23 @@ const SERVICE_HIGHLIGHTS: Record<string, ServiceHighlight> = {
 };
 
 function ServicesSection() {
+  const [isLoading, setIsLoading] = useState(true);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const scrollWrapperRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const autoScrollRef = useRef<NodeJS.Timeout | null>(null);
   const isScrollingRef = useRef(false);
-  const scrollPositions = 7; // Fixed to 7 scroll dots
+  const scrollPositions = serviceItems.length; // Dynamic based on number of service cards
+
+  useEffect(() => {
+    // Simulate network delay for skeleton demonstration
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1300);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   // Auto-scroll functionality
   const startAutoScroll = useCallback(() => {
@@ -176,22 +187,28 @@ function ServicesSection() {
     const scrollContainer = scrollContainerRef.current;
     if (!scrollContainer) return;
 
-    const firstCard = scrollContainer.querySelector(`.${styles.card}`) as HTMLElement;
-    const cardWidth = firstCard ? firstCard.offsetWidth : 450;
-    const gap = 20;
-    const scrollWidth = cardWidth + gap;
-    const { scrollLeft } = scrollContainer;
+    const { scrollLeft, scrollWidth, clientWidth } = scrollContainer;
+    const maxScroll = scrollWidth - clientWidth;
     
-    // Calculate which scroll position we're at based on scroll offset
-    // Each scroll position represents moving one card forward
-    // Position 0 = first card(s) visible, Position 1 = second card becomes first, etc.
-    const scrollPosition = Math.round(scrollLeft / scrollWidth);
+    // If there's no scrollable content, set to first dot
+    if (maxScroll <= 0) {
+      setActiveIndex(0);
+      return;
+    }
     
-    // Clamp to valid range (0 to scrollPositions - 1)
-    const maxScrollPosition = scrollPositions - 1;
-    const clampedIndex = Math.min(Math.max(0, scrollPosition), maxScrollPosition);
-    setActiveIndex(clampedIndex);
-  }, []);
+    // Calculate scroll percentage (0 to 1)
+    const scrollPercentage = Math.min(scrollLeft / maxScroll, 1);
+    
+    // Map percentage to dot index (0 to scrollPositions - 1)
+    // When at the end (scrollPercentage = 1), we want the last dot (scrollPositions - 1)
+    // When at the start (scrollPercentage = 0), we want the first dot (0)
+    const dotIndex = Math.min(
+      Math.round(scrollPercentage * (scrollPositions - 1)),
+      scrollPositions - 1
+    );
+    
+    setActiveIndex(dotIndex);
+  }, [scrollPositions]);
 
   // Calculate active card and scroll positions based on scroll position
   useEffect(() => {
@@ -353,7 +370,12 @@ function ServicesSection() {
             className={styles.scrollContainer}
             ref={scrollContainerRef}
           >
-            {serviceItems.map((service, index) => {
+            {isLoading ? (
+              Array.from({ length: 3 }).map((_, index) => (
+                <ServiceCardSkeleton key={`skeleton-${index}`} />
+              ))
+            ) : (
+              serviceItems.map((service, index) => {
               const highlight = SERVICE_HIGHLIGHTS[service.id];
               const iconSrc = SERVICE_ICONS[service.id] || "/logos/skills/nodejs.svg";
 
@@ -398,7 +420,8 @@ function ServicesSection() {
                   </div>
                 </div>
               );
-            })}
+            })
+            )}
           </div>
 
           {/* Right Navigation Arrow */}
