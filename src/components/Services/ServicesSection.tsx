@@ -28,6 +28,19 @@ const SERVICE_ICONS: Record<string, string> = {
 };
 
 const SERVICE_HIGHLIGHTS: Record<string, ServiceHighlight> = {
+  cloud: {
+    label: "Cloud-native systems",
+    title: "Designing resilient cloud platforms on GCP and AWS",
+    imageSrc: "/logos/skills/gcp.svg",
+    imageAlt: "Cloud platforms icon",
+    summary:
+      "Cloud-native architectures on GCP and AWS focused on resilience, cost, and observability.",
+    points: [
+      "Kubernetes (GKE) workloads with autoscaling and ingress.",
+      "Containerized services with clear rollout strategies.",
+      "Monitoring and logging wired into every environment.",
+    ],
+  },
   backend: {
     label: "Real-world backend impact",
     title: "Multi-tenant content & streaming platform for student radio",
@@ -110,6 +123,19 @@ const SERVICE_HIGHLIGHTS: Record<string, ServiceHighlight> = {
       "PageSpeed 65 → 99.",
       "SEO fixes: 11,380 → 562 poor URLs.",
       "ELK logging for monitoring.",
+    ],
+  },
+  security: {
+    label: "Secure by default",
+    title: "Production safeguards that keep systems trustworthy",
+    imageSrc: "/logos/skills/sonarqube.svg",
+    imageAlt: "Security and reliability icon",
+    summary:
+      "Security and reliability baked into gateways, auth, and runtime protections.",
+    points: [
+      "Robust auth and gateway-level protections.",
+      "Fault-tolerant, observable system design.",
+      "Guardrails in CI/CD to prevent bad deploys.",
     ],
   },
   modernization: {
@@ -398,7 +424,7 @@ function ServicesSection() {
                         </>
                       ) : (
                         <>
-                          <h2>{service.title}</h2>
+                          <p className={styles.cardTitle}>{service.title}</p>
                           <p>{service.description}</p>
                         </>
                       )}

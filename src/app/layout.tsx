@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     template: "%s | Prathik Pugazhenthi",
   },
   description:
-    "Software Developer specializing in full-stack engineering, cloud infrastructure, CI/CD automation, and scalable product architectures. 3+ years of experience building production web platforms, AI-enabled systems, and Kubernetes workloads.",
+    "Full-stack and cloud software developer building scalable web apps and infrastructure with React, Node.js, Kubernetes, CI/CD, and GCP/AWS.",
   keywords: [
     "Prathik Pugazhenthi",
     "Software Developer",
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "/",
+    canonical: "https://prathikpugazhenthi.dev/",
   },
   icons: {
     icon: "/favicon.ico",
