@@ -7,7 +7,7 @@ function Footer() {
     <footer id="contact" className={styles.footer}>
       <div className={styles.inner}>
         <div className={styles.left}>
-          <span>Available for full-stack, cloud, and infrastructure roles.</span>
+          <span>Available for full-stack, AI Engineering, cloud, and infrastructure roles.</span>
           <div className={styles.contactIcons}>
             <a 
               className={styles.iconButton} 
@@ -48,17 +48,6 @@ function Footer() {
             </a>
           </div>
           <span>Based in Chicago, IL, USA.</span>
-          <nav className={styles.footerNav} aria-label="Footer navigation">
-            <a href="#about" className={styles.footerLink}>
-              About
-            </a>
-            <a href="#skills" className={styles.footerLink}>
-              Skills
-            </a>
-            <a href="#projects" className={styles.footerLink}>
-              Projects
-            </a>
-          </nav>
           <span>© {year} Prathik Pugazhenthi. All rights reserved.</span>
         </div>
         <div className={styles.right} aria-label="Social links">

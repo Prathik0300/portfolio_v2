@@ -38,15 +38,6 @@ function AboutSection() {
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
-            <div className={styles.linksRow}>
-              <a href="#projects" className={styles.inlineLink}>
-                View projects
-              </a>
-              <span className={styles.linkSeparator}> · </span>
-              <a href="#services" className={styles.inlineLink}>
-                View services
-              </a>
-            </div>
           </div>
         </div>
       </motion.div>
