@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import Navbar from "@/components/Navbar/Navbar";
 import Hero from "@/components/Hero/Hero";
 import AboutSection from "@/components/About/AboutSection";
@@ -10,8 +10,12 @@ import ServicesSection from "@/components/Services/ServicesSection";
 import ProjectsSection from "@/components/Projects/ProjectsSection";
 import Footer from "@/components/Footer/Footer";
 import { useActiveSection } from "@/hooks/useActiveSection";
+import { Analytics } from "@/components/Analytics/Analytics";
 
 export default function HomePage() {
+  // #region agent log
+  fetch('http://127.0.0.1:7242/ingest/d071aa73-303c-431a-96a3-74a9bce093e9',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'page.tsx:16',message:'HomePage render entry',data:{isSSR:typeof window==='undefined'},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+  // #endregion
   useActiveSection();
 
   useEffect(() => {
@@ -39,8 +43,14 @@ export default function HomePage() {
     }
   }, []);
 
+  // #region agent log
+  fetch('http://127.0.0.1:7242/ingest/d071aa73-303c-431a-96a3-74a9bce093e9',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'page.tsx:45',message:'before Analytics render',data:{isSSR:typeof window==='undefined'},timestamp:Date.now(),sessionId:'debug-session',runId:'post-fix',hypothesisId:'C'})}).catch(()=>{});
+  // #endregion
   return (
     <>
+      <Suspense fallback={null}>
+        <Analytics />
+      </Suspense>
       <Navbar />
       <main>
         <Hero />
