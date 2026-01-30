@@ -12,6 +12,7 @@ import { scrollToId } from "@/utils/dom";
 import { DesignStepIcon } from "@/components/ProjectDetail/DesignStepIcon";
 import { DiagramModal } from "@/components/ProjectDetail/DiagramModal";
 import { ProjectStructuredData } from "@/components/SEO/ProjectStructuredData";
+import { analytics } from "@/utils/analytics";
 
 type Props = { project: ProjectItem };
 
@@ -19,6 +20,9 @@ export function ProjectDetailClient({ project }: Props) {
   // Scroll to top only on page refresh (not navigation)
   useEffect(() => {
     if (typeof window === "undefined") return;
+    
+    // Track project page view
+    analytics.trackProjectView(project.name, project.slug);
     
     // Check if this is a page refresh (not a navigation)
     const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
@@ -32,7 +36,7 @@ export function ProjectDetailClient({ project }: Props) {
       // Enable scroll restoration for navigation (maintains scroll position)
       window.history.scrollRestoration = 'auto';
     }
-  }, []);
+  }, [project]);
   const isMobile = useMediaQuery("(max-width: 768px)");
   const coverMedia = project?.coverMedia ?? null;
   const designSteps = project.detailDesignProcessSteps ?? [];

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { heroCopy } from "@/lib/portfolioData";
 import { useScrollToSection } from "@/hooks/useScrollToSection";
+import { analytics } from "@/utils/analytics";
 import styles from "./Hero.module.css";
 
 const heroVariants = {
@@ -62,7 +63,10 @@ function Hero() {
               whileHover={{ scale: 1.02, y: -1 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
-              onClick={() => scrollToSection("projects")}
+              onClick={() => {
+                analytics.trackButtonClick("View Projects", "hero");
+                scrollToSection("projects");
+              }}
             >
               View Projects
             </motion.button>
@@ -73,7 +77,10 @@ function Hero() {
               whileHover={{ scale: 1.02, y: -1 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
-              onClick={() => scrollToSection("services")}
+              onClick={() => {
+                analytics.trackButtonClick("What I Offer", "hero");
+                scrollToSection("services");
+              }}
             >
               What I Offer
             </motion.button>

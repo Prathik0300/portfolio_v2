@@ -1,3 +1,4 @@
+import { analytics } from "@/utils/analytics";
 import styles from "./Footer.module.css";
 
 function Footer() {
@@ -13,6 +14,7 @@ function Footer() {
               className={styles.iconButton} 
               href="mailto:prathik0300@gmail.com"
               aria-label="Email prathik0300@gmail.com"
+              onClick={() => analytics.trackEmailClick()}
             >
               <svg
                 width="18"
@@ -32,6 +34,7 @@ function Footer() {
               className={styles.iconButton} 
               href="tel:+13128893640"
               aria-label="Call +1 3128893640"
+              onClick={() => analytics.trackPhoneClick()}
             >
               <svg
                 width="18"
@@ -55,6 +58,7 @@ function Footer() {
             className={styles.resumeButton}
             href="/Prathik_Pugazhenthi_Resume.pdf"
             download="Prathik_Pugazhenthi_Resume.pdf"
+            onClick={() => analytics.trackResumeDownload()}
           >
             Download resume
           </a>
@@ -63,6 +67,7 @@ function Footer() {
             href="https://github.com/Prathik0300"
             target="_blank"
             rel="noreferrer"
+            onClick={() => analytics.trackSocialClick("GitHub", "https://github.com/Prathik0300")}
           >
             GitHub
           </a>
@@ -71,6 +76,7 @@ function Footer() {
             href="https://www.linkedin.com/in/prathik-pugazhenthi-487855177/"
             target="_blank"
             rel="noreferrer"
+            onClick={() => analytics.trackSocialClick("LinkedIn", "https://www.linkedin.com/in/prathik-pugazhenthi-487855177/")}
           >
             LinkedIn
           </a>

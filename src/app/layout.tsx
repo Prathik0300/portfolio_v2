@@ -4,6 +4,7 @@ import "./globals.css";
 import { UIProvider } from "@/context/UIContext";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { StructuredData } from "@/components/SEO/StructuredData";
+import { Analytics } from "@/components/Analytics/Analytics";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -134,6 +135,7 @@ export default function RootLayout({
       <body
         className={`${ubuntu.variable} ${raleway.variable} ${jetBrainsMono.variable} appShell`}
       >
+        <Analytics />
         <StructuredData />
         <UIProvider>
           <ScrollToTop />

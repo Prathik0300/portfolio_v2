@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { projectItems } from "@/lib/portfolioData";
 import { ProjectTileSkeleton } from "@/components/Skeleton";
+import { analytics } from "@/utils/analytics";
 import styles from "./ProjectsSection.module.css";
 
 function ProjectsSection() {
@@ -46,6 +47,7 @@ function ProjectsSection() {
             key={project.slug}
             href={`/projects/${project.slug}`}
             className={styles.cardLink}
+            onClick={() => analytics.trackProjectView(project.name, project.slug)}
           >
             <motion.article
               className={styles.card}

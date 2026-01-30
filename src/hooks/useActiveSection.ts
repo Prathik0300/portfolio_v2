@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { useUIContext, type SectionId } from "@/context/UIContext";
+import { analytics } from "@/utils/analytics";
 
 const SECTION_IDS: SectionId[] = [
   "home",
@@ -47,6 +48,11 @@ export function useActiveSection() {
 
         const id = topEntry.target.id as SectionId;
         setActiveSection(id);
+        
+        // Track section view in analytics
+        if (id !== "home") {
+          analytics.trackSectionView(id);
+        }
       },
       {
         root: null,
