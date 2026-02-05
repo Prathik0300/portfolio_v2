@@ -12,9 +12,9 @@ export const trackEvent = (
 
   if (typeof window.gtag !== "undefined") {
     window.gtag("event", action, {
-      category,        // custom param
-      label,           // custom param
-      value,
+      event_category: category,
+      event_label: label,
+      value: value,
     });
   }
 };
