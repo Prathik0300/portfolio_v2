@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import Script from "next/script";
@@ -29,7 +28,7 @@ function usePageView() {
     // Track page view
     if (typeof window.gtag !== "undefined") {
 
-      (window.gtag as any)("config", GA_MEASUREMENT_ID, {
+      window.gtag("config", GA_MEASUREMENT_ID, {
         page_path: url,
         debug_mode: true,
       });
@@ -69,21 +68,4 @@ export function Analytics() {
       />
     </>
   );
-}
-
-// Extend Window interface for TypeScript
-declare global {
-  interface Window {
-    dataLayer: unknown[];
-    gtag: (
-      command: string,
-      targetId: string | Date,
-      config?: {
-        page_path?: string;
-        event_category?: string;
-        event_label?: string;
-        value?: number;
-      }
-    ) => void;
-  }
 }

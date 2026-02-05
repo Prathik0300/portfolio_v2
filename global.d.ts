@@ -5,4 +5,7 @@ declare global {
     dataLayer?: unknown[];
     gtag?: (...args: unknown[]) => void;
   }
+
+  // If some package declares global gtag() too, keep this:
+  function gtag(...args: unknown[]): void;
 }

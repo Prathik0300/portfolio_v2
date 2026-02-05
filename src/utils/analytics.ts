@@ -18,7 +18,7 @@ export const trackEvent = (
   if (typeof window === "undefined" || !GA_MEASUREMENT_ID) return;
 
   if (typeof window.gtag !== "undefined") {
-    (window.gtag as any)("event", action, {
+    window.gtag("event", action, {
       category,        // custom param
       label,           // custom param
       value,
