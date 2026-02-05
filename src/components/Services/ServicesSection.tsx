@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { serviceItems } from "@/lib/portfolioData";
 import { ServiceCardSkeleton } from "@/components/Skeleton";
+import { analytics } from "@/utils/analytics";
 import styles from "./ServicesSection.module.css";
 
 type ServiceHighlight = {
@@ -161,6 +162,8 @@ function ServicesSection() {
   const autoScrollRef = useRef<NodeJS.Timeout | null>(null);
   const isScrollingRef = useRef(false);
   const scrollPositions = serviceItems.length; // Dynamic based on number of service cards
+  const viewedCardsRef = useRef<Set<string>>(new Set());
+  const hasCompletedCarouselRef = useRef(false);
 
   useEffect(() => {
     // Simulate network delay for skeleton demonstration
@@ -268,6 +271,62 @@ function ServicesSection() {
       scrollContainer.removeEventListener("scroll", handleScroll);
     };
   }, [startAutoScroll, updateActiveIndex]);
+
+  // Track carousel card views using IntersectionObserver
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const cards = Array.from(
+      container.querySelectorAll<HTMLElement>(`.${styles.card}`),
+    );
+    if (!cards.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting || entry.intersectionRatio < 0.5) return;
+
+          const cardEl = entry.target as HTMLElement;
+          const cardId = cardEl.dataset.serviceId;
+          if (!cardId) return;
+
+          const viewedSet = viewedCardsRef.current;
+          if (!viewedSet.has(cardId)) {
+            viewedSet.add(cardId);
+            const index = serviceItems.findIndex((s) => s.id === cardId);
+            analytics.trackCarouselCardView(
+              "services-carousel",
+              cardId,
+              index === -1 ? 0 : index,
+              serviceItems.length,
+            );
+
+            if (
+              !hasCompletedCarouselRef.current &&
+              viewedSet.size === serviceItems.length
+            ) {
+              hasCompletedCarouselRef.current = true;
+              analytics.trackCarouselCompletion(
+                "services-carousel",
+                serviceItems.length,
+              );
+            }
+          }
+        });
+      },
+      {
+        root: scrollContainerRef.current,
+        threshold: 0.5,
+      },
+    );
+
+    cards.forEach((card) => observer.observe(card));
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   // Start auto-scroll on mount
   useEffect(() => {
@@ -406,7 +465,11 @@ function ServicesSection() {
               const iconSrc = SERVICE_ICONS[service.id] || "/logos/skills/nodejs.svg";
 
               return (
-                <div key={service.id} className={styles.card}>
+                <div
+                  key={service.id}
+                  className={styles.card}
+                  data-service-id={service.id}
+                >
                   <div className={styles.face1}>
                     <div className={styles.content}>
                       {highlight ? (

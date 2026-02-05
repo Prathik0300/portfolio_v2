@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { analytics } from "@/utils/analytics";
 import styles from "@/app/projects/[...slug]/page.module.css";
 
 interface DiagramModalProps {
@@ -44,21 +45,30 @@ export function DiagramModal({
           <div className={styles.modalControls}>
             <button
               type="button"
-              onClick={onZoomOut}
+              onClick={() => {
+                analytics.trackButtonClick("Diagram Zoom Out", "project-detail");
+                onZoomOut();
+              }}
               className={styles.modalIconButton}
             >
               −
             </button>
             <button
               type="button"
-              onClick={onZoomIn}
+              onClick={() => {
+                analytics.trackButtonClick("Diagram Zoom In", "project-detail");
+                onZoomIn();
+              }}
               className={styles.modalIconButton}
             >
               +
             </button>
             <button
               type="button"
-              onClick={onReset}
+              onClick={() => {
+                analytics.trackButtonClick("Diagram Reset", "project-detail");
+                onReset();
+              }}
               className={styles.modalTextButton}
             >
               Reset

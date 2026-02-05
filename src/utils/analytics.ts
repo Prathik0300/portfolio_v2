@@ -12,15 +12,20 @@ export const trackEvent = (
 
   if (typeof window.gtag !== "undefined") {
     window.gtag("event", action, {
-      event_category: category,
-      event_label: label,
-      value: value,
+      category,        // custom param
+      label,           // custom param
+      value,
     });
   }
 };
 
 // Predefined event trackers
 export const analytics = {
+  // Page views (GA4 already tracks via config, this is for custom page events if needed)
+  trackPageView: (pageName: string, path?: string) => {
+    trackEvent("view", "page", `${pageName}${path ? ` - ${path}` : ""}`);
+  },
+
   // Button clicks
   trackButtonClick: (buttonName: string, location?: string) => {
     trackEvent("click", "button", `${buttonName}${location ? ` - ${location}` : ""}`);
@@ -58,5 +63,28 @@ export const analytics = {
   // Social media clicks
   trackSocialClick: (platform: string, url: string) => {
     trackEvent("click", "social", `${platform} - ${url}`);
+  },
+
+  // Navbar navigation clicks
+  trackNavClick: (targetSection: string) => {
+    trackEvent("click", "nav", targetSection);
+  },
+
+  // Carousel / horizontally scrollable content views
+  trackCarouselCardView: (
+    carouselId: string,
+    cardId: string,
+    index: number,
+    total: number,
+  ) => {
+    trackEvent(
+      "view",
+      "carousel_card",
+      `${carouselId} - card:${cardId} index:${index + 1}/${total}`,
+    );
+  },
+
+  trackCarouselCompletion: (carouselId: string, total: number) => {
+    trackEvent("complete", "carousel", `${carouselId} - viewed_all:${total}`);
   },
 };

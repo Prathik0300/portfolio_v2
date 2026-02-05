@@ -4,6 +4,7 @@ import { useCallback } from "react";
 import { motion } from "framer-motion";
 import { useUIContext } from "@/context/UIContext";
 import { useScrollToSection } from "@/hooks/useScrollToSection";
+import { analytics } from "@/utils/analytics";
 import styles from "./Navbar.module.css";
 
 const NAV_LINKS = [
@@ -21,6 +22,7 @@ function Navbar() {
 
   const handleNavClick = useCallback(
     (id: (typeof NAV_LINKS)[number]["id"]) => {
+      analytics.trackNavClick(id);
       // Allow tap animation to play very briefly before scrolling
       window.setTimeout(() => {
         scrollToSection(id);

@@ -175,6 +175,9 @@ export function ProjectDetailClient({ project }: Props) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.projectLinkButton}
+                  onClick={() =>
+                    analytics.trackExternalLink(link.url, `${project.name} - ${link.label}`)
+                  }
                 >
                   <span className={styles.projectLinkIcon}>{getIcon()}</span>
                   <span className={styles.projectLinkText}>{link.label}</span>
