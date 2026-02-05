@@ -1,7 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Google Analytics event tracking utility
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
+
+// const gtagSafe = (...args: unknown[]) => {
+//   if (typeof window !== "undefined" && window.gtag) {
+//     window.gtag(...args);
+//   }
+// };
 export const trackEvent = (
   action: string,
   category: string,
@@ -11,10 +18,10 @@ export const trackEvent = (
   if (typeof window === "undefined" || !GA_MEASUREMENT_ID) return;
 
   if (typeof window.gtag !== "undefined") {
-    window.gtag("event", action, {
-      event_category: category,
-      event_label: label,
-      value: value,
+    (window.gtag as any)("event", action, {
+      category,        // custom param
+      label,           // custom param
+      value,
     });
   }
 };

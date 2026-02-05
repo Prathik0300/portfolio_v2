@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import Script from "next/script";
@@ -27,8 +28,10 @@ function usePageView() {
 
     // Track page view
     if (typeof window.gtag !== "undefined") {
-      window.gtag("config", GA_MEASUREMENT_ID, {
+
+      (window.gtag as any)("config", GA_MEASUREMENT_ID, {
         page_path: url,
+        debug_mode: true,
       });
     }
   }, [pathname, searchParams]);
