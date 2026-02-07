@@ -276,8 +276,8 @@ export const languageSkills: LanguageSkill[] = [
 export const experienceItems: ExperienceItem[] = [
   {
     company: "RadioFX, Inc.",
-    role: "Software Development Intern",
-    period: "Sept 2025 – Dec 2025",
+    role: "Software Development Intern Co-op",
+    period: "September 2025 – December 2025",
     location: "Chicago, IL",
     logoSrc: "/logos/rfx-logo.png",
     points: [
@@ -292,20 +292,19 @@ export const experienceItems: ExperienceItem[] = [
   {
     company: "RadioFX, Inc.",
     role: "Software Development Intern",
-    period: "Jun 2025 – Aug 2025",
+    period: "June 2025 – August 2025",
     location: "Chicago, IL",
     logoSrc: "/logos/rfx-logo.png",
     points: [
       "Led migration of legacy workloads to GKE across dev/prod clusters with namespace isolation.",
       "Built CI/CD pipelines using Cloud Build and GitHub Actions enabling zero-downtime rollouts.",
-      "Modernized backend microservices to NestJS + Fastify, improving latency and throughput.",
-      "Built an AI-powered website builder with evaluation agents and layout generation via Vercel.",
+      "Modernized backend microservices to NestJS + Fastify, improving latency and throughput."
     ],
   },
   {
     company: "Bajaj Finserv Health",
     role: "Software Development Engineer",
-    period: "Sep 2023 – Jul 2024",
+    period: "September 2023 – July 2024",
     location: "Pune, India",
     logoSrc: "/logos/bfhl-logo.png",
     points: [
@@ -318,7 +317,7 @@ export const experienceItems: ExperienceItem[] = [
   {
     company: "Bajaj Finserv Health",
     role: "Associate SDE",
-    period: "Jul 2022 – Sep 2023",
+    period: "July 2022 – September 2023",
     location: "Pune, India",
     logoSrc: "/logos/bfhl-logo.png",
     points: [
@@ -330,7 +329,7 @@ export const experienceItems: ExperienceItem[] = [
   {
     company: "Bajaj Finserv Health",
     role: "SDE Intern",
-    period: "Jan 2022 – Jun 2022",
+    period: "January 2022 – June 2022",
     location: "Pune, India",
     logoSrc: "/logos/bfhl-logo.png",
     points: [
@@ -344,7 +343,7 @@ export const experienceItems: ExperienceItem[] = [
   {
     company: "UBS",
     role: "Business Analyst Intern",
-    period: "Jun 2021 – Aug 2021",
+    period: "June 2021 – August 2021",
     location: "India",
     logoSrc: "/logos/ubs-logo.png",
     points: [
