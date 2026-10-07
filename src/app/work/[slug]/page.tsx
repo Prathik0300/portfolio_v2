@@ -21,11 +21,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const p = getProject(slug);
   if (!p) return {};
   const description = clip(p.detailOverview ?? p.description);
+  const title = p.seoTitle ?? p.name.replace(/\s+[–-]\s+.*/, "");
   return {
-    title: p.name,
+    title,
     description,
-    openGraph: { type: "article", title: p.name, description },
-    twitter: { title: p.name, description },
+    openGraph: { type: "article", title, description },
+    twitter: { title, description },
   };
 }
 

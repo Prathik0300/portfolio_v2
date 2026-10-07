@@ -29,10 +29,10 @@ export function CaseStudy({ project: p }: { project: ProjectItem }) {
       <header className={styles.hero}>
         <div className={`mono ${styles.path}`}>work / {p.slug}</div>
         <span className="kicker" style={{ marginTop: 16 }}>
-          {p.detailProjectType ?? p.detailAssociation ?? "Project"}
+          {(p.detailProjectType ?? p.detailAssociation ?? "Project").split("|")[0].trim()}
           {p.detailDateRange ? ` · ${p.detailDateRange}` : ""}
         </span>
-        <h1 className={styles.h1}>{p.name}</h1>
+        <h1 className={styles.h1}>{p.name.replace(/\s+[–-]\s+.*/, "")}</h1>
         {p.detailSubtitle && <p className={styles.sub}>{p.detailSubtitle}</p>}
         {links.length > 0 && (
           <div className={styles.heroLinks}>
@@ -164,7 +164,7 @@ export function CaseStudy({ project: p }: { project: ProjectItem }) {
         <aside className={styles.side}>
           <div className={styles.sideSticky}>
             {sections.length > 1 && (
-              <div className={styles.sideBlock}>
+              <div className={`${styles.sideBlock} ${styles.tocBlock}`}>
                 <div className={`mono ${styles.sideLabel}`}>On this page</div>
                 <div className={styles.toc}>
                   {sections.map((s) => (

@@ -66,3 +66,10 @@
 
 .contact { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
 .contactH { font-size: clamp(1.4rem, 3.2vw, 1.9rem); letter-spacing: -0.02em; max-width: 22ch; }
+
+@media (max-width: 560px) {
+  .shippedList { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 0; width: 100%; }
+  .shippedList li { padding: 0 0 0 14px; border-left: 1px solid var(--line-2); }
+  .shippedList li:first-child { padding-left: 14px; }
+  .shippedList li + li::before { display: none; }
+}

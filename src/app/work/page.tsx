@@ -8,7 +8,7 @@ import styles from "./work.module.css";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Case studies on multi-agent AI pipelines, multi-tenant Kubernetes on GKE, a shipped certificate-revocation extension, and LLM program repair, with the constraint, the build and the measured result.",
+    "Case studies on multi-agent AI pipelines, multi-tenant Kubernetes on GKE, a shipped Chrome extension, and LLM program repair: the problem, the build, the result.",
 };
 
 export default function WorkPage() {

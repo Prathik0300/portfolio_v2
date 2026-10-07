@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "budget": "node scripts/js-budget.mjs",
+    "lh": "node scripts/lh.mjs"
   },
   "dependencies": {
     "next": "16.1.1",

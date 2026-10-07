@@ -3,6 +3,7 @@ import type { ProjectItem } from "../types";
 export const crlitePlus: ProjectItem = {
   name: "CRLite+ – Lightweight Certificate Revocation Extension",
   slug: "crlite-plus-cert-revocation",
+  seoTitle: "CRLite+ certificate revocation extension",
   blurb:
     "Local, privacy-preserving TLS certificate revocation for Chromium via cascaded Bloom filters. Shipped to the Chrome Web Store.",
   featured: true,

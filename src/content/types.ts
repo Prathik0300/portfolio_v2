@@ -35,6 +35,8 @@ export interface ProjectStep {
 export interface ProjectItem {
   name: string;
   slug: string;
+  /** <title> for the case-study page when the card name is too terse */
+  seoTitle?: string;
   /** one-liner used on cards */
   blurb?: string;
   /** longer summary used in meta descriptions */

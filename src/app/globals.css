@@ -130,7 +130,7 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
 .kicker {
   font-family: var(--f-mono);
   font-size: 12px;
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
   color: var(--dim);
   display: inline-flex;
   align-items: center;

@@ -6,7 +6,7 @@ export const SITE_URL = "https://www.prathikpugazhenthi.dev";
 export const SITE_NAME = "Prathik Pugazhenthi";
 export const SITE_TITLE = "Prathik Pugazhenthi | AI Platform & Infrastructure Engineer";
 export const SITE_DESCRIPTION =
-  "Software engineer building the platform side of AI: multi-agent pipelines, multi-tenant Kubernetes on GKE, and the CI/CD that ships them. MS CS at UIC, ex-SDE at Bajaj Finserv Health.";
+  "Software engineer on the platform side of AI: multi-agent pipelines, multi-tenant Kubernetes on GKE, and CI/CD. MS CS at UIC, ex-SDE at Bajaj Finserv Health.";
 
 export const absoluteUrl = (path = "/") => new URL(path, SITE_URL).toString();
 

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { aboutPage, languages, siteLinks } from "@/content/profile";
 import { educationItems } from "@/content/experience";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumb, graph, personSchema } from "@/lib/seo";
+import { breadcrumb, graph } from "@/lib/seo";
 import { absoluteUrl, SITE_URL } from "@/lib/site";
 import styles from "./about.module.css";
 
@@ -24,7 +24,6 @@ export default function AboutPage() {
             url: absoluteUrl("/about"),
             mainEntity: { "@id": `${SITE_URL}/#person` },
           },
-          personSchema,
         )}
       />
       <header className={styles.hero}>

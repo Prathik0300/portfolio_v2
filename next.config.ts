@@ -24,8 +24,13 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       { source: "/:path*", headers: securityHeaders },
+      // Files under /public only. /_next/static keeps Next's own immutable caching.
       {
-        source: "/:all*(svg|webp|avif|png|jpg|jpeg|ico|woff2)",
+        source: "/(img|prathik.webp|icon.svg|apple-icon.png|favicon.ico)/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" }],
+      },
+      {
+        source: "/:file(prathik.webp|icon.svg|apple-icon.png|favicon.ico)",
         headers: [{ key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" }],
       },
     ];
