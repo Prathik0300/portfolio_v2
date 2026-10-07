@@ -1,20 +1,14 @@
-.footer {
-  border-top: 1px solid var(--line);
-}
+.footer { border-top: 1px solid var(--line); }
 .inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 12px 24px;
+  gap: 8px 24px;
   padding-block: 24px;
   font-size: 12px;
   color: var(--faint);
 }
-.mid { flex: 1 1 auto; text-align: center; min-width: 180px; }
-.links { display: flex; gap: 18px; }
-.links a { color: var(--faint); font-size: 12px; }
+.links { display: flex; gap: 6px; }
+.links a { color: var(--dim); font-size: 12px; padding: 12px 8px; }
 .links a:hover { color: var(--accent); }
-@media (max-width: 620px) {
-  .mid { text-align: left; order: 3; width: 100%; }
-}

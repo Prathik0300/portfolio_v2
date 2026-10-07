@@ -1,36 +1,34 @@
 import Link from "next/link";
-import { projectItems } from "@/lib/portfolioData";
-import { Reveal } from "@/components/ui";
+import { featuredProjects } from "@/content/projects";
 import { ProjectCard } from "@/components/work/ProjectCard";
 import styles from "./home.module.css";
 
 export function SelectedWork() {
-  const featured = projectItems.filter((p) => p.featured);
-  const flagship = featured.find((p) => p.flagship) ?? featured[0];
-  const rest = featured.filter((p) => p !== flagship).slice(0, 2);
+  const flagship = featuredProjects.find((p) => p.flagship) ?? featuredProjects[0];
+  const rest = featuredProjects.filter((p) => p !== flagship).slice(0, 2);
 
   return (
-    <section id="work" className="section">
+    <section className="section" aria-labelledby="work-title">
       <div className="wrap">
-        <Reveal className={styles.head} as="div">
+        <div className={styles.head}>
           <div className={styles.headText}>
-            <span className="kicker">Selected work</span>
-            <p className={styles.headNote}>Case studies — the constraint, the build, and what changed.</p>
+            <h2 id="work-title" className="kicker">Selected work</h2>
+            <p className={styles.note}>Case studies: the constraint, the build, and what changed.</p>
           </div>
-          <Link href="/work" className={styles.moreLink}>all work →</Link>
-        </Reveal>
+          <Link href="/work" className={styles.more}>all work →</Link>
+        </div>
 
         <div className={styles.workStack}>
           {flagship && (
-            <Reveal>
+            <div className="reveal">
               <ProjectCard project={flagship} variant="flagship" index={1} />
-            </Reveal>
+            </div>
           )}
           <div className={styles.workDuo}>
             {rest.map((p, i) => (
-              <Reveal key={p.slug} index={i} className={styles.workDuoCell}>
+              <div key={p.slug} className="reveal">
                 <ProjectCard project={p} variant="compact" index={i + 2} />
-              </Reveal>
+              </div>
             ))}
           </div>
         </div>

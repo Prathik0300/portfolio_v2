@@ -1,63 +1,18 @@
-.hero {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 32px;
-  align-items: end;
-  padding-bottom: 8px;
-}
-.h1 {
-  font-family: var(--font-display-stack);
-  font-weight: 800;
-  font-size: clamp(2rem, 5vw, 2.7rem);
-  line-height: 1.08;
-  margin-top: 16px;
-}
-.photo {
-  border: 1px solid var(--line-2);
-  border-radius: 14px;
-  overflow: hidden;
-  aspect-ratio: 3 / 4;
-  background: linear-gradient(180deg, #141B1D, #0C1214);
-  max-width: 300px;
-}
-.photo :global(img) {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.section {
-  border-top: 1px solid var(--line);
-  padding-block: 44px;
-}
-.h2 {
-  font-family: var(--font-display-stack);
-  font-weight: 700;
-  font-size: 1.35rem;
-  margin-bottom: 14px;
-}
-.leadP { color: var(--txt); font-size: 1.05rem; margin: 0 0 14px; }
-.p { color: var(--dim); font-size: 1rem; margin: 0 0 14px; }
-.principleGrid,
-.eduGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-}
-.card {
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--bg-1);
-  padding: 20px;
-}
-.cardK { color: var(--accent); font-size: 12px; }
-.cardV { margin: 8px 0 0; font-size: 14px; color: var(--dim); }
-.eduDegree { font-family: var(--font-display-stack); font-weight: 700; font-size: 1rem; }
-.eduSchool { color: var(--dim); font-size: 13.5px; margin-top: 4px; }
-.langs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-.ctaRow { display: flex; gap: 10px; flex-wrap: wrap; }
-.fine { color: var(--faint); font-size: 12px; margin-top: 16px; }
-
+.hero { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; padding-block: clamp(36px, 6vw, 72px) 20px; align-items: end; }
+.h1 { font-size: clamp(1.9rem, 5vw, 2.6rem); line-height: 1.12; letter-spacing: -0.02em; margin-top: 16px; max-width: 18ch; }
+.photo { width: 240px; max-width: 100%; height: auto; aspect-ratio: 640 / 877; background: var(--bg-1); border: 1px solid var(--line-2); border-radius: 16px; }
+.block { border-top: 1px solid var(--line); padding-block: 36px; max-width: 70ch; }
+.last { border-bottom: 1px solid var(--line); margin-bottom: clamp(40px, 6vw, 72px); }
+.lead { color: var(--txt); font-size: 1.06rem; margin: 0 0 14px; }
+.p { color: var(--dim); margin: 0 0 14px; }
+.h2 { font-size: 1.2rem; margin-bottom: 14px; }
+.eduList { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+.eduDegree { font-size: 1rem; }
+.eduMeta { color: var(--dim); font-size: 14px; margin: 4px 0 0; }
+.langs { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.cta { display: flex; flex-wrap: wrap; gap: 10px; }
+.fine { color: var(--faint); font-size: 12px; margin: 14px 0 0; }
 @media (min-width: 780px) {
-  .hero { grid-template-columns: 1fr 300px; }
-  .principleGrid, .eduGrid { grid-template-columns: 1fr 1fr; }
+  .hero { grid-template-columns: minmax(0, 1fr) 280px; }
+  .photo { width: 280px; }
 }

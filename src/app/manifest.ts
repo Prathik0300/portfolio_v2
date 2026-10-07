@@ -1,21 +1,18 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
+import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/site";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Prathik Pugazhenthi Portfolio",
-    short_name: "Prathik Portfolio",
-    description:
-      "AI Platform & Infrastructure Engineer \u2014 multi-agent AI pipelines, multi-tenant platforms on GKE, and the CI/CD that ships them.",
+    name: SITE_NAME,
+    short_name: "Prathik",
+    description: SITE_DESCRIPTION,
     start_url: "/",
     display: "standalone",
-    background_color: "#0A0D0E",
-    theme_color: "#0A0D0E",
+    background_color: "#0a0d0e",
+    theme_color: "#0a0d0e",
     icons: [
-      {
-        src: "/favicon.ico",
-        sizes: "any",
-        type: "image/x-icon",
-      },
+      { src: "/icon.svg", sizes: "any", type: "image/svg+xml" },
+      { src: "/apple-icon.png", sizes: "180x180", type: "image/png" },
     ],
   };
 }

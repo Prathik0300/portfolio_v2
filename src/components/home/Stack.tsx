@@ -1,19 +1,16 @@
-import { stackGroups } from "@/lib/portfolioData";
-import { Reveal } from "@/components/ui";
+import { stackItems, stackLabel } from "@/content/profile";
 import styles from "./home.module.css";
 
 export function Stack() {
-  const group = stackGroups[0];
-  if (!group) return null;
   return (
-    <section id="stack" className="section">
-      <div className="wrap">
-        <Reveal className={styles.stackRow} as="div">
-          <span className={styles.stackLabel}>{group.label}</span>
-          <p className={styles.stackList}>
-            {group.items.join("  ·  ")}
-          </p>
-        </Reveal>
+    <section className="section" aria-label={stackLabel}>
+      <div className={`wrap ${styles.stack}`}>
+        <p className={styles.stackLabel}>{stackLabel}</p>
+        <ul className={styles.stackList}>
+          {stackItems.map((s) => (
+            <li key={s} data-scramble>{s}</li>
+          ))}
+        </ul>
       </div>
     </section>
   );

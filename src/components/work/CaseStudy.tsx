@@ -1,7 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
-import type { ProjectItem } from "@/lib/portfolioData";
-import { Reveal } from "@/components/ui";
+import type { ProjectItem } from "@/content/types";
 import styles from "./CaseStudy.module.css";
 
 function sectionsOf(p: ProjectItem) {
@@ -28,7 +26,7 @@ export function CaseStudy({ project: p }: { project: ProjectItem }) {
         <Link href="/work" className="mono">← back to work</Link>
       </div>
 
-      <Reveal className={styles.hero} as="header">
+      <header className={styles.hero}>
         <div className={`mono ${styles.path}`}>work / {p.slug}</div>
         <span className="kicker" style={{ marginTop: 16 }}>
           {p.detailProjectType ?? p.detailAssociation ?? "Project"}
@@ -51,17 +49,17 @@ export function CaseStudy({ project: p }: { project: ProjectItem }) {
             ))}
           </div>
         )}
-      </Reveal>
+      </header>
 
       {(p.outcomes?.length ?? 0) > 0 && (
-        <Reveal className={styles.metrics} as="div">
+        <div className={styles.metrics}>
           {p.outcomes!.map((o) => (
             <div key={o.label} className={styles.metric}>
-              <div className={`mono ${styles.metricValue}`}>{o.value}</div>
+              <div className={`mono ${styles.metricValue}`} data-count>{o.value}</div>
               <div className={styles.metricLabel}>{o.label}</div>
             </div>
           ))}
-        </Reveal>
+        </div>
       )}
 
       <div className={styles.body}>
@@ -118,11 +116,16 @@ export function CaseStudy({ project: p }: { project: ProjectItem }) {
                     ))}
                     {st.images?.map((img) => (
                       <div key={img.src} className={styles.figure}>
-                        <Image
+                        {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP: plain img avoids client JS and an optimizer hop */}
+                        <img
                           src={img.src}
+                          srcSet={img.width > 900 ? `${img.src.replace(".webp", "-800.webp")} 800w, ${img.src} ${img.width}w` : undefined}
+                          sizes="(min-width: 940px) 680px, 100vw"
                           alt={img.alt}
-                          width={1200}
-                          height={720}
+                          width={img.width}
+                          height={img.height}
+                          loading="lazy"
+                          decoding="async"
                           className={styles.figImg}
                         />
                       </div>
@@ -213,9 +216,9 @@ function Section({
   last?: boolean;
 }) {
   return (
-    <Reveal id={id} as="section" className={`${styles.section} ${last ? styles.sectionLast : ""}`}>
+    <section id={id} className={`reveal ${styles.section} ${last ? styles.sectionLast : ""}`}>
       <h2 className={styles.h2}>{title}</h2>
       {children}
-    </Reveal>
+    </section>
   );
 }

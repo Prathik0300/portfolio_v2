@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { ProjectItem } from "@/lib/portfolioData";
+import type { ProjectItem } from "@/content/types";
 import styles from "./ProjectCard.module.css";
 
 type Variant = "flagship" | "compact" | "row";
@@ -17,10 +17,13 @@ export function ProjectCard({
   project,
   variant = "compact",
   index = 1,
+  as: Heading = "h3",
 }: {
   project: ProjectItem;
   variant?: Variant;
   index?: number;
+  /** heading level, so the page outline stays sequential */
+  as?: "h2" | "h3";
 }) {
   const badge = project.badge ? (
     <span className={`${styles.badge} ${toneClass[project.badgeTone ?? "faint"]}`}>
@@ -43,9 +46,9 @@ export function ProjectCard({
         {badge}
       </div>
 
-      <h3 className={variant === "compact" ? styles.titleSm : styles.title}>
+      <Heading className={variant === "compact" ? styles.titleSm : styles.title}>
         {cleanName(project.name)}
-      </h3>
+      </Heading>
       <p className={styles.desc}>{desc}</p>
 
       {outcomes.length > 0 && (

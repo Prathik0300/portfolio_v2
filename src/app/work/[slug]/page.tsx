@@ -1,68 +1,52 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { projectItems } from "@/lib/portfolioData";
-import { SiteNav } from "@/components/chrome/SiteNav";
-import { SiteFooter } from "@/components/chrome/SiteFooter";
-import { ScrollProgress } from "@/components/ui";
+import { getProject, projects } from "@/content/projects";
 import { CaseStudy } from "@/components/work/CaseStudy";
-import { ProjectStructuredData } from "@/components/SEO/ProjectStructuredData";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumb, graph, projectSchema } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
-const norm = (v: string) =>
-  v.toLowerCase().trim().replace(/%20/g, "-").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-
-function find(slug: string) {
-  return (
-    projectItems.find(
-      (p) => p.slug === slug || norm(p.slug) === norm(slug) || norm(p.name) === norm(slug),
-    ) ?? null
-  );
-}
+// Everything is known at build time; unknown slugs 404 instead of rendering on demand.
+export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return projectItems.map((p) => ({ slug: p.slug }));
+  return projects.map((p) => ({ slug: p.slug }));
 }
+
+const clip = (s: string, n = 158) => (s.length <= n ? s : `${s.slice(0, n - 1).trimEnd()}…`);
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const p = find(slug);
-  if (!p) return { title: "Not found" };
-  const url = `https://prathikpugazhenthi.dev/work/${p.slug}`;
-  const img =
-    p.tileMedia.kind === "image"
-      ? `https://prathikpugazhenthi.dev${p.tileMedia.src}`
-      : "https://prathikpugazhenthi.dev/prathik-hero.png";
+  const p = getProject(slug);
+  if (!p) return {};
+  const description = clip(p.detailOverview ?? p.description);
   return {
     title: p.name,
-    description: p.detailOverview ?? p.description,
-    keywords: [...p.techStack, p.name, "Prathik Pugazhenthi", "case study"],
-    alternates: { canonical: url },
-    openGraph: {
-      title: `${p.name} | Prathik Pugazhenthi`,
-      description: p.detailOverview ?? p.description,
-      url,
-      type: "article",
-      images: [{ url: img, width: 1200, height: 630, alt: p.name }],
-    },
-    twitter: { card: "summary_large_image", title: p.name, description: p.description, images: [img] },
+    description,
+    openGraph: { type: "article", title: p.name, description },
+    twitter: { title: p.name, description },
   };
 }
 
 export default async function WorkDetailPage({ params }: Props) {
   const { slug } = await params;
-  const project = find(slug);
+  const project = getProject(slug);
   if (!project) notFound();
 
   return (
     <>
-      <ProjectStructuredData project={project} />
-      <SiteNav />
-      <ScrollProgress />
-      <main>
-        <CaseStudy project={project} />
-      </main>
-      <SiteFooter />
+      <JsonLd
+        data={graph(
+          breadcrumb([
+            { name: "Home", path: "/" },
+            { name: "Work", path: "/work" },
+            { name: project.name, path: `/work/${project.slug}` },
+          ]),
+          projectSchema(project),
+        )}
+      />
+      <CaseStudy project={project} />
     </>
   );
 }
