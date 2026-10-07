@@ -16,6 +16,7 @@
   --aqua: #8ec07c;
   --orange: #fe8019;
 
+  --page: 1120px;
   --font: var(--font-mono, "IBM Plex Mono"), ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
 
@@ -50,7 +51,8 @@ h1, h2, h3 { margin: 0; font-weight: 600; font-size: inherit; line-height: 1.45;
 p { margin: 0; text-wrap: pretty; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
 
-.page { max-width: 76ch; margin-inline: auto; padding: 20px 20px 72px; }
+.page { max-width: var(--page); margin-inline: auto; padding: 24px 20px 80px; }
+@media (min-width: 760px) { .page { padding-inline: 32px; } }
 
 .srOnly {
   position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
@@ -88,6 +90,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
 /* ---- markdown-ish reading text ---- */
 .md h1 { font-size: 1.3rem; margin-bottom: 14px; }
+/* keep reading lines at a comfortable length even though the page is wide */
+.md p, .md ul, .md ol { max-width: 82ch; }
 .md h1::before { content: "# "; color: var(--faint); }
 .md h2 { font-size: 1.02rem; margin: 30px 0 10px; color: var(--yellow); }
 .md h2::before { content: "## "; color: var(--faint); }
@@ -98,7 +102,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .md ol { display: grid; gap: 8px; counter-reset: s; }
 .md ol li { padding-left: 3ch; text-indent: -3ch; counter-increment: s; }
 .md ol li::before { content: counter(s) ". "; color: var(--faint); }
-.md figure { margin: 22px 0; }
+.md figure { margin: 22px 0; max-width: 980px; }
 .md figure img { display: block; border: 1px solid var(--line); background: #fff; }
 .md figcaption { color: var(--faint); font-size: 13px; margin-top: 6px; }
 .md figcaption::before { content: "^ "; }

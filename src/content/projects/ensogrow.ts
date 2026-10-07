@@ -4,12 +4,12 @@ export const ensogrow: Project = {
   slug: "ensogrow-ai-garden-companion",
   file: "ensogrow",
   name: "EnsoGrow",
-  blurb: "A gardening app that diagnoses sick plants from a photo. Built at WildHacks 2025.",
+  blurb: "A gardening app that diagnoses sick plants from a photo. Built with a team at WildHacks 2025.",
   description:
-    "EnsoGrow, built at WildHacks 2025: a gardening PWA that suggests plants for your space, diagnoses sick ones from a photo with Gemini, and sends care reminders.",
+    "EnsoGrow, built by a team at WildHacks 2025: a gardening PWA that suggests plants for your space, diagnoses sick ones from a photo with Gemini, and sends care reminders.",
   date: "2025-04",
   dateLabel: "Apr 2025",
-  where: "WildHacks 2025 (hackathon)",
+  where: "WildHacks 2025 (hackathon, team project)",
   stack: ["Next.js", "React", "Tailwind CSS", "Gemini API", "Computer vision", "AWS"],
   links: [
     { label: "github", url: "https://github.com/Prathik0300/ensogrow-fe" },
@@ -21,7 +21,7 @@ export const ensogrow: Project = {
       blocks: [
         {
           type: "p",
-          text: "A small progressive web app for people who want to grow food at home. We wanted it to feel like a coach rather than a manual, so it gives short steps instead of long instructions.",
+          text: "A small progressive web app for people who want to grow food at home, built by a team at WildHacks 2025. We wanted it to feel like a coach rather than a manual, so it gives short steps instead of long instructions.",
         },
       ],
     },

@@ -15,5 +15,5 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   const { slug } = await params;
   const p = getProject(slug);
   if (!p) notFound();
-  return ogCard({ command: `cat work/${p.file}.md`, title: p.name, lines: [p.dateLabel, p.stack.slice(0, 3).join(", ")] });
+  return ogCard({ command: `cat projects/${p.file}.md`, title: p.name, lines: [p.dateLabel, p.stack.slice(0, 3).join(", ")] });
 }

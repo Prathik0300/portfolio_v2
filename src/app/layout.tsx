@@ -3,6 +3,7 @@ import { IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@/components/analytics/Analytics";
 import { PaletteHost } from "@/components/fx/PaletteHost";
+import { SiteFooter, SiteHeader } from "@/components/shell/Shell";
 import type { PaletteCommand } from "@/components/fx/CommandPalette";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { projects } from "@/content/projects";
@@ -31,10 +32,10 @@ export const metadata: Metadata = {
 const clean = (n: string) => n.replace(/\s+[–-]\s+.*/, "");
 const paletteCommands: PaletteCommand[] = [
   { id: "home", group: "Go to", label: "~ (home)", href: "/" },
-  { id: "work", group: "Go to", label: "work/", href: "/work" },
+  { id: "projects", group: "Go to", label: "projects/", href: "/projects" },
   { id: "experience", group: "Go to", label: "experience (git log)", href: "/experience" },
   { id: "about", group: "Go to", label: "about", href: "/about" },
-  ...projects.map((p) => ({ id: p.slug, group: "Projects" as const, label: clean(p.name), href: `/work/${p.slug}` })),
+  ...projects.map((p) => ({ id: p.slug, group: "Projects" as const, label: clean(p.name), href: `/projects/${p.slug}` })),
   { id: "email", group: "Actions", label: "copy email address", action: "copy-email", value: siteLinks.email },
   { id: "resume", group: "Actions", label: "open résumé (pdf)", href: siteLinks.resume },
   { id: "github", group: "Actions", label: "github", href: siteLinks.github },
@@ -46,7 +47,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={mono.variable}>
       <body>
         <a href="#main" className="skipLink">Skip to content</a>
-        {children}
+        <SiteHeader />
+        <main id="main" className="page">
+          {children}
+        </main>
+        <SiteFooter />
         <JsonLd data={graph(personSchema, websiteSchema)} />
         <Analytics />
         <PaletteHost commands={paletteCommands} />

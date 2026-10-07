@@ -25,7 +25,6 @@ export const personSchema = {
     { "@type": "CollegeOrUniversity", name: "University of Illinois Chicago" },
     { "@type": "CollegeOrUniversity", name: "Vellore Institute of Technology" },
   ],
-  worksFor: { "@type": "Organization", name: "RadioFX, Inc." },
   knowsAbout: stackItems,
 };
 
@@ -57,9 +56,9 @@ export const projectSchema = (p: Project) => ({
   "@type": "TechArticle",
   headline: p.name,
   description: p.description,
-  url: absoluteUrl(`/work/${p.slug}`),
-  mainEntityOfPage: absoluteUrl(`/work/${p.slug}`),
-  image: absoluteUrl(`/work/${p.slug}/opengraph-image`),
+  url: absoluteUrl(`/projects/${p.slug}`),
+  mainEntityOfPage: absoluteUrl(`/projects/${p.slug}`),
+  image: absoluteUrl(`/projects/${p.slug}/opengraph-image`),
   author: { "@id": personId },
   keywords: p.stack.join(", "),
   inLanguage: "en-US",

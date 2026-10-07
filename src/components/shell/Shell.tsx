@@ -1,17 +1,12 @@
 import Link from "next/link";
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties } from "react";
 import { siteLinks } from "@/content/profile";
 import { SITE_NAME } from "@/lib/site";
+import { NavLinks } from "./NavLinks";
 import styles from "./shell.module.css";
 
-type Current = "work" | "experience" | "about" | undefined;
-
-function Nav({ current }: { current: Current }) {
-  const link = (href: string, label: string, key: Current) => (
-    <Link href={href} aria-current={current === key ? "page" : undefined} data-track={`nav|${label}`}>
-      {label}
-    </Link>
-  );
+/** Lives in the root layout, so it stays mounted (and sticky) while pages change underneath it. */
+export function SiteHeader() {
   return (
     <header className={styles.navWrap}>
       <div className={styles.nav}>
@@ -22,9 +17,7 @@ function Nav({ current }: { current: Current }) {
           <span>$</span>
         </Link>
         <nav className={styles.links} aria-label="Primary">
-          {link("/work", "work", "work")}
-          {link("/experience", "experience", "experience")}
-          {link("/about", "about", "about")}
+          <NavLinks />
           <a href={siteLinks.resume} download data-track="file|resume">résumé</a>
           <button type="button" className={styles.k} data-palette aria-label="Open command menu" title="Command menu (Ctrl or Cmd + K)">
             ⌘K
@@ -35,7 +28,7 @@ function Nav({ current }: { current: Current }) {
   );
 }
 
-function Footer() {
+export function SiteFooter() {
   return (
     <footer className={styles.footer}>
       <div className={styles.footerInner}>
@@ -47,18 +40,6 @@ function Footer() {
         </span>
       </div>
     </footer>
-  );
-}
-
-export function Shell({ current, children }: { current?: Current; children: ReactNode }) {
-  return (
-    <>
-      <Nav current={current} />
-      <main id="main" className="page">
-        {children}
-      </main>
-      <Footer />
-    </>
   );
 }
 

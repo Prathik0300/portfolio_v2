@@ -8,7 +8,8 @@ export interface ExperienceItem {
   /** ISO "YYYY-MM" or "present" */
   end: string;
   location?: string;
-  points: string[];
+  /** `lead` is the headline of the point; `detail` is the supporting line. */
+  points: Array<{ lead: string; detail?: string }>;
 }
 
 export interface EducationItem {

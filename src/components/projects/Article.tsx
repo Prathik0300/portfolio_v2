@@ -82,7 +82,7 @@ export function Article({ project: p }: { project: Project }) {
         </section>
       ))}
       <p className={styles.back}>
-        <Link href="/work">&lt; back to work/</Link>
+        <Link href="/projects">&lt; back to projects/</Link>
       </p>
     </article>
   );

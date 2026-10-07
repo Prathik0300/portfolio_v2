@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Shell, Prompt } from "@/components/shell/Shell";
+import { Prompt } from "@/components/shell/Shell";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { aboutPage, languages, siteLinks } from "@/content/profile";
+import { aboutPage, certifications, languages, siteLinks } from "@/content/profile";
 import { educationItems } from "@/content/experience";
 import { breadcrumb, graph } from "@/lib/seo";
 import { absoluteUrl, SITE_URL } from "@/lib/site";
@@ -10,13 +10,13 @@ import styles from "../page.module.css";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Software engineer finishing an MS in Computer Science at UIC. Before that, three years at Bajaj Finserv Health. Cloud, backend and distributed systems.",
+    "Software engineer who finished an MS in Computer Science at UIC in May 2026. Previously RadioFX and Bajaj Finserv Health. Infrastructure, backend and AI systems.",
   openGraph: { type: "profile" },
 };
 
 export default function AboutPage() {
   return (
-    <Shell current="about">
+    <>
       <JsonLd
         data={graph(
           breadcrumb([{ name: "Home", path: "/" }, { name: "About", path: "/about" }]),
@@ -43,6 +43,12 @@ export default function AboutPage() {
             </li>
           ))}
         </ul>
+        <h2>Certifications</h2>
+        <ul>
+          {certifications.map((c) => (
+            <li key={c}>{c}</li>
+          ))}
+        </ul>
         <h2>Languages</h2>
         <p>{languages.join(", ")}</p>
       </section>
@@ -51,6 +57,6 @@ export default function AboutPage() {
         <span className="ps1">$ </span>mail{" "}
         <a href={`mailto:${siteLinks.email}`} data-track="contact|email">{siteLinks.email}</a>
       </p>
-    </Shell>
+    </>
   );
 }

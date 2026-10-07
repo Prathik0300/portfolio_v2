@@ -8,6 +8,6 @@ export default function Image() {
   return ogCard({
     command: "cat README.md",
     title: "Prathik Pugazhenthi",
-    lines: ["Software engineer in Chicago.", "Infrastructure for AI products."],
+    lines: ["Software engineer in Chicago.", "Infrastructure for AI systems."],
   });
 }

@@ -1,7 +1,9 @@
-.legend { display: flex; flex-wrap: wrap; gap: 0 22px; margin-bottom: 22px; color: var(--dim); font-size: 13px; }
-.log { margin: 0; padding: 0; list-style: none; }
-.commit { display: grid; grid-template-columns: 6ch minmax(0, 1fr); column-gap: 1.5ch; }
+.legend { display: flex; flex-wrap: wrap; gap: 0 22px; margin-bottom: 28px; color: var(--dim); font-size: 13px; }
 
+.log { margin: 0; padding: 0; list-style: none; }
+.commit { display: grid; grid-template-columns: 6.5ch minmax(0, 1fr); column-gap: 1.5ch; }
+
+/* the graph: one thin colored line per lane, a * on the commit row */
 .graph { display: grid; grid-template-columns: repeat(4, 1.5ch); }
 .lane { position: relative; }
 .on::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: currentColor; transform: translateX(-50%); }
@@ -10,18 +12,29 @@
 .top.end::before { display: none; }
 .lane b { position: absolute; left: 50%; top: 0; transform: translateX(-50%); background: var(--bg); font-weight: 600; line-height: 1.75; }
 
-.commit details { min-width: 0; padding-bottom: 18px; }
-.commit summary { cursor: pointer; list-style: none; }
+.commit details { min-width: 0; padding-bottom: 40px; }
+.commit summary { cursor: pointer; list-style: none; display: block; }
 .commit summary::-webkit-details-marker { display: none; }
-.commit summary::after { content: " [+]"; color: var(--faint); white-space: nowrap; }
-.commit details[open] summary::after { content: " [-]"; }
-.when { display: block; color: var(--faint); font-size: 13px; line-height: 1.5; }
-.title { font-weight: 600; }
-.org { }
-.body { margin: 8px 0 0; }
+.commit summary::after { content: "[-]"; position: absolute; right: 0; color: var(--faint); }
+.commit details:not([open]) summary::after { content: "[+]"; }
+.commit details[data-empty] summary { cursor: default; }
+.commit details[data-empty] summary::after { content: none; }
+.commit details { position: relative; }
+
+.head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 1.2ch; padding-right: 5ch; }
+.title { font-weight: 600; font-size: 1.05rem; }
+.org { font-weight: 600; }
+.when { display: block; color: var(--faint); font-size: 13px; margin-top: 1px; }
+
+/* one point = a bold headline, then the detail underneath. Roomy, left-aligned, no hanging dashes. */
+.points { margin: 18px 0 0; padding: 0; list-style: none; display: grid; gap: 20px; max-width: 74ch; }
+.points li { padding-left: 2.2ch; position: relative; border-left: 1px solid var(--line); margin-left: 0.5ch; }
+.lead { display: block; font-weight: 600; color: var(--fg); line-height: 1.6; }
+.detail { display: block; margin-top: 4px; color: var(--dim); line-height: 1.75; }
+.num { color: var(--yellow); }
+.lead .num { font-weight: 600; }
 
 @media (min-width: 640px) {
   .commit { grid-template-columns: 8ch minmax(0, 1fr); column-gap: 2ch; }
   .graph { grid-template-columns: repeat(4, 2ch); }
-  .when { display: inline; margin-right: 2ch; font-size: inherit; }
 }

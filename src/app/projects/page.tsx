@@ -1,26 +1,26 @@
 import type { Metadata } from "next";
-import { Shell, Prompt } from "@/components/shell/Shell";
-import { WorkList } from "@/components/rows/WorkList";
+import { Prompt } from "@/components/shell/Shell";
+import { ProjectList } from "@/components/rows/ProjectList";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumb, graph } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Work",
+  title: "Projects",
   description:
     "Things I've built: a prompt-to-website pipeline on GKE, a Chrome extension for certificate revocation, an LLM that repairs crashes, and a few smaller projects.",
 };
 
 export default function WorkPage() {
   return (
-    <Shell current="work">
-      <JsonLd data={graph(breadcrumb([{ name: "Home", path: "/" }, { name: "Work", path: "/work" }]))} />
-      <Prompt typed cmd="ls -lt work/" path="~" />
+    <>
+      <JsonLd data={graph(breadcrumb([{ name: "Home", path: "/" }, { name: "Projects", path: "/projects" }]))} />
+      <Prompt typed cmd="ls -lt projects/" path="~" />
       <div className="md">
-        <h1>Work</h1>
+        <h1>Projects</h1>
       </div>
       <div style={{ marginTop: 18 }}>
-        <WorkList detailed />
+        <ProjectList detailed />
       </div>
-    </Shell>
+    </>
   );
 }

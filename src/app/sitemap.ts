@@ -6,14 +6,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date(CONTENT_UPDATED);
   return [
     { url: absoluteUrl("/"), lastModified, changeFrequency: "monthly", priority: 1 },
-    ...["/work", "/experience", "/about"].map((path) => ({
+    ...["/projects", "/experience", "/about"].map((path) => ({
       url: absoluteUrl(path),
       lastModified,
       changeFrequency: "monthly" as const,
       priority: 0.9,
     })),
     ...projects.map((p) => ({
-      url: absoluteUrl(`/work/${p.slug}`),
+      url: absoluteUrl(`/projects/${p.slug}`),
       lastModified,
       changeFrequency: "monthly" as const,
       priority: 0.8,

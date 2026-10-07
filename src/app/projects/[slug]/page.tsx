@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getProject, projects } from "@/content/projects";
-import { Shell, Prompt } from "@/components/shell/Shell";
-import { Article } from "@/components/work/Article";
+import { Prompt } from "@/components/shell/Shell";
+import { Article } from "@/components/projects/Article";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumb, graph, projectSchema } from "@/lib/seo";
 
@@ -34,19 +34,19 @@ export default async function WorkDetailPage({ params }: Props) {
   if (!project) notFound();
 
   return (
-    <Shell current="work">
+    <>
       <JsonLd
         data={graph(
           breadcrumb([
             { name: "Home", path: "/" },
-            { name: "Work", path: "/work" },
-            { name: project.name, path: `/work/${project.slug}` },
+            { name: "Projects", path: "/projects" },
+            { name: project.name, path: `/projects/${project.slug}` },
           ]),
           projectSchema(project),
         )}
       />
-      <Prompt typed cmd={`cat ${project.file}.md`} path="~/work" />
+      <Prompt typed cmd={`cat ${project.file}.md`} path="~/projects" />
       <Article project={project} />
-    </Shell>
+    </>
   );
 }

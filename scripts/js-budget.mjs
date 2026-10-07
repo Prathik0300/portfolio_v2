@@ -7,7 +7,7 @@ import fs from "node:fs";
 import path from "node:path";
 import zlib from "node:zlib";
 
-const root = path.resolve(".next");
+const root = path.resolve(process.env.NEXT_DIST_DIR ?? ".next");
 const pages = path.join(root, "server/app");
 const APP_CODE_BUDGET_KB = 15;
 

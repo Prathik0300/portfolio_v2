@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { educationItems, experienceItems } from "@/content/experience";
 import { formatRange } from "@/lib/format";
 import styles from "./GitLog.module.css";
@@ -10,9 +11,10 @@ const LANES = [
   { key: "ubs", label: "ubs", color: "var(--purple)" },
 ] as const;
 
-type Commit = { id: string; lane: number; start: string; when: string; title: string; org: string; body: string[] };
+type Point = { lead: string; detail?: string };
+type Commit = { id: string; lane: number; start: string; when: string; title: string; org: string; where?: string; body: Point[] };
 
-const mastersDegree = educationItems[0];
+const [masters] = educationItems;
 
 function buildCommits(): Commit[] {
   const roles: Commit[] = experienceItems.map((r) => ({
@@ -22,23 +24,38 @@ function buildCommits(): Commit[] {
     when: formatRange(r.start, r.end),
     title: r.role,
     org: r.company,
+    where: r.location,
     body: r.points,
   }));
   const ms: Commit = {
     id: "uic-ms",
     lane: 0,
-    start: mastersDegree.start,
-    when: formatRange(mastersDegree.start, mastersDegree.end),
-    title: "Started MS in Computer Science",
-    org: "University of Illinois Chicago",
-    body: [mastersDegree.note ?? ""].filter(Boolean),
+    start: masters.start,
+    when: formatRange(masters.start, masters.end),
+    title: "MS in Computer Science",
+    org: masters.school,
+    where: "Chicago, IL",
+    body: masters.note ? [{ lead: masters.note }] : [],
   };
   return [...roles, ms].sort((a, b) => b.start.localeCompare(a.start));
 }
 
+/** Numbers and metrics stand out in yellow, so the results are what the eye lands on. */
+function Highlight({ text }: { text: string }): ReactNode {
+  return text.split(/(\d[\d,.]*\+?%?(?: ms| minutes| KB)?)/).map((part, i) =>
+    i % 2 === 1 ? (
+      <span key={i} className={styles.num}>
+        {part}
+      </span>
+    ) : (
+      part
+    ),
+  );
+}
+
 export function GitLog() {
   const commits = buildCommits();
-  // Each lane is drawn from its first to its last commit. The MS lane runs up to the top: I'm still enrolled.
+  // Each lane is drawn from its newest to its oldest commit. The MS lane ran until May 2026, past every other row, so it starts at the top.
   const span = LANES.map((_, lane) => {
     const rows = commits.map((c, i) => (c.lane === lane ? i : -1)).filter((i) => i >= 0);
     return { first: lane === 0 ? 0 : rows[0], last: rows[rows.length - 1] };
@@ -67,19 +84,33 @@ export function GitLog() {
                 );
               })}
             </div>
-            <details open={i === 0}>
+            <details open={c.body.length > 0} data-empty={c.body.length === 0 || undefined}>
               <summary>
-                <span className={styles.when}>{c.when}</span>
-                <span className={styles.title}>{c.title}</span>
-                <span className={styles.org} style={{ color: LANES[c.lane].color }}> {c.org}</span>
+                <span className={styles.head}>
+                  <span className={styles.title}>{c.title}</span>
+                  <span className={styles.org} style={{ color: LANES[c.lane].color }}>{c.org}</span>
+                </span>
+                <span className={styles.when}>
+                  {c.when}
+                  {c.where ? ` · ${c.where}` : ""}
+                </span>
               </summary>
-              <div className={`md ${styles.body}`}>
-                <ul>
-                  {c.body.map((b) => (
-                    <li key={b}>{b}</li>
+              {c.body.length > 0 && (
+                <ul className={styles.points}>
+                  {c.body.map((p) => (
+                    <li key={p.lead}>
+                      <strong className={styles.lead}>
+                        <Highlight text={p.lead} />
+                      </strong>
+                      {p.detail && (
+                        <span className={styles.detail}>
+                          <Highlight text={p.detail} />
+                        </span>
+                      )}
+                    </li>
                   ))}
                 </ul>
-              </div>
+              )}
             </details>
           </li>
         ))}

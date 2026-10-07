@@ -1,13 +1,13 @@
 import Link from "next/link";
-import { Shell, Prompt } from "@/components/shell/Shell";
-import { WorkList } from "@/components/rows/WorkList";
+import { Prompt } from "@/components/shell/Shell";
+import { ProjectList } from "@/components/rows/ProjectList";
 import { RecentRoles } from "@/components/rows/RecentRoles";
 import { readme, siteLinks, stackItems } from "@/content/profile";
 import styles from "./page.module.css";
 
 export default function HomePage() {
   return (
-    <Shell>
+    <>
       <Prompt typed cmd="cat README.md" />
       <section className={`md ${styles.readme}`}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -25,10 +25,10 @@ export default function HomePage() {
       </nav>
 
       <section className={styles.block} aria-label="Projects">
-        <Prompt cmd="ls -t work/ | head -3" path="~" />
-        <WorkList limit={3} />
+        <Prompt cmd="ls -t projects/ | head -3" path="~" />
+        <ProjectList limit={3} />
         <p className="faint" style={{ marginTop: 16 }}>
-          <Link href="/work">more in work/</Link>
+          <Link href="/projects">more in projects/</Link>
         </p>
       </section>
 
@@ -49,6 +49,6 @@ export default function HomePage() {
         <span className="ps1">$ </span>mail{" "}
         <a href={`mailto:${siteLinks.email}`} data-track="contact|email">{siteLinks.email}</a>
       </p>
-    </Shell>
+    </>
   );
 }

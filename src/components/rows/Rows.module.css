@@ -2,11 +2,11 @@
 .row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 2ch; }
 .when { color: var(--faint); font-size: 13px; }
 .name { color: var(--yellow); }
-.blurb { color: var(--dim); margin-top: 2px; }
+.blurb { color: var(--dim); margin-top: 2px; max-width: 82ch; }
 .stack { color: var(--faint); font-size: 13px; margin-top: 2px; }
 .stack::before { content: "stack: "; }
 @media (min-width: 640px) {
-  .row { grid-template-columns: 20ch minmax(0, 1fr); }
+  .row { grid-template-columns: 22ch minmax(0, 1fr); }
   .when { padding-top: 1px; }
 }
 .more { margin-top: 16px; }

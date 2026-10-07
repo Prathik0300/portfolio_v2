@@ -15,14 +15,14 @@ npm run build && npm start
 
 | Area | Decision |
 |---|---|
-| Rendering | Every route is static (SSG). Server Components by default; `/work/[slug]` uses `generateStaticParams` + `dynamicParams = false`. |
+| Rendering | Every route is static (SSG). Server Components by default; `/projects/[slug]` uses `generateStaticParams` + `dynamicParams = false`. |
 | Client JS | Two islands: `analytics/Analytics` and `fx/PaletteHost` (Ctrl/Cmd+K). The palette itself is code-split and loads on first use. The nav is a server component, so it has no JS at all. |
-| Look | A terminal session: IBM Plex Mono only, Gruvbox colors used semantically (links blue, dates dim, git lanes by employer). No cards, gradients or shadows. Each page is a command: `/` is `cat README.md`, `/work` is `ls -lt work/`, `/experience` is `git log --graph`. |
+| Look | A terminal session: IBM Plex Mono only, Gruvbox colors used semantically (links blue, dates dim, git lanes by employer). No cards, gradients or shadows. Each page is a command: `/` is `cat README.md`, `/projects` is `ls -lt projects/`, `/experience` is `git log --graph`. |
 | Motion | Only the typed prompt line (CSS `steps()`) and the caret, both off under `prefers-reduced-motion`. |
-| Content | Plain-language copy lives in typed modules under `src/content/` (`profile`, `experience`, `projects/*`). Add a project by adding a file and listing it in `projects/index.ts`; it shows up in `/work`, the sitemap and the palette. |
+| Content | Plain-language copy lives in typed modules under `src/content/` (`profile`, `experience`, `projects/*`). Add a project by adding a file and listing it in `projects/index.ts`; it shows up in `/projects`, the sitemap and the palette. |
 | SEO | `src/lib/site.ts` is the single origin. Server-rendered JSON-LD (`lib/seo.ts`), `app/robots.ts`, `app/sitemap.ts`, build-time OG images (`opengraph-image.tsx`), per-page canonicals. |
 | Analytics | GA4 via `NEXT_PUBLIC_GA_MEASUREMENT_ID`, loaded `lazyOnload`. Clicks are tracked by one delegated listener reading `data-track="category|label"`. |
-| Assets | WebP only, with 800w variants for wide diagrams. `/projects/:slug` 308-redirects to `/work/:slug` in `next.config.ts`. |
+| Assets | WebP only, with 800w variants for wide diagrams. `/work` and `/work/:slug` 308-redirect to `/projects/...` in `next.config.ts`. |
 
 ## Budgets and checks
 

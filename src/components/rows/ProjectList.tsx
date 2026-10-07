@@ -4,8 +4,8 @@ import styles from "./Rows.module.css";
 
 const clean = (n: string) => n.replace(/\s+[–-]\s+.*/, "");
 
-/** `ls -t work/` : newest first. `detailed` adds the stack line. */
-export function WorkList({ limit, detailed = false }: { limit?: number; detailed?: boolean }) {
+/** `ls -t projects/` : newest first. `detailed` adds the stack line. */
+export function ProjectList({ limit, detailed = false }: { limit?: number; detailed?: boolean }) {
   const list = limit ? projects.slice(0, limit) : projects;
   return (
     <ul className={styles.list}>
@@ -13,7 +13,7 @@ export function WorkList({ limit, detailed = false }: { limit?: number; detailed
         <li key={p.slug} className={styles.row}>
           <span className={styles.when}>{p.dateLabel}</span>
           <div>
-            <Link href={`/work/${p.slug}`} className={styles.name}>{clean(p.name)}</Link>
+            <Link href={`/projects/${p.slug}`} className={styles.name}>{clean(p.name)}</Link>
             <p className={styles.blurb}>{p.blurb}</p>
             {detailed && <p className={styles.stack}>{p.stack.join(", ")}</p>}
           </div>

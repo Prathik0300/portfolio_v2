@@ -1,63 +1,97 @@
 import type { EducationItem, ExperienceItem } from "./types";
 
+/** Newest first. Source: LinkedIn profile. Nothing before UBS is listed. */
 export const experienceItems: ExperienceItem[] = [
   {
     id: "radiofx-coop",
     company: "RadioFX, Inc.",
     companyId: "radiofx",
-    role: "Software Development Co-op",
+    role: "Software Engineering Co-op (AI + DevOps)",
     start: "2025-09",
     end: "2025-12",
     location: "Chicago, IL",
     points: [
-      "Built a multi-agent pipeline that turns a prompt into a deployed website, using Gemini 2.5 Pro, Gemini 3 Pro and Vercel v0.",
-      "Designed how the generated sites are hosted: one tenant per site on GKE, with Helm, workload isolation and NGINX ingress.",
-      "Set up GitHub Actions to detect what changed and redeploy only that, which cut deploy time and compute cost.",
-      "Built embeddable streaming, chat and polling components that partners add to their own sites, with JWT and opaque-token auth.",
-      "Wrote the CMS backend in NestJS on Cassandra, with DTO validation and guards.",
+      {
+        lead: "Owned the infrastructure architecture.",
+        detail: "System design, scalability and security for a low-latency platform that serves real users.",
+      },
+      {
+        lead: "Moved RadioFX from Jenkins to GitOps on GKE.",
+        detail: "Terraform and ArgoCD provision the multi-tenant GKE infrastructure. Trivy-scanned CI/CD cut deployments from 40 minutes to 10.",
+      },
+      {
+        lead: "Built an internal tool for debugging production.",
+        detail: "A Next.js app with self-service access to live GKE pod health, metrics and logs, plus a Gemini-powered assistant that turns plain-language questions into SQL. It took kubectl and SQL expertise out of the loop.",
+      },
+      {
+        lead: "Built an AI pipeline that rebuilds a customer's website.",
+        detail: "It scrapes the existing site, audits it for SEO, security and UX gaps, and regenerates a modernized one from the scraped content and assets. It plugs into RadioFX's API suite (chat, polls, streaming, contests) and deploys itself to dedicated infrastructure.",
+      },
     ],
   },
   {
     id: "radiofx-intern",
     company: "RadioFX, Inc.",
     companyId: "radiofx",
-    role: "Software Development Intern",
+    role: "Software Development Intern (Full Stack)",
     start: "2025-06",
     end: "2025-08",
     location: "Chicago, IL",
     points: [
-      "Led the move of legacy workloads onto GKE across the dev and prod clusters, isolated by namespace.",
-      "Wrote CI/CD pipelines in Cloud Build and GitHub Actions so releases roll out with zero downtime.",
-      "Moved backend services to NestJS with Fastify, which improved latency and throughput.",
+      {
+        lead: "Built a Kafka-backed API subscription platform.",
+        detail: "It runs on GCP with tiered access, configurable rate limits and quota enforcement for 15+ enterprise customers, and held sub-200 ms p95 latency under load.",
+      },
+      {
+        lead: "Wrote a schema-driven CMS.",
+        detail: "NestJS and Cassandra. It separates content releases from the deployment pipeline, so non-technical teams can ship updates without a redeploy.",
+      },
     ],
   },
   {
-    id: "bfhl-sde",
+    id: "bfhl-sde2",
     company: "Bajaj Finserv Health",
     companyId: "bfhl",
-    role: "Software Development Engineer",
+    role: "Software Development Engineer II (Full Stack)",
     start: "2023-09",
     end: "2024-07",
     location: "Pune, India",
     points: [
-      "Owned three B2C modules that carried 98% of the website's traffic.",
-      "Cut bug counts by 95% and steadied the critical user flows.",
-      "Designed CanvasRx, an internal tool that lets doctors annotate images during consultations.",
-      "Led work on modules in the doctor portal, for both developer and user experience.",
+      {
+        lead: "Architected a medical image annotation platform (CanvasRx).",
+        detail: "Built end to end for 80,000+ doctors: a React and WebGL frontend, and a NestJS and SQL backend with REST APIs that store the annotations.",
+      },
+      {
+        lead: "Replaced synchronous service calls with events.",
+        detail: "Azure Service Bus now carries appointment requests, consultation matching and notifications, which ended the cascading failures under high concurrency.",
+      },
+      {
+        lead: "Cut bug occurrences by about 90% in the consumer app and about 55% in the doctor platform.",
+        detail: "Over 14 months, tracked on ELK dashboards.",
+      },
     ],
   },
   {
-    id: "bfhl-associate",
+    id: "bfhl-sde1",
     company: "Bajaj Finserv Health",
     companyId: "bfhl",
-    role: "Associate SDE",
+    role: "Software Development Engineer I (Full Stack)",
     start: "2022-07",
-    end: "2023-09",
+    end: "2023-08",
     location: "Pune, India",
     points: [
-      "Built AMP pages, which took PageSpeed from 65 to 99.",
-      "Cut build times by 25% across key services.",
-      "Raised Lighthouse scores on high-traffic pages.",
+      {
+        lead: "Cut application build time by 25%.",
+        detail: "Re-engineered the frontend build pipeline, which also sped up release turnaround.",
+      },
+      {
+        lead: "Moved a monolith to a Turborepo multi-repo setup.",
+        detail: "Git submodules across 4 business verticals. Repo size and deployment pipeline time each dropped by about 60%, and local debugging and feature work got faster.",
+      },
+      {
+        lead: "Rolled out AMP and SSR with Next.js.",
+        detail: "PageSpeed went from 65 to 99, Lighthouse from 34 to 88, and page load time dropped 85%.",
+      },
     ],
   },
   {
@@ -69,11 +103,14 @@ export const experienceItems: ExperienceItem[] = [
     end: "2022-06",
     location: "Pune, India",
     points: [
-      "Cut page load time by 85% on critical user journeys.",
-      "Raised the Doctor Profile page SEO score from 34 to 88.",
-      "Brought poor URLs down from 11,380 to 562 with technical SEO fixes.",
-      "Added ELK logging for debugging and monitoring across services.",
-      "Set up a Sonar pipeline, which took code coverage from 0% to 55%.",
+      {
+        lead: "Set up SonarQube and ELK from scratch.",
+        detail: "Code coverage went from 0% to 55%, and real-time log monitoring brought down 4xx error rates.",
+      },
+      {
+        lead: "Automated SEO audits.",
+        detail: "Google Search Console and Lighthouse pipelines. Poor URLs dropped from 11,380 to 562 and the SEO score rose to 98.",
+      },
     ],
   },
   {
@@ -85,9 +122,14 @@ export const experienceItems: ExperienceItem[] = [
     end: "2021-08",
     location: "India",
     points: [
-      "Built Alteryx workflows for processing large datasets.",
-      "Automated data preparation with macros.",
-      "Mapped processes in ARIS, which took about 7,000 manual tasks down to about 500.",
+      {
+        lead: "Built Alteryx workflows for large datasets.",
+        detail: "Pre-processing for analysis, and converted 3 Excel macros (EUAs) into Alteryx workflows.",
+      },
+      {
+        lead: "Mapped 11 processes in ARIS.",
+        detail: "Used it to find what could be digitized. As a team we cut more than 7,000 manual and redundant tasks down to around 500.",
+      },
     ],
   },
 ];
@@ -97,8 +139,8 @@ export const educationItems: EducationItem[] = [
     school: "University of Illinois Chicago",
     degree: "MS, Computer Science",
     start: "2024-08",
-    end: "present",
-    note: "cloud computing, backend and distributed systems",
+    end: "2026-05",
+    note: "4.0 GPA",
   },
   {
     school: "Vellore Institute of Technology",

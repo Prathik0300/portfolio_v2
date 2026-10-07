@@ -9,6 +9,8 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // `NEXT_DIST_DIR=.next-verify next build` lets you check a production build without breaking a running `next dev`.
+  distDir: process.env.NEXT_DIST_DIR ?? ".next",
   poweredByHeader: false,
   reactStrictMode: true,
   compress: true,
@@ -18,8 +20,11 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 60 * 60 * 24 * 365,
   },
   async redirects() {
-    // Old project URLs -> new case-study URLs, answered at the edge (no function).
-    return [{ source: "/projects/:slug", destination: "/work/:slug", permanent: true }];
+    // Anything shared under /work while it was called that lands on /projects (edge redirect, no function).
+    return [
+      { source: "/work", destination: "/projects", permanent: true },
+      { source: "/work/:slug", destination: "/projects/:slug", permanent: true },
+    ];
   },
   async headers() {
     return [
