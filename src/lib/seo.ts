@@ -13,7 +13,6 @@ export const personSchema = {
   description: SITE_DESCRIPTION,
   url: SITE_URL,
   email: `mailto:${siteLinks.email}`,
-  image: absoluteUrl("/prathik.webp"),
   sameAs: [siteLinks.github, siteLinks.linkedin],
   address: {
     "@type": "PostalAddress",

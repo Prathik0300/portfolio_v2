@@ -24,9 +24,7 @@ export default function AboutPage() {
         )}
       />
       <Prompt typed cmd="cat about.md" />
-      <article className={`md ${styles.readme}`}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className={styles.photo} src="/prathik.webp" alt="Portrait of Prathik Pugazhenthi" width={640} height={877} fetchPriority="high" decoding="async" />
+      <article className="md">
         <h1>About</h1>
         {aboutPage.body.map((p) => (
           <p key={p}>{p}</p>

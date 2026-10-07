@@ -9,9 +9,7 @@ export default function HomePage() {
   return (
     <>
       <Prompt typed cmd="cat README.md" />
-      <section className={`md ${styles.readme}`}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className={styles.photo} src="/prathik.webp" alt="Portrait of Prathik Pugazhenthi" width={640} height={877} fetchPriority="high" decoding="async" />
+      <section className="md">
         <h1>{readme.title}</h1>
         {readme.intro.map((p) => (
           <p key={p}>{p}</p>
