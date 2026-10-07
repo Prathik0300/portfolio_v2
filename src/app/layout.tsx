@@ -1,60 +1,65 @@
 import type { Metadata, Viewport } from "next";
-import { Ubuntu, Raleway, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { UIProvider } from "@/context/UIContext";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { StructuredData } from "@/components/SEO/StructuredData";
-// import { Analytics } from "@/components/Analytics/Analytics";
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#005461",
+  themeColor: "#0A0D0E",
 };
 
-const ubuntu = Ubuntu({
-  variable: "--font-sans",
+const display = Space_Grotesk({
+  variable: "--font-display",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "700"],
+  weight: ["500", "600", "700"],
+  display: "swap",
 });
 
-const raleway = Raleway({
-  variable: "--font-heading",
+const body = Inter({
+  variable: "--font-body",
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
+  weight: ["400", "500", "600"],
+  display: "swap",
 });
 
-const jetBrainsMono = JetBrains_Mono({
+const mono = JetBrains_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://prathikpugazhenthi.dev"), // Update with your actual domain
+  metadataBase: new URL("https://prathikpugazhenthi.dev"),
   title: {
-    default: "Prathik Pugazhenthi | Full-Stack & Cloud Developer",
+    default: "Prathik Pugazhenthi | AI Platform & Infrastructure Engineer",
     template: "%s | Prathik Pugazhenthi",
   },
   description:
-    "Full-stack and cloud software developer building scalable web apps and infrastructure with React, Node.js, Kubernetes, CI/CD, and GCP/AWS.",
+    "AI Platform & Infrastructure Engineer. I build multi-agent AI pipelines, multi-tenant platforms on GKE/Kubernetes, and the CI/CD that ships them. MS CS @ UIC, ex-SDE at Bajaj Finserv Health.",
   keywords: [
     "Prathik Pugazhenthi",
-    "Software Developer",
-    "Full-Stack Developer",
-    "Cloud Developer",
+    "AI Platform Engineer",
+    "AI Infrastructure Engineer",
+    "AI Engineer",
+    "Platform Engineer",
     "DevOps Engineer",
+    "Software Engineer",
     "Kubernetes",
+    "GKE",
+    "Multi-agent AI",
+    "LLM",
+    "CI/CD",
     "GCP",
     "AWS",
-    "CI/CD",
-    "Node.js",
-    "React",
-    "TypeScript",
     "NestJS",
+    "TypeScript",
     "Python",
-    "AI Automation",
     "Distributed Systems",
-    "Chicago Developer",
+    "Chicago",
     "Portfolio",
   ],
   authors: [{ name: "Prathik Pugazhenthi", url: "https://github.com/Prathik0300" }],
@@ -82,34 +87,28 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://prathikpugazhenthi.dev", // Update with your actual domain
-    siteName: "Prathik Pugazhenthi Portfolio",
-    title: "Prathik Pugazhenthi | Full-Stack & Cloud Developer",
+    url: "https://prathikpugazhenthi.dev",
+    siteName: "Prathik Pugazhenthi",
+    title: "Prathik Pugazhenthi | AI Platform & Infrastructure Engineer",
     description:
-      "Software Developer specializing in full-stack engineering, cloud infrastructure, CI/CD automation, and scalable product architectures. Explore my projects, experience, and services.",
+      "I build multi-agent AI pipelines, multi-tenant platforms on GKE/Kubernetes, and the CI/CD that ships them. Selected work, experience, and case studies.",
     images: [
       {
         url: "/prathik-hero.png",
         width: 430,
         height: 560,
-        alt: "Prathik Pugazhenthi - Full-Stack & Cloud Developer",
+        alt: "Prathik Pugazhenthi — AI Platform & Infrastructure Engineer",
         type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Prathik Pugazhenthi | Full-Stack & Cloud Developer",
+    title: "Prathik Pugazhenthi | AI Platform & Infrastructure Engineer",
     description:
-      "Software Developer specializing in full-stack engineering, cloud infrastructure, CI/CD automation, and scalable product architectures.",
+      "Multi-agent AI pipelines, multi-tenant platforms on GKE, and the CI/CD that ships them.",
     images: ["/prathik-hero.png"],
-    creator: "@prathik0300", // Update with your Twitter handle if available
-  },
-  verification: {
-    // Add verification codes when you have them
-    // google: "your-google-verification-code",
-    // yandex: "your-yandex-verification-code",
-    // yahoo: "your-yahoo-verification-code",
+    creator: "@prathik0300",
   },
   category: "Technology",
   classification: "Portfolio",
@@ -133,11 +132,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${ubuntu.variable} ${raleway.variable} ${jetBrainsMono.variable} appShell`}
+        className={`${display.variable} ${body.variable} ${mono.variable} appShell`}
       >
         <StructuredData />
         <UIProvider>
-          {/* <Analytics /> */}
           <ScrollToTop />
           <div className="appInner">{children}</div>
         </UIProvider>

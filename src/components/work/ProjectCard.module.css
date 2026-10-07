@@ -1,0 +1,137 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 100%;
+  padding: clamp(20px, 3vw, 28px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--bg-1);
+  color: inherit;
+  transition: border-color var(--t-fast) var(--ease-out),
+    transform var(--t-fast) var(--ease-out);
+}
+.card:hover {
+  border-color: var(--line-2);
+  transform: translateY(-2px);
+}
+.card:hover .cta {
+  color: var(--accent);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.index {
+  font-size: 12px;
+  color: var(--faint);
+}
+.badge {
+  font-family: var(--font-mono-stack);
+  font-size: 11px;
+  color: var(--faint);
+  white-space: nowrap;
+}
+.badge::before {
+  content: "● ";
+}
+.badgeAmber { color: var(--amber); }
+.badgeGreen { color: var(--green); }
+.badgeFaint { color: var(--faint); }
+
+.title {
+  font-family: var(--font-display-stack);
+  font-weight: 600;
+  font-size: clamp(1.15rem, 2.4vw, 1.4rem);
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+.titleSm {
+  font-family: var(--font-display-stack);
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+.desc {
+  color: var(--dim);
+  font-size: 14px;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.outcomes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 26px;
+}
+.outcome {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.outcomeValue {
+  font-family: var(--font-mono-stack);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.outcomeLabel {
+  color: var(--faint);
+  font-size: 11px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: auto;
+}
+
+.cta {
+  font-size: 12px;
+  color: var(--dim);
+  transition: color var(--t-fast) var(--ease-out);
+}
+
+/* flagship: wider, description gets more room */
+.flagship .title {
+  font-size: clamp(1.3rem, 3vw, 1.6rem);
+}
+.flagship .desc {
+  font-size: 15px;
+  max-width: 68ch;
+}
+.flagship .tags { margin-top: 2px; }
+.compact { gap: 12px; }
+
+/* row: horizontal on wide screens */
+@media (min-width: 860px) {
+  .row {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    grid-template-areas:
+      "head head"
+      "title outcomes"
+      "desc outcomes"
+      "tags tags"
+      "cta cta";
+    column-gap: 32px;
+    row-gap: 12px;
+  }
+  .row .head { grid-area: head; }
+  .row .title { grid-area: title; }
+  .row .desc { grid-area: desc; align-self: start; }
+  .row .outcomes {
+    grid-area: outcomes;
+    flex-direction: column;
+    gap: 14px;
+    padding-left: 32px;
+    border-left: 1px solid var(--line);
+  }
+  .row .tags { grid-area: tags; margin-top: 6px; }
+  .row .cta { grid-area: cta; }
+}

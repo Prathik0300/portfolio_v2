@@ -5,11 +5,11 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Prathik Pugazhenthi Portfolio",
     short_name: "Prathik Portfolio",
     description:
-      "Portfolio website of Prathik Pugazhenthi, a software developer specializing in full-stack engineering, cloud infrastructure, and scalable product architectures.",
+      "AI Platform & Infrastructure Engineer \u2014 multi-agent AI pipelines, multi-tenant platforms on GKE, and the CI/CD that ships them.",
     start_url: "/",
     display: "standalone",
-    background_color: "#ffffff",
-    theme_color: "#005461",
+    background_color: "#0A0D0E",
+    theme_color: "#0A0D0E",
     icons: [
       {
         src: "/favicon.ico",

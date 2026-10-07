@@ -8,11 +8,31 @@ export interface SkillCategory {
 
 export interface ExperienceItem {
   company: string;
+  /** stable id for the company group (used for "promotions within one company") */
+  companyId: string;
   role: string;
   period: string;
+  /** ISO "YYYY-MM" — start of the role */
+  start: string;
+  /** ISO "YYYY-MM" or "present" */
+  end: string;
   location?: string;
   logoSrc?: string;
+  /** short tech tags for this role — bucketed into ai / platform / backend for the stack-mix column */
+  stack?: string[];
+  /** one-line focus label for the LOAD PROFILE column */
+  focus?: string;
+  /** short process handle, e.g. "radiofx-coop" */
+  procId?: string;
   points: string[];
+}
+
+export interface EducationItem {
+  school: string;
+  degree: string;
+  start: string; // "YYYY-MM"
+  end: string | "present"; // set the real grad date here when known
+  note?: string;
 }
 
 export interface ServiceItem {
@@ -69,6 +89,19 @@ export interface ProjectItem {
     bullets: string[];
     summary: string;
   }>;
+  /** short one-liner for cards (distinct from the longer `description`) */
+  blurb?: string;
+  /** show on the home "selected work" block */
+  featured?: boolean;
+  /** flagship gets the wide treatment */
+  flagship?: boolean;
+  /** short label: "Research", "Shipped", "Solo", "Experience \u00b7 RadioFX" */
+  badge?: string;
+  badgeTone?: "amber" | "green" | "faint";
+  /** metric chips rendered on cards: {value,label} */
+  outcomes?: Array<{ value: string; label: string }>;
+  /** domain filters on /work */
+  domains?: string[];
   liveUrl?: string;
   githubUrl?: string;
   detailLinks?: Array<{
@@ -79,11 +112,132 @@ export interface ProjectItem {
 }
 
 export const heroCopy = {
-  subtitle: "Software Developer · Full-Stack & Cloud Developer",
+  kicker: "AI Platform & Infrastructure Engineer",
+  headline: "I build and run the infrastructure behind AI products.",
+  blurb:
+    "I'm a software engineer working on the platform side of AI \u2014 the pipelines that turn models into shipped features, the Kubernetes setup underneath, and the CI/CD that keeps releases boring. Right now I'm finishing an MS in CS at UIC; before that I was an SDE at Bajaj Finserv Health.",
+  location: "Chicago, IL \u00b7 open to relocate",
+  // legacy fields kept so older imports still type-check
+  subtitle: "AI Platform & Infrastructure Engineer",
   blurbLines: [
-    "Software Developer specializing in full-stack engineering, cloud infrastructure, CI/CD automation, and scalable product architectures.",
-    "Experienced in modernizing systems, improving performance, and building distributed, production-ready services.",
+    "I work on the platform side of AI \u2014 pipelines, Kubernetes, and CI/CD.",
   ],
+  status: "open to platform / infra / backend roles",
+  terminal: [] as Array<{ cmd: string; out: string[] }>,
+};
+
+export const shippedAt: string[] = [
+  "RadioFX",
+  "Bajaj Finserv Health",
+  "UBS",
+  "UIC",
+];
+
+export interface ImpactMetric {
+  /** e.g. "65 \u2192 99" or "-95%" */
+  value: string;
+  label: string;
+  /** optional numeric target for the count-up animation */
+  countTo?: number;
+  countFrom?: number;
+  countPrefix?: string;
+  countSuffix?: string;
+}
+
+export const impactMetrics: ImpactMetric[] = [];
+
+export interface NowItem {
+  text: string;
+}
+
+export const nowItems: NowItem[] = [];
+
+export interface StackGroup {
+  id: string;
+  label: string;
+  items: string[];
+}
+
+export const stackGroups: StackGroup[] = [
+  {
+    id: "main",
+    label: "Mostly working in",
+    items: [
+      "Kubernetes / GKE",
+      "GCP",
+      "Helm",
+      "GitHub Actions",
+      "NestJS",
+      "TypeScript",
+      "Python",
+      "Gemini / OpenAI",
+      "Postgres",
+      "Cassandra",
+    ],
+  },
+];
+
+export const aboutPage = {
+  kicker: "about",
+  heading: "I like owning a system from the API down to the ingress.",
+  body: [
+    "I'm a software engineer finishing an MS in Computer Science at the University of Illinois Chicago, focused on cloud computing and distributed systems. Before grad school I spent two and a half years at Bajaj Finserv Health \u2014 starting on frontend performance and SEO, ending up owning three B2C modules that carried 98% of the company's web traffic.",
+    "More recently at RadioFX I built a multi-agent pipeline that turns a prompt into a deployed website, and the multi-tenant GKE architecture that isolates every generated site. That work sits exactly where I want to be: AI systems, the platform they run on, and the CI/CD that ships them.",
+    "I care about systems that are secure, observable and cheap to operate \u2014 and about making them pleasant for the next engineer to work on.",
+  ],
+  principles: [
+    { k: "01 · measure first", v: "If I can't state the before/after number, I don't call it done. 65\u219299, 38%\u219285%, 11,380\u2192562." },
+    { k: "02 · isolate blast radius", v: "Namespaces, tenants, guards, diff-based deploys \u2014 contain failure before it spreads." },
+    { k: "03 · automate the boring path", v: "Zero-downtime rollouts, selective redeploys, Sonar gates. The pipeline should be the safety net." },
+    { k: "04 · leave it readable", v: "DTO validation, docs, diagrams. DX is a feature." },
+  ],
+  beyond:
+    "Five languages: Tamil (native), English & Hindi (full professional), French & Gujarati (elementary). Research two papers deep \u2014 certificate revocation and LLM program repair \u2014 both published.",
+};
+
+export const siteLinks = {
+  email: "prathik0300@gmail.com",
+  phone: "+13128893640",
+  github: "https://github.com/Prathik0300",
+  linkedin: "https://www.linkedin.com/in/prathik-pugazhenthi-487855177/",
+  resume: "/Prathik_Pugazhenthi_Resume.pdf",
+  location: "Chicago, IL",
+};
+
+export interface SnapshotRow {
+  companyId: string;
+  roleSummary: string;
+  line: string;
+}
+
+/** condensed 4-row experience for the home page (dates are derived from experienceItems) */
+export const experienceSnapshot: SnapshotRow[] = [
+  {
+    companyId: "radiofx",
+    roleSummary: "Software Development Co-op",
+    line: "Built the multi-agent website pipeline & multi-tenant GKE deploy architecture; JWT/opaque-token auth for partner integrations; NestJS + Cassandra CMS backend.",
+  },
+  {
+    companyId: "radiofx-intern",
+    roleSummary: "Software Development Intern",
+    line: "Led legacy → GKE migration across dev/prod with namespace isolation; Cloud Build + GitHub Actions for zero-downtime rollouts; NestJS + Fastify modernization.",
+  },
+  {
+    companyId: "bfhl",
+    roleSummary: "SDE → Associate SDE → SDE Intern",
+    line: "Owned 3 B2C modules driving 98% of site traffic. Cut bugs 95%, lifted PageSpeed 65→99 and SEO 34→88, reduced poor URLs 11,380→562, stood up ELK + Sonar (0→55% coverage).",
+  },
+  {
+    companyId: "ubs",
+    roleSummary: "Business Analyst Intern",
+    line: "Alteryx workflows + macro automation; process mapping in ARIS reduced ~7,000 manual tasks to ~500.",
+  },
+];
+
+export const contactCopy = {
+  kicker: "Contact",
+  heading: "Looking for someone on the AI platform / infra side?",
+  sub: "Email is best \u2014 I usually reply the same day.",
 };
 
 export interface AboutFact {
@@ -276,10 +430,16 @@ export const languageSkills: LanguageSkill[] = [
 export const experienceItems: ExperienceItem[] = [
   {
     company: "RadioFX, Inc.",
-    role: "Software Development Intern Co-op",
-    period: "September 2025 – December 2025",
+    companyId: "radiofx",
+    role: "Software Development Co-op",
+    procId: "radiofx-coop",
+    focus: "ai · platform",
+    period: "Sep 2025 – Dec 2025",
+    start: "2025-09",
+    end: "2025-12",
     location: "Chicago, IL",
     logoSrc: "/logos/rfx-logo.png",
+    stack: ["Gemini", "Vercel v0", "GKE", "Helm", "NGINX", "NestJS", "Cassandra"],
     points: [
       "Engineered a multi-agent AI website generation pipeline using Gemini 2.5 Pro, Gemini 3 Pro, and Vercel v0, automating prompt → code → deployment workflows.",
       "Designed scalable multi-tenant deployment architecture for dynamically generated websites using Helm, GKE workload isolation, and NGINX ingress.",
@@ -291,22 +451,34 @@ export const experienceItems: ExperienceItem[] = [
   },
   {
     company: "RadioFX, Inc.",
+    companyId: "radiofx",
     role: "Software Development Intern",
-    period: "June 2025 – August 2025",
+    procId: "radiofx-intern",
+    focus: "infra · devops",
+    period: "Jun 2025 – Aug 2025",
+    start: "2025-06",
+    end: "2025-08",
     location: "Chicago, IL",
     logoSrc: "/logos/rfx-logo.png",
+    stack: ["GKE", "Cloud Build", "GitHub Actions", "NestJS", "Fastify"],
     points: [
       "Led migration of legacy workloads to GKE across dev/prod clusters with namespace isolation.",
       "Built CI/CD pipelines using Cloud Build and GitHub Actions enabling zero-downtime rollouts.",
-      "Modernized backend microservices to NestJS + Fastify, improving latency and throughput."
+      "Modernized backend microservices to NestJS + Fastify, improving latency and throughput.",
     ],
   },
   {
     company: "Bajaj Finserv Health",
+    companyId: "bfhl",
     role: "Software Development Engineer",
-    period: "September 2023 – July 2024",
+    procId: "bfhl-sde",
+    focus: "product · ownership",
+    period: "Sep 2023 – Jul 2024",
+    start: "2023-09",
+    end: "2024-07",
     location: "Pune, India",
     logoSrc: "/logos/bfhl-logo.png",
+    stack: ["React", "Node.js", "TypeScript", "ELK"],
     points: [
       "Owned end-to-end maintenance of three key B2C modules powering 98% of website traffic.",
       "Reduced bug counts by 95% and improved stability across critical user flows.",
@@ -316,10 +488,16 @@ export const experienceItems: ExperienceItem[] = [
   },
   {
     company: "Bajaj Finserv Health",
+    companyId: "bfhl",
     role: "Associate SDE",
-    period: "July 2022 – September 2023",
+    procId: "bfhl-associate",
+    focus: "frontend performance",
+    period: "Jul 2022 – Sep 2023",
+    start: "2022-07",
+    end: "2023-09",
     location: "Pune, India",
     logoSrc: "/logos/bfhl-logo.png",
+    stack: ["React", "AMP", "JavaScript", "Webpack"],
     points: [
       "Implemented AMP pages and boosted PageSpeed scores from 65 → 99.",
       "Reduced build times by 25% across key services.",
@@ -328,10 +506,16 @@ export const experienceItems: ExperienceItem[] = [
   },
   {
     company: "Bajaj Finserv Health",
+    companyId: "bfhl",
     role: "SDE Intern",
-    period: "January 2022 – June 2022",
+    procId: "bfhl-intern",
+    focus: "perf · seo · observability",
+    period: "Jan 2022 – Jun 2022",
+    start: "2022-01",
+    end: "2022-06",
     location: "Pune, India",
     logoSrc: "/logos/bfhl-logo.png",
+    stack: ["JavaScript", "SEO", "ELK", "SonarQube"],
     points: [
       "Improved page load time by 85% on critical user journeys.",
       "Improved Doctor Profile Page SEO score from 34 → 88.",
@@ -342,10 +526,16 @@ export const experienceItems: ExperienceItem[] = [
   },
   {
     company: "UBS",
+    companyId: "ubs",
     role: "Business Analyst Intern",
-    period: "June 2021 – August 2021",
+    procId: "ubs-analyst",
+    focus: "process automation",
+    period: "Jun 2021 – Aug 2021",
+    start: "2021-06",
+    end: "2021-08",
     location: "India",
     logoSrc: "/logos/ubs-logo.png",
+    stack: ["Alteryx", "ARIS"],
     points: [
       "Designed Alteryx workflows for large dataset processing.",
       "Automated macros improving data preparation pipelines.",
@@ -353,6 +543,24 @@ export const experienceItems: ExperienceItem[] = [
     ],
   },
 ];
+
+export const educationItems: EducationItem[] = [
+  {
+    school: "University of Illinois Chicago",
+    degree: "MS, Computer Science",
+    start: "2024-08",
+    end: "present", // TODO: set expected graduation month once confirmed
+    note: "Cloud computing, backend & distributed systems",
+  },
+  {
+    school: "Vellore Institute of Technology",
+    degree: "BTech, Computer Science",
+    start: "2018-07",
+    end: "2022-05",
+  },
+];
+
+
 
 export const serviceItems: ServiceItem[] = [
   {
@@ -395,8 +603,85 @@ export const serviceItems: ServiceItem[] = [
 
 export const projectItems: ProjectItem[] = [
   {
+    name: "Multi-Agent AI Website Generation Pipeline",
+    slug: "multi-agent-website-pipeline",
+    blurb:
+      "Prompt \u2192 code \u2192 deploy, automated \u2014 with every generated site isolated in its own GKE tenant.",
+    description:
+      "Prompt \u2192 code \u2192 deploy, automated. Orchestrated Gemini 2.5/3 Pro and Vercel v0 into a generation pipeline, then gave each generated site a tenant-isolated home on GKE with Helm, workload isolation and NGINX ingress. Diff-based selective redeploys via GitHub Actions cut build time and compute cost.",
+    techStack: [
+      "Multi-agent orchestration",
+      "Gemini 2.5 / 3 Pro",
+      "Vercel v0",
+      "GKE",
+      "Helm",
+      "NGINX ingress",
+      "GitHub Actions",
+      "NestJS",
+      "Cassandra",
+    ],
+    featured: true,
+    flagship: true,
+    badge: "Flagship \u00b7 RadioFX",
+    badgeTone: "amber",
+    domains: ["AI / LLM", "platform & infra"],
+    tileMedia: {
+      kind: "image",
+      src: "/window.svg",
+      alt: "Multi-agent AI website generation pipeline architecture",
+    },
+    detailMedia: [
+      { kind: "image", src: "/window.svg", alt: "Pipeline architecture" },
+    ],
+    detailSubtitle:
+      "An automated prompt-to-production pipeline with multi-tenant isolation on GKE",
+    detailDateRange: "Jun 2025 \u2013 Dec 2025",
+    detailOrganization: { name: "RadioFX, Inc.", logoSrc: "/logos/rfx-logo.png" },
+    detailAssociation: "Built at RadioFX, Inc.",
+    detailProjectType: "Platform Engineering \u00b7 AI Systems",
+    detailTechStack:
+      "Gemini 2.5 / 3 Pro \u00b7 Vercel v0 \u00b7 GKE \u00b7 Helm \u00b7 NGINX ingress \u00b7 GitHub Actions \u00b7 NestJS \u00b7 Cassandra",
+    detailOverview:
+      "A pipeline that turns a natural-language brief into a fully deployed marketing website. Multiple model agents handle briefing, code generation and refinement; every generated site is then deployed into its own isolated tenant on GKE with a dedicated namespace and ingress. A diff-detection step decides what actually needs to redeploy, keeping build time and compute cost down.",
+    detailProblem:
+      "Generating a site from a prompt is only half the problem. Each generated site needs to be hosted in isolation \u2014 no shared state, no noisy-neighbour risk \u2014 and re-running the whole build for every small edit is slow and expensive.",
+    detailMotivation:
+      "If generation and hosting are both automated and isolated, a non-engineer can go from idea to a live, production-grade site without a human in the deploy loop.",
+    detailSolution:
+      "A multi-agent generation stage (Gemini 2.5 Pro, Gemini 3 Pro, Vercel v0) produces and refines the code. A deployment stage packages each site with Helm and lands it in a per-tenant GKE namespace behind NGINX ingress. GitHub Actions runs diff detection so only changed sites/paths redeploy. JWT / opaque-token auth secures embeddable streaming, chat and polling components for partner integrations.",
+    detailSolutionPoints: [
+      "Multi-agent generation \u2013 briefing, code generation and refinement split across Gemini 2.5 Pro, Gemini 3 Pro and Vercel v0.",
+      "Multi-tenant isolation \u2013 every generated site gets its own GKE namespace, Helm release and NGINX ingress route.",
+      "Selective redeploys \u2013 GitHub Actions diff detection redeploys only what changed, cutting execution time and compute cost.",
+      "Embeddable components \u2013 streaming, chat and polling APIs via modular gateway patterns, with JWT / opaque-token auth for partners.",
+      "CMS backend \u2013 NestJS + Cassandra with DTO validation, guards and distributed datastore patterns.",
+    ],
+    detailHighlights: [
+      "Prompt \u2192 code \u2192 deploy with no human in the deploy loop",
+      "Per-site tenant isolation on GKE (namespace + Helm + ingress)",
+      "Diff-based selective redeployment via GitHub Actions",
+      "Partner-facing embeddable streaming / chat / polling components",
+      "NestJS + Cassandra CMS backend with distributed datastore patterns",
+    ],
+    detailReflectionOutcomes:
+      "Demonstrated an end-to-end automated path from brief to isolated, production-grade deployment. The isolation model kept generated sites independent, and diff-based redeploys made iteration cheap enough to be practical.",
+    detailReflectionMoreTime:
+      "Next: autoscaling tenants to zero when idle, a preview-environment per pull request, and richer generation evals before a site is promoted.",
+  },
+  {
     name: "CRLite+ – Lightweight Certificate Revocation Extension",
     slug: "crlite-plus-cert-revocation",
+    blurb:
+      "Local, privacy-preserving TLS certificate revocation for Chromium via cascaded Bloom filters. Shipped to the Chrome Web Store.",
+    featured: true,
+    badge: "Shipped \u00b7 Chrome Web Store",
+    badgeTone: "amber",
+    domains: ["security", "research", "shipped"],
+    outcomes: [
+      { value: "100%", label: "detection accuracy" },
+      { value: "2\u20135ms", label: "check overhead" },
+      { value: "<512KB", label: "filter memory" },
+    ],
     description:
       "Research work on CRLite+, a lightweight browser extension approach for practical certificate revocation and safer TLS connections.",
     techStack: [
@@ -590,6 +875,11 @@ export const projectItems: ProjectItem[] = [
   {
     name: "EnsoGrow – Personal AI Garden Companion",
     slug: "ensogrow-ai-garden-companion",
+    blurb:
+      "A calm PWA gardening coach: computer-vision plant diagnosis plus a Gemini assistant, built at WildHacks.",
+    badge: "Hackathon \u00b7 WildHacks",
+    badgeTone: "faint",
+    domains: ["AI / LLM"],
     description:
       "A minimalist PWA that acts as a smart gardening coach for urban growers, combining AI, computer vision, and hyperlocal community features to help people grow organic food at home.",
     techStack: [
@@ -776,6 +1066,11 @@ export const projectItems: ProjectItem[] = [
   {
     name: "Virtual Emotion Mirror",
     slug: "virtual-emotion-mirror",
+    blurb:
+      "Real-time facial emotion inference in the browser \u2014 client-side detection, server-side classification, MongoDB trend analytics.",
+    badge: "Solo \u00b7 live demo",
+    badgeTone: "faint",
+    domains: ["AI / LLM"],
     description:
       "An AI-driven facial emotion recognition system that analyzes real-time expressions to recommend personalized content and surface long-term emotional trends.",
     techStack: [
@@ -954,6 +1249,17 @@ export const projectItems: ProjectItem[] = [
   {
     name: "Automated Program Repair Using LLM",
     slug: "automated-program-repair-llm",
+    blurb:
+      "Feeds AFL++ crash inputs and GDB stack traces into an LLM repair loop. Execution context took repair success from 38% to 85%.",
+    featured: true,
+    badge: "Research \u00b7 UIC",
+    badgeTone: "faint",
+    domains: ["AI / LLM", "research"],
+    outcomes: [
+      { value: "38 \u2192 85%", label: "repair success" },
+      { value: "4 \u2192 2", label: "median attempts" },
+      { value: "11 / 13", label: "programs fixed" },
+    ],
     description:
       "An LLM-powered bug-fixing pipeline that integrates coverage-guided fuzzing (AFL/AFL++) and runtime stack traces (GDB) with LLM reasoning to automatically repair crash-inducing defects in C/C++ programs.",
     techStack: [

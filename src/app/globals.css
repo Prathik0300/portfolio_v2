@@ -1,42 +1,66 @@
+/* ============================================================
+   Terminal-Dark design system
+   Near-black canvas · one electric-teal signal · mono metadata
+   ============================================================ */
+
 :root {
-  /* New Color Palette */
-  --color-dark: #005461;
-  --color-medium: #018790;
-  --color-light: #00B7B5;
-  --color-bg: #F4F4F4;
-  
-  /* Background Colors */
-  --bg-main: #F4F4F4;
-  --bg-elevated: #ffffff;
-  --bg-elevated-soft: rgba(244, 244, 244, 0.92);
-  
-  /* Accent Colors */
-  --accent-primary: #018790;
-  --accent-secondary: #005461;
-  --accent-soft: rgba(1, 135, 144, 0.25);
-  --accent-strong: rgba(1, 135, 144, 0.55);
-  --accent-light: #00B7B5;
-  
-  /* Text Colors */
-  --text-main: #005461;
-  --text-muted: #018790;
-  --text-light: #F4F4F4;
-  
-  /* Border Colors */
-  --border-soft: rgba(0, 84, 97, 0.2);
-  --border-medium: rgba(1, 135, 144, 0.3);
-  
-  /* Shadow */
-  --shadow-soft: 0 18px 40px rgba(0, 84, 97, 0.12);
-  
-  /* Radius */
-  --radius-lg: 24px;
-  --radius-md: 16px;
+  /* Surfaces */
+  --bg: #0A0D0E;
+  --bg-1: #0F1416;
+  --bg-2: #131B1D;
+
+  /* Hairlines */
+  --line: rgba(255, 255, 255, 0.09);
+  --line-2: rgba(255, 255, 255, 0.16);
+
+  /* Ink */
+  --txt: #E9EEED;
+  --dim: #9AA7A5;
+  --faint: #67726F;
+
+  /* Signal */
+  --accent: #2DD4C4;
+  --accent-ink: #04110F;
+  --accent-2: #7BEDE2;
+  --amber: #F5B843;
+  --green: #5AE49A;
+  --red: #F0736A;
+  --violet: #A78BFA;
+
+  /* accent as RGB for alpha compositing / theming */
+  --accent-rgb: 45, 212, 196;
+
+  /* Fonts (wired to next/font in layout.tsx) */
+  --font-display-stack: var(--font-display, "Space Grotesk"), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-body-stack: var(--font-body, "Inter"), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono-stack: var(--font-mono, "JetBrains Mono"), ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+
+  /* Rhythm */
+  --radius-lg: 14px;
+  --radius-md: 10px;
+  --radius-sm: 7px;
   --radius-pill: 999px;
-  
-  /* Transitions */
-  --transition-fast: 150ms ease-out;
-  --transition-med: 220ms ease-out;
+
+  --wrap: 1180px;
+  --nav-h: 64px;
+
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --t-fast: 160ms;
+  --t-med: 260ms;
+}
+
+/* Accent theming (nav toggle persists data-accent on <html>) */
+:root[data-accent="amber"] {
+  --accent: #F5B843;
+  --accent-ink: #120C02;
+  --accent-2: #FFD27A;
+  --accent-rgb: 245, 184, 67;
+}
+:root[data-accent="violet"] {
+  --accent: #A78BFA;
+  --accent-ink: #0B0614;
+  --accent-2: #C7B4FF;
+  --accent-rgb: 167, 139, 250;
 }
 
 *,
@@ -46,114 +70,270 @@
 }
 
 html {
-  width: 100%;
-  max-width: 100vw;
-  min-height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
   scroll-behavior: smooth;
+  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
   padding: 0;
   width: 100%;
-  max-width: 100vw;
   min-height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-  color: var(--text-main);
-  background: radial-gradient(
-      circle at top left,
-      rgba(1, 135, 144, 0.15),
-      transparent 55%
-    ),
-    radial-gradient(
-      circle at bottom right,
-      rgba(0, 183, 181, 0.2),
-      transparent 55%
-    ),
-    linear-gradient(180deg, #F4F4F4, #E0E0E0);
-  font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont,
-    "SF Pro Text", sans-serif;
+  overflow-x: clip;
+  color: var(--txt);
+  background: var(--bg);
+  font-family: var(--font-body-stack);
+  font-size: 16px;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 a {
-  color: inherit;
+  color: var(--accent);
   text-decoration: none;
+  transition: color var(--t-fast) var(--ease-out);
+}
+a:hover {
+  color: var(--accent-2);
 }
 
 button {
   font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: rgba(var(--accent-rgb), 0.28);
+  color: #fff;
+}
+
+/* ---- App shell: dot-grid + hero glow ---- */
+.appShell {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--bg);
+  isolation: isolate;
+}
+.appShell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.5;
+  mask-image: linear-gradient(180deg, #000 0%, transparent 42%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 42%);
+  pointer-events: none;
+}
+.appShell::after {
+  content: "";
+  position: fixed;
+  top: -10%;
+  right: -6%;
+  width: 60vw;
+  height: 60vh;
+  z-index: -1;
+  background: radial-gradient(circle at 70% 20%, rgba(var(--accent-rgb), 0.13), transparent 60%);
+  pointer-events: none;
+}
+
+.appInner {
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 main {
   width: 100%;
   min-height: 100vh;
-  padding-top: 5.5rem; /* compensate for fixed navbar height */
 }
 
 section {
   position: relative;
-  scroll-margin-top: 96px;
+  scroll-margin-top: calc(var(--nav-h) + 24px);
 }
 
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-heading), var(--font-sans), system-ui, -apple-system,
-    BlinkMacSystemFont, "SF Pro Text", sans-serif;
-}
-
-/* Global section title style for all main section headings */
-.sectionTitle {
-  font-size: clamp(1.5rem, 2.4vw, 1.8rem);
-  font-weight: 700;
-  text-align: left;
-  color: var(--text-main);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  margin: 0 0 1.5rem;
-  text-shadow: 0 2px 6px rgba(0, 84, 97, 0.28);
-}
-
-.appShell {
-  width: 100%;
-  min-height: 100vh;
-  background: radial-gradient(
-      circle at top left,
-      rgba(1, 135, 144, 0.15),
-      transparent 55%
-    ),
-    radial-gradient(
-      circle at bottom right,
-      rgba(0, 183, 181, 0.25),
-      transparent 55%
-    ),
-    linear-gradient(180deg, #F4F4F4, #E0E0E0);
-}
-
-.appInner {
-  width: 100%;
-  max-width: 100%;
+h1, h2, h3, h4 {
+  font-family: var(--font-display-stack);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.12;
   margin: 0;
-  padding: 0 1.25rem 3.5rem;
-  padding-top: 1.25rem;
 }
 
-@media (min-width: 768px) {
-  .appInner {
-    padding: 1.5rem 1.75rem 4rem;
-  }
-}
+/* ============================================================
+   Shared primitives
+   ============================================================ */
 
+.wrap {
+  position: relative;
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding-inline: 24px;
+}
+@media (min-width: 700px) {
+  .wrap { padding-inline: 40px; }
+}
 @media (min-width: 1024px) {
-  .appInner {
-    padding-inline: 2.5rem;
-  }
+  .wrap { padding-inline: 56px; }
+}
+
+.mono {
+  font-family: var(--font-mono-stack);
+}
+
+/* Section kicker — mono, //-prefixed */
+.kicker {
+  font-family: var(--font-mono-stack);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--dim);
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+.kicker::before {
+  content: "";
+  width: 16px;
+  height: 1px;
+  background: var(--accent);
+  flex: none;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-mono-stack);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 12px 18px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line-2);
+  color: var(--txt);
+  background: rgba(255, 255, 255, 0.02);
+  cursor: pointer;
+  transition: border-color var(--t-fast) var(--ease-out),
+    color var(--t-fast) var(--ease-out),
+    background var(--t-fast) var(--ease-out),
+    transform var(--t-fast) var(--ease-out);
+}
+.btn:hover {
+  border-color: var(--accent);
+  color: var(--txt);
+  transform: translateY(-1px);
+}
+.btn--primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+  font-weight: 700;
+}
+.btn--primary:hover {
+  background: var(--accent-2);
+  border-color: var(--accent-2);
+  color: var(--accent-ink);
+}
+
+/* Tags / chips */
+.tag {
+  font-family: var(--font-mono-stack);
+  font-size: 11px;
+  color: var(--faint);
+  border: 1px solid var(--line);
+  background: transparent;
+  padding: 4px 9px;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+
+/* Terminal window chrome */
+.term {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg-1);
+  overflow: hidden;
+}
+.term__bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono-stack);
+  font-size: 11.5px;
+  color: var(--faint);
+  background: rgba(255, 255, 255, 0.015);
+}
+.term__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  flex: none;
+}
+.term__dot + .term__dot { margin-left: -2px; }
+.term__dot ~ .term__dot ~ .term__dot { margin-right: 6px; }
+
+/* Metric tile */
+.metric {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 22px;
+  background: var(--bg-1);
+}
+.metric__value {
+  font-family: var(--font-mono-stack);
+  font-size: clamp(1.5rem, 3vw, 1.9rem);
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.01em;
+}
+.metric__label {
+  color: var(--dim);
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+/* Status pill */
+.statusPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-mono-stack);
+  font-size: 11.5px;
+  color: var(--dim);
+}
+.statusPill__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green);
+  animation: heartbeat 1.8s ease-in-out infinite;
+}
+
+/* Section frame */
+.section {
+  padding-block: clamp(52px, 7vw, 84px);
+  border-top: 1px solid var(--line);
+}
+.section--flush {
+  border-top: 0;
+}
+
+/* Legacy hook kept for any stragglers */
+.sectionTitle {
+  font-family: var(--font-display-stack);
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  font-weight: 700;
+  color: var(--txt);
+  margin: 0 0 1.25rem;
 }
 
 .srOnly {
@@ -166,4 +346,65 @@ h4 {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* ============================================================
+   Motion
+   ============================================================ */
+
+@keyframes heartbeat {
+  0%, 100% { opacity: 1; box-shadow: 0 0 10px var(--green); }
+  50% { opacity: 0.45; box-shadow: 0 0 2px var(--green); }
+}
+
+@keyframes blinkCaret {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.caret {
+  display: inline-block;
+  width: 8px;
+  height: 1.05em;
+  transform: translateY(2px);
+  background: var(--accent);
+  margin-left: 2px;
+  animation: blinkCaret 1s step-end infinite;
+}
+
+/* scroll progress bar under the nav (CSS scroll-driven where supported) */
+.scrollProgress {
+  position: fixed;
+  top: var(--nav-h);
+  left: 0;
+  height: 2px;
+  width: 100%;
+  transform-origin: 0 50%;
+  transform: scaleX(var(--_p, 0));
+  background: var(--accent);
+  z-index: 40;
+  pointer-events: none;
+}
+@supports (animation-timeline: scroll()) {
+  .scrollProgress {
+    animation: growX linear both;
+    animation-timeline: scroll(root block);
+  }
+  @keyframes growX {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .caret { animation: none; opacity: 1; }
+  .statusPill__dot { animation: none; }
 }

@@ -1,0 +1,92 @@
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: rgba(10, 13, 14, 0.8);
+  border-bottom: 1px solid var(--line);
+}
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--nav-h);
+  gap: 16px;
+}
+.logo {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--txt);
+  flex: none;
+}
+.logo:hover { color: var(--txt); }
+.tilde { color: var(--accent); }
+.dim { color: var(--faint); }
+
+.links {
+  display: none;
+  align-items: center;
+  gap: 26px;
+}
+.link {
+  font-size: 13px;
+  color: var(--dim);
+  transition: color var(--t-fast) var(--ease-out);
+}
+.link:hover { color: var(--txt); }
+.active { color: var(--accent); }
+.resume {
+  padding: 8px 13px;
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+/* hamburger */
+.burger {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 0 8px;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  cursor: pointer;
+}
+.burger span {
+  display: block;
+  height: 1.5px;
+  width: 100%;
+  background: var(--dim);
+  transition: transform var(--t-fast) var(--ease-out), opacity var(--t-fast);
+}
+.nav[data-open="true"] .burger span:first-child {
+  transform: translateY(3.5px) rotate(45deg);
+}
+.nav[data-open="true"] .burger span:last-child {
+  transform: translateY(-3px) rotate(-45deg);
+}
+
+.mobileMenu {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0 14px;
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+}
+.mobileLink {
+  padding: 13px 24px;
+  font-size: 15px;
+  color: var(--dim);
+}
+.mobileLink:hover { color: var(--txt); }
+
+@media (min-width: 760px) {
+  .links { display: flex; }
+  .burger { display: none; }
+  .mobileMenu { display: none; }
+}

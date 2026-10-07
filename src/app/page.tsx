@@ -1,56 +1,37 @@
-"use client";
-
-import { useEffect, Suspense } from "react";
-import Navbar from "@/components/Navbar/Navbar";
-import Hero from "@/components/Hero/Hero";
-import AboutSection from "@/components/About/AboutSection";
-import SkillsSection from "@/components/Skills/SkillsSection";
-import ExperienceSection from "@/components/Experience/ExperienceSection";
-import ServicesSection from "@/components/Services/ServicesSection";
-import ProjectsSection from "@/components/Projects/ProjectsSection";
-import Footer from "@/components/Footer/Footer";
-import { useActiveSection } from "@/hooks/useActiveSection";
+import type { Metadata } from "next";
+import { Suspense } from "react";
+import { SiteNav } from "@/components/chrome/SiteNav";
+import { SiteFooter } from "@/components/chrome/SiteFooter";
+import { ScrollProgress } from "@/components/ui";
+import { Hero } from "@/components/home/Hero";
+import { ShippedAt } from "@/components/home/ShippedAt";
+import { SelectedWork } from "@/components/home/SelectedWork";
+import { ExperienceSnapshot } from "@/components/home/ExperienceSnapshot";
+import { Stack } from "@/components/home/Stack";
+import { Contact } from "@/components/home/Contact";
 import { Analytics } from "@/components/Analytics/Analytics";
 
+export const metadata: Metadata = {
+  alternates: { canonical: "https://prathikpugazhenthi.dev/" },
+};
+
 export default function HomePage() {
-  useActiveSection();
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const navigation = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming;
-    const legacyNav = (window.performance as { navigation?: { type?: number } }).navigation;
-    const isRefresh = navigation?.type === "reload" || legacyNav?.type === 1;
-
-    const hash = window.location.hash?.replace("#", "");
-
-    if (hash) {
-      window.setTimeout(() => {
-        const el = document.getElementById(hash);
-        el?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 100);
-    } else if (isRefresh) {
-      window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
-    } else if ("scrollRestoration" in window.history) {
-      window.history.scrollRestoration = "auto";
-    }
-  }, []);
-
   return (
     <>
       <Suspense fallback={null}>
         <Analytics />
       </Suspense>
-      <Navbar />
+      <SiteNav />
+      <ScrollProgress />
       <main>
         <Hero />
-        <AboutSection />
-        <SkillsSection />
-        <ExperienceSection />
-        <ServicesSection />
-        <ProjectsSection />
+        <ShippedAt />
+        <SelectedWork />
+        <ExperienceSnapshot />
+        <Stack />
+        <Contact />
       </main>
-      <Footer />
+      <SiteFooter />
     </>
   );
 }
