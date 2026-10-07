@@ -6,22 +6,30 @@
 .panel { display: flex; flex-direction: column; max-height: 70vh; }
 .inputRow { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
 .prompt { color: var(--green); font-weight: 600; }
-.input { flex: 1; min-width: 0; background: transparent; border: 0; outline: none; color: var(--fg); font: inherit; min-height: 28px; caret-color: var(--yellow); caret-shape: block; }
+.input { flex: 1; min-width: 0; background: transparent; border: 0; outline: none; color: var(--fg); font: inherit; min-height: 28px; caret-color: var(--yellow); }
 .input::placeholder { color: var(--faint); }
 .kbd { color: var(--faint); font-size: 12px; border: 1px solid var(--line); padding: 0 6px; }
 /* a fixed minimum height keeps the panel from jumping while results filter */
-.list { overflow-y: auto; padding: 6px 0; min-height: 280px; }
+.list { overflow-y: auto; padding: 6px 0; min-height: 280px; scrollbar-width: none; }
+.list::-webkit-scrollbar { display: none; }  /* no visible scrollbar; wheel and arrow keys still scroll if the list is ever taller than the window */
 .group { color: var(--faint); font-size: 12px; margin: 8px 14px 2px; }
 .group::before { content: "# "; }
 .item {
   display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; min-height: 44px;
-  padding: 8px 14px; background: none; border: 0; color: var(--dim); font: inherit; text-align: left; cursor: pointer;
+  position: relative; padding: 8px 14px 8px 34px; background: none; border: 0; color: var(--dim); font: inherit; text-align: left; cursor: pointer;
 }
 .item[data-active="true"] { background: var(--line); color: var(--fg); }
-.item[data-active="true"]::before { content: "> "; color: var(--yellow); }
+/* the > sits in its own gutter so labels never shift when the highlight moves */
+.item[data-active="true"]::before { content: ">"; position: absolute; left: 14px; color: var(--yellow); }
 .item[data-copied] { color: var(--green); }
 .hint { color: var(--faint); }
 .empty { padding: 16px 14px; color: var(--faint); }
+
+/* with a mouse, rows can be compact enough that the whole menu fits without scrolling; touch keeps 44px targets */
+@media (pointer: fine) {
+  .item { min-height: 32px; padding-block: 3px; }
+  .group { margin-top: 6px; }
+}
 
 @keyframes copiedFlash { from { background-color: rgba(184, 187, 38, 0.35); } to { background-color: transparent; } }
 
