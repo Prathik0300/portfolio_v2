@@ -1,0 +1,10 @@
+.figure { margin: 24px 0; }
+.zoom { display: block; background: none; border: 1px solid var(--line); cursor: zoom-in; line-height: 0; }
+.zoom:hover { border-color: var(--faint); }
+.zoom img { display: block; width: 100%; height: auto; background: #fff; }
+.zoom img[data-dark] { background: var(--bg); }
+.figure figcaption { color: var(--faint); font-size: 13px; margin-top: 8px; line-height: 1.6; }
+.num { color: var(--yellow); }
+/* small popup screenshots keep their real size instead of stretching across the column */
+.figure[data-narrow] .zoom { width: fit-content; max-width: 100%; }
+.figure[data-narrow] .zoom img { width: auto; max-width: 100%; }

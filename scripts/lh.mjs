@@ -6,7 +6,8 @@ import path from "node:path";
 
 const base = process.argv[2] ?? "http://localhost:3100";
 const out = path.resolve(process.argv[3] ?? ".lighthouse");
-const routes = ["/", "/projects", "/projects/crlite-plus-cert-revocation", "/experience", "/about"];
+// ROUTES=/a,/b overrides the default list
+const routes = process.env.ROUTES?.split(",") ?? ["/", "/projects", "/projects/crlite-plus-cert-revocation", "/experience", "/about"];
 fs.mkdirSync(out, { recursive: true });
 
 const pct = (n) => Math.round(n * 100);

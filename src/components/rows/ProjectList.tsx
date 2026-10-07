@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { projects } from "@/content/projects";
+import { mediaSummary } from "@/lib/media";
 import styles from "./Rows.module.css";
 
 const clean = (n: string) => n.replace(/\s+[–-]\s+.*/, "");
@@ -16,6 +17,7 @@ export function ProjectList({ limit, detailed = false }: { limit?: number; detai
             <Link href={`/projects/${p.slug}`} className={styles.name}>{clean(p.name)}</Link>
             <p className={styles.blurb}>{p.blurb}</p>
             {detailed && <p className={styles.stack}>{p.stack.join(", ")}</p>}
+            {detailed && mediaSummary(p) && <p className={styles.media}>{mediaSummary(p)}</p>}
           </div>
         </li>
       ))}

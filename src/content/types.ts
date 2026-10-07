@@ -20,14 +20,32 @@ export interface EducationItem {
   note?: string;
 }
 
+/** A picture on the page. `diagram` and `screenshot` are counted separately for the media line on /projects. */
+export interface Figure {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  caption: string;
+  kind: "diagram" | "screenshot";
+}
+
 export type Block =
   | { type: "p"; text: string }
   | { type: "list"; items: string[] }
   | { type: "steps"; items: string[] }
-  | { type: "figure"; src: string; alt: string; width: number; height: number; caption: string };
+  | ({ type: "figure" } & Figure)
+  | { type: "gallery"; items: Figure[] }
+  | { type: "video"; src: string; poster: string; width: number; height: number; caption: string }
+  /** a short row of real result numbers */
+  | { type: "facts"; items: Array<{ value: string; label: string }> }
+  /** a one-line takeaway under a section */
+  | { type: "callout"; text: string };
 
 export interface Section {
   title: string;
+  /** a dim line under the heading */
+  subtitle?: string;
   blocks: Block[];
 }
 
@@ -46,6 +64,9 @@ export interface Project {
   date: string;
   dateLabel: string;
   where: string;
+  role: string;
+  /** the 20-second version: what was wrong, what I built, what came out of it */
+  glance: { problem: string; built: string; result: string };
   stack: string[];
   links: Array<{ label: string; url: string }>;
   sections: Section[];

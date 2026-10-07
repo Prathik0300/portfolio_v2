@@ -116,7 +116,3 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .md ol { display: grid; gap: 8px; counter-reset: s; }
 .md ol li { padding-left: 3ch; text-indent: -3ch; counter-increment: s; }
 .md ol li::before { content: counter(s) ". "; color: var(--faint); }
-.md figure { margin: 22px 0; max-width: 980px; }
-.md figure img { display: block; border: 1px solid var(--line); background: #fff; }
-.md figcaption { color: var(--faint); font-size: 13px; margin-top: 6px; }
-.md figcaption::before { content: "^ "; }

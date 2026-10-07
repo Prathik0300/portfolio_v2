@@ -5,6 +5,8 @@
 .blurb { color: var(--dim); margin-top: 2px; max-width: 82ch; }
 .stack { color: var(--faint); font-size: 13px; margin-top: 2px; }
 .stack::before { content: "stack: "; }
+.media { color: var(--faint); font-size: 13px; margin-top: 2px; }
+.media::before { content: "media: "; }
 @media (min-width: 640px) {
   .row { grid-template-columns: 22ch minmax(0, 1fr); }
   .when { padding-top: 1px; }
