@@ -6,7 +6,7 @@ import styles from "./CommandPalette.module.css";
 
 export type PaletteCommand = {
   id: string;
-  group: "Go to" | "Case studies" | "Actions";
+  group: "Go to" | "Projects" | "Actions";
   label: string;
   /** internal path, external URL, or one of the built-in actions */
   href?: string;
@@ -81,7 +81,7 @@ export default function CommandPalette({
               setQuery(e.target.value);
               setActive(0);
             }}
-            placeholder="Type a command or search"
+            placeholder="search"
             aria-label="Search commands"
             role="combobox"
             aria-expanded="true"
@@ -106,7 +106,7 @@ export default function CommandPalette({
                   onMouseMove={() => setActive(i)}
                   onClick={() => void run(c)}
                 >
-                  <span>{c.action === "copy-email" && copied ? "Copied" : c.label}</span>
+                  <span>{c.action === "copy-email" && copied ? "copied" : c.label}</span>
                   {c.href?.startsWith("http") && <span className={styles.hint}>↗</span>}
                 </button>
               </li>

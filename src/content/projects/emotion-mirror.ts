@@ -1,178 +1,52 @@
-import type { ProjectItem } from "../types";
+import type { Project } from "../types";
 
-export const emotionMirror: ProjectItem = {
-  name: "Virtual Emotion Mirror",
+export const emotionMirror: Project = {
   slug: "virtual-emotion-mirror",
-  blurb:
-    "Real-time facial emotion inference in the browser \u2014 client-side detection, server-side classification, MongoDB trend analytics.",
-  badge: "Solo \u00b7 live demo",
-  badgeTone: "faint",
+  file: "emotion-mirror",
+  name: "Virtual Emotion Mirror",
+  blurb: "Reads your facial expression in the browser and suggests music and movies to match.",
   description:
-    "An AI-driven facial emotion recognition system that analyzes real-time expressions to recommend personalized content and surface long-term emotional trends.",
-  techStack: [
-    "React.js",
-    "NestJS",
-    "Python",
-    "TensorFlow",
-    "MongoDB",
-    "Computer Vision",
-    "Deep Learning",
-    "REST APIs",
+    "A solo project: facial emotion detection in the browser, classification in a Python service, and music and movie suggestions plus a mood history. React, NestJS, TensorFlow.",
+  date: "2025-03",
+  dateLabel: "Jan – Mar 2025",
+  where: "Solo project",
+  stack: ["React", "NestJS", "Python", "TensorFlow", "MongoDB", "Spotify API", "IMDB API"],
+  links: [
+    { label: "github", url: "https://github.com/Prathik0300/Virtual_Emotion_Mirror" },
+    { label: "live demo", url: "https://vem-prathik0300s-projects.vercel.app/" },
   ],
-  detailSubtitle: "AI-Driven Facial Emotion Recognition & Personalized Content System",
-  detailDateRange: "Jan 2025 - Mar 2025",
-  detailAssociation: "Solo Project",
-  detailTechStack:
-    "React.js · NestJS (Node.js) · Python · TensorFlow · MongoDB · Computer Vision · Deep Learning · REST APIs",
-  detailOverview:
-    "An AI-powered emotion intelligence platform that detects facial expressions in real time and personalizes content (movies, music) based on emotional state. Hybrid architecture: client-side face detection, server-side emotion classification, MongoDB analytics. Provides both real-time recommendations and long-term emotional insights.",
-  detailProblem:
-    "Traditional recommendations rely on explicit actions (likes, history) and miss emotional context. Real-time emotion recognition can act as an implicit signal for better personalization and self-awareness.",
-  detailMotivation:
-    "Explore how facial emotion recognition enables emotion-aware personalization and how emotional data can provide self-awareness insights over time.",
-  detailSolution:
-    "Hybrid architecture: React frontend performs face detection, Python backend classifies emotions (Happy, Sad, Angry, Surprised, Neutral), NestJS orchestrates. Maps emotions to content recommendations and tracks patterns over time for analytics.",
-  detailSolutionPoints: [
-    "Hybrid Architecture – Client-side face detection reduces latency; server-side emotion classification ensures accuracy. NestJS orchestrates, Python handles inference.",
-    "Real-Time Emotion Pipeline – Face detection → feature extraction → emotion classification (5 emotions) → temporal smoothing for stable predictions.",
-    "Personalized Recommendations – Maps emotions to content: calm/uplifting music for stress/sadness, high-energy for happiness. Movies filtered by emotional compatibility.",
-    "Emotional Analytics – Tracks patterns over days/weeks/months, identifies mood cycles and stress trends for self-awareness insights.",
-    "Scalable Design – Modular services enable independent scaling of frontend, inference, and data storage.",
-  ],
-  detailDesignProcessSteps: [
+  sections: [
     {
-      id: "system-architecture",
-      title: "System Architecture",
-      subtitle: "Hybrid, low-latency design",
-      images: [
+      title: "What it is",
+      blocks: [
         {
-          src: "/img/vem/vem-system-architecture.webp",
-          width: 1307,
-          height: 736,
-          alt: "Virtual Emotion Mirror system architecture diagram showing Frontend (React App, Webcam Integration, Emotion Dashboard), Backend (NestJS API Gateway, Python Inference Service, Spotify API Connector, IMDB API Connector), and Data Layer (MongoDB)",
+          type: "p",
+          text: "A web app that reads your facial expression through the webcam, works out your mood, and suggests music and movies that fit it. It also keeps a history, so you can see how your mood moves over days, weeks and months.",
         },
       ],
-      paragraphs: [
-        "Three-layer architecture: React frontend for client-side face detection, NestJS backend for orchestration, Python service for emotion classification, MongoDB for data persistence. Offloading face detection to client reduces backend load and latency.",
-      ],
-      bullets: [
-        "Frontend: React.js with webcam integration, lightweight browser-based face detection",
-        "Backend: NestJS API gateway, Python deep learning service for emotion classification",
-        "Data: MongoDB for timestamped predictions, patterns, and trends",
-      ],
-      summary:
-        "Hybrid architecture balances real-time performance and scalability. Modular design enables independent optimization and scaling of each component.",
     },
     {
-      id: "emotion-pipeline",
-      title: "Emotion Recognition Pipeline",
-      subtitle: "Real-time detection system",
-      images: [
+      title: "How it works",
+      blocks: [
         {
-          src: "/img/vem/emotion-recognition-pipeline.webp",
-          width: 1339,
-          height: 636,
-          alt: "Virtual Emotion Mirror emotion recognition pipeline diagram showing the flow from video stream through face detection, feature extraction, emotion classification, temporal smoothing, to personalization and recommendations",
+          type: "list",
+          items: [
+            "Face detection runs in the browser, which cuts latency and load on the server.",
+            "A Python service with TensorFlow classifies the expression as happy, sad, angry, surprised or neutral. Predictions are averaged over a short window so one noisy frame doesn't flip the result.",
+            "NestJS sits in the middle and talks to the Python service, MongoDB, and the Spotify and IMDB APIs.",
+            "Suggestions follow the mood: calmer or more uplifting music for stress or sadness, higher energy for happiness, and movies filtered by genre.",
+            "MongoDB stores timestamped predictions, which feed the mood history charts.",
+          ],
         },
+        { type: "figure", src: "/img/vem/vem-system-architecture.webp", alt: "System architecture: React app, NestJS gateway, Python inference service, Spotify and IMDB connectors, MongoDB", width: 1307, height: 736, caption: "System architecture." },
+        { type: "figure", src: "/img/vem/emotion-recognition-pipeline.webp", alt: "Emotion recognition pipeline from video stream to face detection, features, classification and smoothing", width: 1339, height: 636, caption: "From video frame to a stable emotion." },
+        { type: "figure", src: "/img/vem/sequence-diagram.webp", alt: "Sequence diagram from login through face capture, emotion detection and recommendations", width: 1600, height: 2031, caption: "One session, end to end." },
+        { type: "figure", src: "/img/vem/vem.webp", alt: "The dashboard on a laptop and a phone, with mood charts and recommendations", width: 1280, height: 800, caption: "The dashboard." },
       ],
-      paragraphs: [
-        "Four-stage pipeline: face detection → feature extraction → emotion classification (Happy, Sad, Angry, Surprised, Neutral) → temporal smoothing. Processes live video frames with probabilistic outputs and confidence scores. Temporal smoothing prevents abrupt changes from noisy frames.",
-      ],
-      bullets: [
-        "Face detection via browser webcam APIs",
-        "Feature extraction: facial landmarks and expression features",
-        "Emotion classification: TensorFlow models with confidence scores",
-        "Temporal smoothing: averages predictions across time windows",
-      ],
-      summary:
-        "Pipeline enables real-time emotion detection with stable predictions. Probabilistic outputs support confidence-based personalization.",
     },
     {
-      id: "recommendation-engine",
-      title: "Recommendation Engine",
-      subtitle: "Emotion-to-content mapping",
-      images: [
-        {
-          src: "/img/vem/sequence-diagram.webp",
-          width: 1600,
-          height: 2031,
-          alt: "Virtual Emotion Mirror sequence diagram showing the data flow from user login through face capture, emotion detection, genre mapping, API integration with Spotify and IMDB, to personalized recommendations with feedback loop",
-        },
-      ],
-      paragraphs: [
-        "Maps detected emotions to content suggestions. Music: calm/uplifting for stress/sadness, high-energy for happiness. Movies: genre filtering by emotional compatibility. Updates in real time as emotional state changes via feedback loop.",
-      ],
-      bullets: [
-        "Emotion-to-content mapping for music and movies",
-        "Real-time updates as emotional state changes",
-        "Integration with Spotify and IMDB APIs",
-        "Caching and optimization for fast retrieval",
-      ],
-      summary:
-        "Engine creates adaptive recommendations that respond to current emotional state, not just historical behavior. Feedback loop keeps content relevant to user's mood.",
-    },
-    {
-      id: "analytics-insights",
-      title: "Emotional Analytics",
-      subtitle: "Long-term emotional intelligence",
-      paragraphs: [
-        "Transforms raw emotion data into insights. Tracks distribution over days/weeks/months, identifies recurring patterns, mood cycles, and stress trends. Dashboard visualizes trends for self-awareness and well-being reflection.",
-      ],
-      bullets: [
-        "Tracks emotional distribution over time",
-        "Identifies recurring patterns and mood cycles",
-        "Visualization dashboard for trends and insights",
-        "Privacy-preserving aggregation",
-      ],
-      summary:
-        "Analytics layer provides long-term value beyond real-time recommendations, enabling users to understand emotional patterns and reflect on well-being.",
-    },
-    {
-      id: "implementation",
-      title: "Implementation",
-      subtitle: "Production-ready system",
-      images: [
-        {
-          src: "/img/vem/vem.webp",
-          width: 1280,
-          height: 800,
-          alt: "Virtual Emotion Mirror dashboard interface showing laptop and smartphone views with emotion analytics dashboard, daily/weekly/monthly charts, and personalized movie and music recommendations",
-        },
-      ],
-      paragraphs: [
-        "React frontend, NestJS backend, Python inference service, MongoDB data layer. Key solutions: client-side preprocessing, batched inference requests, temporal smoothing, modular architecture. Achieves real-time performance with minimal latency and scalable design.",
-      ],
-      bullets: [
-        "Frontend: React.js with webcam integration, browser-based face detection",
-        "Backend: NestJS API with authentication and orchestration",
-        "Inference: Python TensorFlow models for emotion classification",
-        "Data: MongoDB for predictions, patterns, and trends",
-      ],
-      summary:
-        "Production-ready system with real-time emotion detection, accurate predictions, and scalable architecture. Modular design enables independent optimization and scaling.",
-    },
-  ],
-  detailHighlights: [
-    "Real-Time Detection – Live facial expression analysis with minimal latency",
-    "Hybrid Architecture – Client-side preprocessing, server-side inference for performance and scalability",
-    "Personalized Recommendations – Music and movies adapt to emotional state in real time",
-    "Emotional Analytics – Tracks patterns, mood cycles, and stress trends for self-awareness",
-    "Temporal Smoothing – Stable predictions by averaging across time windows",
-  ],
-  detailReflectionOutcomes:
-    "Successfully built a production-ready hybrid AI architecture integrating deep learning into real-time web apps. Demonstrated real-time emotion detection with personalized recommendations and long-term insights. Explored ethical and technical considerations of emotion-based systems, validating feasibility of emotion-aware applications.",
-  detailReflectionMoreTime:
-    "Future: multi-modal detection (voice + facial), on-device inference for privacy, emotion-aware UI themes, advanced analytics dashboards with sophisticated pattern recognition.",
-  detailLinks: [
-    {
-      label: "GitHub",
-      url: "https://github.com/Prathik0300/Virtual_Emotion_Mirror",
-      icon: "github",
-    },
-    {
-      label: "Website",
-      url: "https://vem-prathik0300s-projects.vercel.app/",
-      icon: "website",
+      title: "Not done yet",
+      blocks: [{ type: "p", text: "Voice alongside the face, and running the model on the device." }],
     },
   ],
 };

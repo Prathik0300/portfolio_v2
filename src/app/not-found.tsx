@@ -1,23 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Shell } from "@/components/shell/Shell";
 
-export const metadata: Metadata = {
-  title: "Page not found",
-  robots: { index: false, follow: false },
-  alternates: { canonical: null },
-};
+export const metadata: Metadata = { title: "Not found", robots: { index: false, follow: false }, alternates: { canonical: null } };
 
 export default function NotFound() {
   return (
-    <div className="wrap" style={{ paddingBlock: "clamp(56px, 10vw, 120px)", display: "grid", gap: 16, maxWidth: 640 }}>
-      <p className="kicker">404</p>
-      <h1 style={{ fontSize: "clamp(1.9rem, 5vw, 2.6rem)" }}>That page doesn&apos;t exist.</h1>
-      <p style={{ color: "var(--dim)", margin: 0 }}>The link may be old. Try one of these instead.</p>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-        <Link href="/" className="btn btn--primary">Home</Link>
-        <Link href="/work" className="btn">Work</Link>
-        <Link href="/experience" className="btn">Experience</Link>
-      </div>
-    </div>
+    <Shell>
+      <p className="md">
+        <span className="ps1">$ </span>cd that-page
+        <br />
+        <span style={{ color: "var(--red)" }}>bash: cd: that-page: No such file or directory</span>
+      </p>
+      <h1 className="srOnly">Page not found</h1>
+      <p style={{ marginTop: 24 }}>
+        Try <Link href="/">home</Link>, <Link href="/work">work</Link> or <Link href="/experience">experience</Link>.
+      </p>
+    </Shell>
   );
 }

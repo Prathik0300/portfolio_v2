@@ -1,19 +1,13 @@
-import type { ProjectItem } from "../types";
+import type { Project } from "../types";
 import { multiAgentPipeline } from "./multi-agent-pipeline";
 import { crlitePlus } from "./crlite-plus";
-import { programRepair } from "./program-repair";
-import { emotionMirror } from "./emotion-mirror";
 import { ensogrow } from "./ensogrow";
+import { emotionMirror } from "./emotion-mirror";
+import { programRepair } from "./program-repair";
 
-/** Display order for /work. */
-export const projects: ProjectItem[] = [
-  multiAgentPipeline,
-  crlitePlus,
-  programRepair,
-  emotionMirror,
-  ensogrow,
-];
-
-export const featuredProjects = projects.filter((p) => p.featured);
+/** Newest first, like `ls -t`. */
+export const projects: Project[] = [multiAgentPipeline, crlitePlus, ensogrow, emotionMirror, programRepair].sort(
+  (a, b) => b.date.localeCompare(a.date),
+);
 
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug);

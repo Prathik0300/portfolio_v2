@@ -1,0 +1,4 @@
+.meta { display: grid; grid-template-columns: 6ch minmax(0, 1fr); gap: 2px 2ch; margin: 0 0 6px; padding: 12px 0; border-block: 1px dashed var(--line); }
+.meta dt { color: var(--faint); }
+.meta dd { margin: 0; color: var(--dim); overflow-wrap: anywhere; }
+.back { margin-top: 44px; }

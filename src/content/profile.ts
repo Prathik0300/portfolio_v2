@@ -6,49 +6,43 @@ export const siteLinks = {
   location: "Chicago, IL",
 };
 
-export const heroCopy = {
-  kicker: "AI Platform & Infrastructure Engineer",
-  headline: "I build and run the infrastructure behind AI products.",
-  blurb:
-    "I'm a software engineer working on the platform side of AI: the pipelines that turn models into shipped features, the Kubernetes setup underneath, and the CI/CD that keeps releases boring. I'm finishing an MS in CS at UIC, and before that I was an SDE at Bajaj Finserv Health.",
-  location: "Chicago, IL",
+export const readme = {
+  title: "Prathik Pugazhenthi",
+  intro: [
+    "I'm a software engineer in Chicago. I work on the infrastructure side of AI products: getting model pipelines deployed, running them on Kubernetes, and automating the releases.",
+    "I'm finishing an MS in Computer Science at UIC. Before that I was a software engineer at Bajaj Finserv Health in Pune, where I looked after the web modules that most of the site's traffic went through.",
+    "Most recently I was at RadioFX, where I built a pipeline that generates websites from a prompt, and the GKE setup that hosts each one separately.",
+  ],
 };
 
-export const shippedAt = ["RadioFX", "Bajaj Finserv Health", "UBS", "UIC"];
-
-export const stackLabel = "Mostly working in";
 export const stackItems = [
-  "Kubernetes / GKE",
+  "Kubernetes",
+  "GKE",
   "GCP",
+  "AWS",
   "Helm",
   "GitHub Actions",
   "NestJS",
   "TypeScript",
   "Python",
-  "Gemini / OpenAI",
   "Postgres",
   "Cassandra",
+  "Gemini",
+  "OpenAI",
 ];
 
-export const contactCopy = {
-  kicker: "Contact",
-  heading: "Looking for someone on the AI platform / infra side?",
-  sub: "Email is the best way to reach me.",
-};
-
 export const aboutPage = {
-  heading: "I like owning systems end to end, from API design to infra.",
   body: [
-    "I'm pursuing a Master of Science in Computer Science at the University of Illinois Chicago, focusing on cloud computing, backend development, and distributed systems. Before this, I completed my BTech in Computer Science at Vellore Institute of Technology.",
-    "I was a Software Development Engineer at Bajaj Finserv Health, working on high-traffic B2C modules and performance-critical flows. My experience spans scalable multi-tenant cloud architectures, AI-enabled automation pipelines, Kubernetes workloads, backend systems, and CI/CD environments.",
-    "I care about secure, high-performance systems and enjoy leading modernization work that makes platforms more reliable, observable, and efficient to work on.",
+    "I'm doing an MS in Computer Science at the University of Illinois Chicago, focused on cloud computing, backend development and distributed systems. My BTech in Computer Science is from Vellore Institute of Technology.",
+    "From 2022 to 2024 I worked at Bajaj Finserv Health in Pune. I started as an intern working on performance and SEO, and by the end I was the engineer responsible for three modules that carried 98% of the website's traffic.",
+    "In 2025 I moved to infrastructure work at RadioFX: getting services onto GKE, writing the CI/CD, and building the pipeline that generates websites from a prompt. I like owning a system end to end, from the API down to the deployment.",
   ],
 };
 
 export const languages = [
-  { name: "Tamil", level: "Native" },
-  { name: "English", level: "Full professional" },
-  { name: "Hindi", level: "Full professional" },
-  { name: "French", level: "Elementary" },
-  { name: "Gujarati", level: "Elementary" },
+  "Tamil (native)",
+  "English (full professional)",
+  "Hindi (full professional)",
+  "French (elementary)",
+  "Gujarati (elementary)",
 ];

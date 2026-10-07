@@ -1,34 +1,26 @@
 import type { Metadata } from "next";
-import { projects } from "@/content/projects";
-import { ProjectCard } from "@/components/work/ProjectCard";
+import { Shell, Prompt } from "@/components/shell/Shell";
+import { WorkList } from "@/components/rows/WorkList";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumb, graph } from "@/lib/seo";
-import styles from "./work.module.css";
 
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Case studies on multi-agent AI pipelines, multi-tenant Kubernetes on GKE, a shipped Chrome extension, and LLM program repair: the problem, the build, the result.",
+    "Things I've built: a prompt-to-website pipeline on GKE, a Chrome extension for certificate revocation, an LLM that repairs crashes, and a few smaller projects.",
 };
 
 export default function WorkPage() {
   return (
-    <div className="wrap">
+    <Shell current="work">
       <JsonLd data={graph(breadcrumb([{ name: "Home", path: "/" }, { name: "Work", path: "/work" }]))} />
-      <header className={styles.head}>
-        <p className="kicker">Work</p>
-        <h1 className={styles.h1}>Case studies</h1>
-        <p className={styles.lead}>
-          Each one covers the problem I was working against, what I built, and what changed, with links to the code, paper or live demo where they exist.
-        </p>
-      </header>
-      <ul className={styles.list}>
-        {projects.map((p, i) => (
-          <li key={p.slug} className="reveal">
-            <ProjectCard project={p} variant="row" index={i + 1} as="h2" />
-          </li>
-        ))}
-      </ul>
-    </div>
+      <Prompt typed cmd="ls -lt work/" path="~" />
+      <div className="md">
+        <h1>Work</h1>
+      </div>
+      <div style={{ marginTop: 18 }}>
+        <WorkList detailed />
+      </div>
+    </Shell>
   );
 }

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getProject, projects } from "@/content/projects";
-import { CaseStudy } from "@/components/work/CaseStudy";
+import { Shell, Prompt } from "@/components/shell/Shell";
+import { Article } from "@/components/work/Article";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumb, graph, projectSchema } from "@/lib/seo";
 
@@ -14,19 +15,16 @@ export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
 }
 
-const clip = (s: string, n = 158) => (s.length <= n ? s : `${s.slice(0, n - 1).trimEnd()}…`);
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const p = getProject(slug);
   if (!p) return {};
-  const description = clip(p.detailOverview ?? p.description);
-  const title = p.seoTitle ?? p.name.replace(/\s+[–-]\s+.*/, "");
+  const title = p.seoTitle ?? p.name;
   return {
     title,
-    description,
-    openGraph: { type: "article", title, description },
-    twitter: { title, description },
+    description: p.description,
+    openGraph: { type: "article", title, description: p.description },
+    twitter: { title, description: p.description },
   };
 }
 
@@ -36,7 +34,7 @@ export default async function WorkDetailPage({ params }: Props) {
   if (!project) notFound();
 
   return (
-    <>
+    <Shell current="work">
       <JsonLd
         data={graph(
           breadcrumb([
@@ -47,7 +45,8 @@ export default async function WorkDetailPage({ params }: Props) {
           projectSchema(project),
         )}
       />
-      <CaseStudy project={project} />
-    </>
+      <Prompt typed cmd={`cat ${project.file}.md`} path="~/work" />
+      <Article project={project} />
+    </Shell>
   );
 }

@@ -1,6 +1,6 @@
 import { absoluteUrl, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 import { siteLinks, stackItems } from "@/content/profile";
-import type { ProjectItem } from "@/content/types";
+import type { Project } from "@/content/types";
 
 const personId = `${SITE_URL}/#person`;
 const websiteId = `${SITE_URL}/#website`;
@@ -9,7 +9,7 @@ export const personSchema = {
   "@type": "Person",
   "@id": personId,
   name: SITE_NAME,
-  jobTitle: "AI Platform & Infrastructure Engineer",
+  jobTitle: "Software Engineer",
   description: SITE_DESCRIPTION,
   url: SITE_URL,
   email: `mailto:${siteLinks.email}`,
@@ -53,14 +53,14 @@ export const breadcrumb = (items: Array<{ name: string; path: string }>) => ({
   })),
 });
 
-export const projectSchema = (p: ProjectItem) => ({
+export const projectSchema = (p: Project) => ({
   "@type": "TechArticle",
   headline: p.name,
-  description: p.detailOverview ?? p.description,
+  description: p.description,
   url: absoluteUrl(`/work/${p.slug}`),
   mainEntityOfPage: absoluteUrl(`/work/${p.slug}`),
   image: absoluteUrl(`/work/${p.slug}/opengraph-image`),
   author: { "@id": personId },
-  keywords: p.techStack.join(", "),
+  keywords: p.stack.join(", "),
   inLanguage: "en-US",
 });
