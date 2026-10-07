@@ -10,7 +10,7 @@ export function ProjectList({ limit, detailed = false }: { limit?: number; detai
   return (
     <ul className={styles.list}>
       {list.map((p) => (
-        <li key={p.slug} className={styles.row}>
+        <li key={p.slug} className={`${styles.row} ${styles.linkRow}`}>
           <span className={styles.when}>{p.dateLabel}</span>
           <div>
             <Link href={`/projects/${p.slug}`} className={styles.name}>{clean(p.name)}</Link>

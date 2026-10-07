@@ -1,19 +1,67 @@
 .navWrap { position: sticky; top: 0; z-index: 20; background: var(--bg); border-bottom: 1px dashed var(--line); }
 .nav { max-width: var(--page); margin-inline: auto; padding: 4px 20px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2px 20px; }
-.home { text-decoration: none; color: var(--fg); white-space: nowrap; padding-block: 8px; }
-.home:hover { color: var(--fg); }
+.home { background: none; color: var(--fg); white-space: nowrap; padding-block: 8px; }
+.home:hover { color: var(--fg); background: none; }
+.hostWrap { display: inline-block; overflow: hidden; white-space: nowrap; vertical-align: bottom; max-width: 16ch; }
 .links { display: flex; flex-wrap: wrap; align-items: center; gap: 0 18px; }
-.links a, .links button { color: var(--dim); text-decoration: none; padding-block: 12px; background: none; border: 0; font: inherit; cursor: pointer; }
-.links a:hover, .links button:hover { color: var(--fg); text-decoration: underline; text-underline-offset: 4px; }
-.links a[aria-current="page"] { color: var(--yellow); text-decoration: underline; text-underline-offset: 4px; }
+
+/* nav links: no resting underline; a yellow line wipes in on hover and stays under the current page */
+.links a, .links button { color: var(--dim); padding-block: 12px; border: 0; font: inherit; cursor: pointer; }
+.links a {
+  background-image: linear-gradient(var(--yellow), var(--yellow));
+  background-position: 0 calc(100% - 10px);
+  background-size: 0 1px;
+}
+.links button { background: none; }
+@media (hover: hover) {
+  .links a:hover { color: var(--fg); background-size: 100% 1px; }
+  .links button:hover { color: var(--fg); }
+}
+.links a[aria-current="page"] { color: var(--yellow); background-size: 100% 1px; }
+.links button:active { transform: translateY(1px); }
 .k { color: var(--faint) !important; }
-@media (max-width: 520px) { .host { display: none; } .k { display: none; } }
+
+.meter { display: none; position: relative; color: var(--faint); font-size: 13px; white-space: pre; }
+.fill { position: absolute; inset: 0; color: var(--yellow); }
+
+@media (max-width: 520px) {
+  .host, .hostWrap, .k { display: none; }
+  /* "projects" is longer than the old "work", so tighten the row to keep it on one line down to 360px */
+  .nav { font-size: 14px; column-gap: 12px; }
+  .links { gap: 0 13px; }
+}
 
 .prompt { margin-bottom: 26px; color: var(--fg); overflow: hidden; }
+.host { }  /* page prompts: user@host is hidden on phones so the typed line never wraps */
 
 .footer { border-top: 1px dashed var(--line); }
 .footerInner { max-width: var(--page); margin-inline: auto; padding: 18px 20px 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 20px; color: var(--faint); font-size: 13px; }
-.footerInner a { color: var(--dim); padding-block: 8px; display: inline-block; }
+.footerInner a { --u: 9px; color: var(--dim); padding-block: 8px; display: inline-block; }
 .footerLinks { display: flex; gap: 0 16px; }
 
 @media (min-width: 760px) { .nav, .footerInner { padding-inline: 32px; } }
+
+/* ---- scroll-driven nav behaviour (Chrome/Edge; elsewhere the header simply stays as it is) ---- */
+@keyframes meterFill { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes hostCollapse { from { max-width: 16ch; opacity: 1; } to { max-width: 0; opacity: 0; } }
+@keyframes ruleIn { from { opacity: 0; } to { opacity: 0.7; } }
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    @media (min-width: 640px) {
+      .meter { display: inline-block; margin-left: 2px; }
+    }
+    .fill { clip-path: inset(0 100% 0 0); animation: meterFill linear both; animation-timeline: scroll(root); }
+
+    /* Header height stays fixed on purpose: shrinking it would shift the page on every scroll frame. */
+    .hostWrap { animation: hostCollapse linear both; animation-timeline: scroll(root); animation-range: 0 80px; }
+    .navWrap::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--faint); opacity: 0;
+      animation: ruleIn linear both; animation-timeline: scroll(root); animation-range: 0 80px;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .links a, .links button { transition: background-size 180ms var(--ease), color 120ms, transform 80ms; }
+}

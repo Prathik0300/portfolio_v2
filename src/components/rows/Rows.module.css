@@ -1,5 +1,5 @@
 .list { display: grid; gap: 18px; }
-.row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 2ch; }
+.row { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 2ch; }
 .when { color: var(--faint); font-size: 13px; }
 .name { color: var(--yellow); }
 .blurb { color: var(--dim); margin-top: 2px; max-width: 82ch; }
@@ -10,3 +10,12 @@
   .when { padding-top: 1px; }
 }
 .more { margin-top: 16px; }
+
+/* project rows are clickable as a whole: the name's link stretches over the row, and a menu-style > marks it on hover/focus */
+.name::after { content: ""; position: absolute; inset: 0; }
+.linkRow:focus-within .name { color: var(--aqua); background-size: 100% 1px, 100% 1px; }
+.linkRow:focus-within::before { content: ">"; position: absolute; left: -2ch; color: var(--yellow); }
+@media (hover: hover) {
+  .linkRow:hover .name { color: var(--aqua); background-size: 100% 1px, 100% 1px; }
+  .linkRow:hover::before { content: ">"; position: absolute; left: -2ch; color: var(--yellow); }
+}

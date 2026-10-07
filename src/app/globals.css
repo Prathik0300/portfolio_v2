@@ -17,6 +17,9 @@
   --orange: #fe8019;
 
   --page: 1120px;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  /* lets height animate to `auto` (smooth <details>); ignored where unsupported */
+  interpolate-size: allow-keywords;
   --font: var(--font-mono, "IBM Plex Mono"), ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
 
@@ -36,13 +39,24 @@ body {
 
 img { max-width: 100%; height: auto; }
 
+/* Links: a 1px line under the text. On hover a second line wipes across it. --u moves the line when a link has padding. */
 a {
+  --u: 1px;
   color: var(--blue);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
+  text-decoration: none;
+  background-image: linear-gradient(var(--aqua), var(--aqua)), linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 calc(100% - var(--u)), 0 calc(100% - var(--u));
+  background-size: 0 1px, 100% 1px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
-a:hover { color: var(--aqua); }
+@media (hover: hover) {
+  a:hover { color: var(--aqua); background-size: 100% 1px, 100% 1px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  a { transition: background-size 200ms var(--ease), color 120ms; }
+}
 
 ::selection { background: var(--yellow); color: var(--bg); }
 :focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }

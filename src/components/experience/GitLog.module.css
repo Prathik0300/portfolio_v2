@@ -31,10 +31,46 @@
 .points li { padding-left: 2.2ch; position: relative; border-left: 1px solid var(--line); margin-left: 0.5ch; }
 .lead { display: block; font-weight: 600; color: var(--fg); line-height: 1.6; }
 .detail { display: block; margin-top: 4px; color: var(--dim); line-height: 1.75; }
-.num { color: var(--yellow); }
+.num { color: var(--yellow); border-radius: 2px; padding: 0 2px; margin: 0 -2px; }
 .lead .num { font-weight: 600; }
 
 @media (min-width: 640px) {
   .commit { grid-template-columns: 8ch minmax(0, 1fr); column-gap: 2ch; }
   .graph { grid-template-columns: repeat(4, 2ch); }
+}
+
+/* ---- motion: everything below is optional. The finished state above is what you see without it. ---- */
+
+@keyframes laneDraw { from { scale: 1 0; } to { scale: 1 1; } }
+@keyframes starPop { from { scale: 0.4; opacity: 0; } to { scale: 1; opacity: 1; } }
+@keyframes numFlash { from { background-color: rgba(250, 189, 47, 0.3); } to { background-color: transparent; } }
+
+/* lanes draw down and commits pop in as they scroll into view */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .on::before { transform-origin: top; animation: laneDraw linear both; animation-timeline: view(); animation-range: entry 0% entry 90%; }
+    .lane b { animation: starPop linear both; animation-timeline: view(); animation-range: entry 0% entry 60%; }
+    .num { animation: numFlash linear both; animation-timeline: view(); animation-range: entry 10% entry 80%; }
+  }
+}
+
+/* hovering a commit lights its lane and dims the rest */
+@media (hover: hover) {
+  .log:has(.commit:hover) .on::before { opacity: 0.2; }
+  .log:has(.commit[data-lane="uic"]:hover) .on[data-lane="uic"]::before,
+  .log:has(.commit[data-lane="radiofx"]:hover) .on[data-lane="radiofx"]::before,
+  .log:has(.commit[data-lane="bfhl"]:hover) .on[data-lane="bfhl"]::before,
+  .log:has(.commit[data-lane="ubs"]:hover) .on[data-lane="ubs"]::before { opacity: 1; width: 2px; }
+  .commit:hover .lane b { text-shadow: 0 0 10px currentColor; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .on::before { transition: opacity 150ms, width 150ms; }
+}
+
+/* roles open and close smoothly where the browser can animate <details> */
+@supports selector(::details-content) {
+  @media (prefers-reduced-motion: no-preference) {
+    .commit details::details-content { height: 0; overflow: clip; transition: height 260ms var(--ease), content-visibility 260ms allow-discrete; }
+    .commit details[open]::details-content { height: auto; }
+  }
 }

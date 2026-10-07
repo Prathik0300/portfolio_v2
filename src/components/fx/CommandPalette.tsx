@@ -26,6 +26,9 @@ export default function CommandPalette({
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
   const [copied, setCopied] = useState(false);
+  const [closing, setClosing] = useState(false);
+  const listRef = useRef<HTMLUListElement>(null);
+  const scrollOnKey = useRef(false);
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -38,18 +41,34 @@ export default function CommandPalette({
     return () => d?.close();
   }, []);
 
+  // Let the exit transition play, then unmount. Reduced motion closes at once.
+  const requestClose = () => {
+    if (closing) return;
+    setClosing(true);
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.setTimeout(onClose, reduce ? 0 : 130);
+  };
+
+  // Keep the highlighted result in view when arrowing, but not when the mouse is what moved it.
+  useEffect(() => {
+    if (!scrollOnKey.current) return;
+    scrollOnKey.current = false;
+    const id = results[active]?.id;
+    if (id) document.getElementById(`cmd-${id}`)?.scrollIntoView({ block: "nearest" });
+  }, [active, results]);
+
   const run = async (c: PaletteCommand) => {
     if (c.action === "copy-email" && c.value) {
       try {
         await navigator.clipboard.writeText(c.value);
         setCopied(true);
-        setTimeout(onClose, 700);
+        setTimeout(requestClose, 700);
       } catch {
-        onClose();
+        requestClose();
       }
       return;
     }
-    onClose();
+    requestClose();
     if (!c.href) return;
     if (c.href.startsWith("/") && !c.href.endsWith(".pdf")) router.push(c.href);
     else window.open(c.href, "_blank", "noopener,noreferrer");
@@ -58,9 +77,11 @@ export default function CommandPalette({
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowDown") {
       e.preventDefault();
+      scrollOnKey.current = true;
       setActive((i) => Math.min(i + 1, results.length - 1));
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
+      scrollOnKey.current = true;
       setActive((i) => Math.max(i - 1, 0));
     } else if (e.key === "Enter" && results[active]) {
       e.preventDefault();
@@ -69,7 +90,17 @@ export default function CommandPalette({
   };
 
   return (
-    <dialog ref={dialog} className={styles.dialog} onClose={onClose} onClick={(e) => e.target === dialog.current && onClose()} aria-label="Command menu">
+    <dialog
+      ref={dialog}
+      className={styles.dialog}
+      data-closing={closing || undefined}
+      onCancel={(e) => {
+        e.preventDefault();
+        requestClose();
+      }}
+      onClick={(e) => e.target === dialog.current && requestClose()}
+      aria-label="Command menu"
+    >
       <div className={styles.panel} onKeyDown={onKeyDown}>
         <div className={styles.inputRow}>
           <span className={styles.prompt} aria-hidden>$</span>
@@ -80,6 +111,7 @@ export default function CommandPalette({
             onChange={(e) => {
               setQuery(e.target.value);
               setActive(0);
+              if (listRef.current) listRef.current.scrollTop = 0;
             }}
             placeholder="search"
             aria-label="Search commands"
@@ -90,7 +122,7 @@ export default function CommandPalette({
           />
           <kbd className={styles.kbd}>esc</kbd>
         </div>
-        <ul id="palette-list" role="listbox" className={styles.list}>
+        <ul id="palette-list" role="listbox" className={styles.list} ref={listRef}>
           {results.map((c, i) => {
             const header = i === 0 || results[i - 1].group !== c.group ? c.group : null;
             return (
@@ -103,6 +135,7 @@ export default function CommandPalette({
                   aria-selected={i === active}
                   className={styles.item}
                   data-active={i === active}
+                  data-copied={(c.action === "copy-email" && copied) || undefined}
                   onMouseMove={() => setActive(i)}
                   onClick={() => void run(c)}
                 >

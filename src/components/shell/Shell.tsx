@@ -11,8 +11,10 @@ export function SiteHeader() {
     <header className={styles.navWrap}>
       <div className={styles.nav}>
         <Link href="/" className={styles.home} aria-label="Home">
-          <span className={`ps1 ${styles.host}`}>prathik@chicago</span>
-          <span className={`faint ${styles.host}`}>:</span>
+          <span className={styles.hostWrap}>
+            <span className="ps1">prathik@chicago</span>
+            <span className="faint">:</span>
+          </span>
           <span className="cwd">~</span>
           <span>$</span>
         </Link>
@@ -22,6 +24,11 @@ export function SiteHeader() {
           <button type="button" className={styles.k} data-palette aria-label="Open command menu" title="Command menu (Ctrl or Cmd + K)">
             ⌘K
           </button>
+          {/* scroll progress: decorative, driven by CSS only, hidden where scroll timelines aren't supported */}
+          <span className={styles.meter} aria-hidden="true">
+            <span>[··········]</span>
+            <span className={styles.fill}>[##########]</span>
+          </span>
         </nav>
       </div>
     </header>

@@ -72,13 +72,13 @@ export function GitLog() {
       </ul>
       <ol className={styles.log}>
         {commits.map((c, i) => (
-          <li key={c.id} className={styles.commit}>
+          <li key={c.id} className={styles.commit} data-lane={LANES[c.lane].key}>
             <div className={styles.graph} aria-hidden="true">
               {LANES.map((l, lane) => {
                 const on = i >= span[lane].first && i <= span[lane].last;
                 const cls = [styles.lane, on ? styles.on : "", on && i === span[lane].first ? styles.top : "", on && i === span[lane].last ? styles.end : ""].join(" ");
                 return (
-                  <span key={l.key} className={cls} style={{ color: l.color }}>
+                  <span key={l.key} className={cls} data-lane={l.key} style={{ color: l.color }}>
                     {c.lane === lane && <b>*</b>}
                   </span>
                 );
