@@ -134,7 +134,7 @@ export const experienceItems: ExperienceItem[] = [
   },
 ];
 
-/** Newest first. GPAs from the resume, MS coursework from the UIC transcript, everything else from the LinkedIn profile. */
+/** Newest first. GPAs from the resume, coursework from the UIC transcript and LinkedIn courses, everything else from the LinkedIn profile. */
 export const educationItems: EducationItem[] = [
   {
     id: "uic-ms",
@@ -180,6 +180,26 @@ export const educationItems: EducationItem[] = [
     points: [
       {
         lead: "GPA 3.6.",
+      },
+      {
+        lead: "Core CS coursework.",
+        detail: "Data Structures and Algorithms, Database Management Systems, Software Engineering, Theory of Computation and Compiler Design, Discrete Mathematics and Graph Theory, plus Java and object-oriented programming.",
+      },
+      {
+        lead: "Systems and networks coursework.",
+        detail: "Operating Systems, Computer Architecture, Digital Logic, Microprocessors, Networks, and Parallel and Distributed Computing.",
+      },
+      {
+        lead: "Security coursework.",
+        detail: "Blockchain and Cryptocurrency Technologies, Digital Forensics, Information Security Management, and Security Analysis and Audit.",
+      },
+      {
+        lead: "AI and data coursework.",
+        detail: "Artificial Intelligence, Robotics, Web Mining, Social and Information Networks, and Data Visualization.",
+      },
+      {
+        lead: "Web and design coursework.",
+        detail: "Internet and Web Programming, and Human Computer Interaction.",
       },
       {
         lead: "Head of the web development team at Heritage Club.",
