@@ -1,0 +1,50 @@
+.dialog {
+  margin: 12vh auto auto; padding: 0; width: min(560px, calc(100vw - 24px)); max-height: 70vh;
+  border: 1px solid var(--faint); background: var(--bg); color: var(--fg); font: inherit;
+  overflow: hidden; /* <dialog> is overflow:auto by default; only the list should ever scroll, and never with a visible bar */
+}
+.dialog::backdrop { background: rgba(0, 0, 0, 0.7); }
+.panel { display: flex; flex-direction: column; max-height: calc(70vh - 2px); }
+.inputRow { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+.prompt { color: var(--green); font-weight: 600; }
+.input { flex: 1; min-width: 0; background: transparent; border: 0; outline: none; color: var(--fg); font: inherit; min-height: 28px; caret-color: var(--yellow); }
+.input::placeholder { color: var(--faint); }
+.kbd { color: var(--faint); font-size: 12px; border: 1px solid var(--line); padding: 0 6px; }
+/* a fixed minimum height keeps the panel from jumping while results filter */
+.list { overflow-y: auto; padding: 6px 0; min-height: 280px; scrollbar-width: none; -ms-overflow-style: none; overscroll-behavior: contain; }
+.list::-webkit-scrollbar { display: none; }  /* no visible scrollbar; wheel and arrow keys still scroll if the list is ever taller than the window */
+.group { color: var(--faint); font-size: 12px; margin: 8px 14px 2px; }
+.group::before { content: "# "; }
+.item {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; min-height: 44px;
+  position: relative; padding: 8px 14px 8px 34px; background: none; border: 0; color: var(--dim); font: inherit; text-align: left; cursor: pointer;
+}
+.item[data-active="true"] { background: var(--line); color: var(--fg); }
+/* the > sits in its own gutter so labels never shift when the highlight moves */
+.item[data-active="true"]::before { content: ">"; position: absolute; left: 14px; color: var(--yellow); }
+.item[data-copied] { color: var(--green); }
+.hint { color: var(--faint); }
+.empty { padding: 16px 14px; color: var(--faint); }
+
+/* with a mouse, rows can be compact enough that the whole menu fits without scrolling; touch keeps 44px targets */
+@media (pointer: fine) {
+  .item { min-height: 32px; padding-block: 3px; }
+  .group { margin-top: 6px; }
+}
+
+@keyframes copiedFlash { from { background-color: rgba(184, 187, 38, 0.35); } to { background-color: transparent; } }
+
+@media (prefers-reduced-motion: no-preference) {
+  .dialog { transition: opacity 120ms ease, transform 120ms ease; }
+  .dialog::backdrop { transition: opacity 120ms ease; }
+  .dialog[data-closing] { opacity: 0; transform: scale(0.98); }
+  .dialog[data-closing]::backdrop { opacity: 0; }
+  .item { transition: background-color 80ms; }
+  .item[data-copied] { animation: copiedFlash 600ms ease-out; }
+}
+
+/* starting values for the open transition */
+@starting-style {
+  .dialog[open] { opacity: 0; transform: scale(0.98); }
+  .dialog[open]::backdrop { opacity: 0; }
+}

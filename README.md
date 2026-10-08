@@ -1,93 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# prathikpugazhenthi.dev
 
-## Getting Started
+Personal portfolio. Next.js 16 (App Router) + React 19, fully static, deployed on Vercel.
+Canonical host is **www.prathikpugazhenthi.dev** (Vercel redirects the apex to www).
 
-First, run the development server:
+## Run
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
+npm run build && npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Architecture
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Area | Decision |
+|---|---|
+| Rendering | Every route is static (SSG). Server Components by default; `/projects/[slug]` uses `generateStaticParams` + `dynamicParams = false`. |
+| Client JS | Small islands only: `analytics/Analytics`, `fx/PaletteHost` (Ctrl/Cmd+K, also copies the address on mailto clicks; the palette itself is code-split), `shell/NavLinks` (active tab), and on project pages `SectionSpy` (contents highlight) and `Lightbox` (the zoom overlay loads on first click). Everything else is a server component. |
+| Look | A terminal session: IBM Plex Mono only, Gruvbox colors used semantically (links blue, dates dim, git lanes by employer). No cards, gradients or shadows. Each page is a command: `/` is `cat README.md`, `/projects` is `ls -lt projects/`, `/experience` is `git log --graph`. |
+| Motion | CSS first: the typed prompt (`steps()`), menu-style hovers, scroll-driven git lanes and meter, smooth `<details>`. All of it sits behind `prefers-reduced-motion` and `@supports`, and the finished state works without it. |
+| Content | Plain-language copy lives in typed modules under `src/content/` (`profile`, `experience`, `projects/*`). Add a project by adding a file and listing it in `projects/index.ts`; it shows up in `/projects` (with a media line counted from its figures), the sitemap and the palette. Project pages are built from blocks (paragraphs, steps, figures, galleries, facts) plus an at-a-glance block; see `content/types.ts`. |
+| SEO | `src/lib/site.ts` is the single origin. Server-rendered JSON-LD (`lib/seo.ts`), `app/robots.ts`, `app/sitemap.ts`, build-time OG images (`opengraph-image.tsx`), per-page canonicals. |
+| Analytics | GA4 via `NEXT_PUBLIC_GA_MEASUREMENT_ID`, loaded `lazyOnload`. Clicks are tracked by one delegated listener reading `data-track="category|label"`. |
+| Assets | Project diagrams are SVG drawn by `scripts/diagrams.mjs` (`npm run diagrams` writes `public/img/diagrams/`); screenshots are WebP, with 800w variants for wide ones. No AI-generated images. `/work` and `/work/:slug` 308-redirect to `/projects/...` in `next.config.ts`. |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Budgets and checks
 
-## Learn More
+```bash
+npm run build
+npm run budget                       # first-load JS per route vs framework floor (+15 KB app code max)
+npm start -- -p 3100 &
+npm run lh -- http://localhost:3100  # mobile Lighthouse over the main routes (needs Chrome: CHROME_PATH)
+```
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Google Analytics Integration
-
-This project includes comprehensive Google Analytics 4 (GA4) tracking integrated throughout the website. All analytics data is viewable in your [Google Analytics dashboard](https://analytics.google.com/).
-
-### Setup Instructions
-
-1. Create a Google Analytics 4 property at [Google Analytics](https://analytics.google.com/)
-2. Get your Measurement ID (format: `G-XXXXXXXXXX`)
-3. Create a `.env.local` file in the root directory:
-   ```bash
-   NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
-   ```
-4. Restart your development server
-
-### What Gets Tracked
-
-The analytics integration automatically tracks:
-
-**Page Views:**
-- Initial page load
-- Client-side navigation (Next.js routing)
-- Project detail pages
-
-**User Interactions:**
-- Button clicks (View Projects, What I Offer, etc.)
-- Project card clicks
-- Resume downloads
-- Email and phone contact clicks
-- Social media link clicks (GitHub, LinkedIn)
-- Section views (About, Skills, Experience, Services, Projects)
-
-**Event Categories:**
-- `button` - All button interactions
-- `external_link` - External link clicks
-- `file` - File downloads (resume)
-- `project` - Project views
-- `section` - Section scrolls into view
-- `contact` - Contact method clicks
-- `social` - Social media clicks
-
-### Viewing Analytics
-
-All analytics data is available in your Google Analytics dashboard:
-- Visit [Google Analytics](https://analytics.google.com/)
-- Select your property
-- View reports for:
-  - Real-time visitors
-  - User demographics and location
-  - Traffic sources
-  - Page views and navigation
-  - Custom events (button clicks, downloads, etc.)
-  - User engagement metrics
-
-**Note:** Analytics only loads if `NEXT_PUBLIC_GA_MEASUREMENT_ID` is set. If not provided, the component gracefully skips loading.
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-**Important:** When deploying, make sure to add `NEXT_PUBLIC_GA_MEASUREMENT_ID` as an environment variable in your Vercel project settings.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Content changes: bump `CONTENT_UPDATED` in `src/lib/site.ts` so the sitemap `lastModified` moves.

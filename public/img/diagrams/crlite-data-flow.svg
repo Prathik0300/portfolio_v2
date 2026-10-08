@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 950" width="1120" height="950" role="img" aria-labelledby="t d" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace">
+<title id="t">CRLite+ data flow</title>
+<desc id="d">Offline, a Python script builds a blacklist and a whitelist Bloom filter from simulated revoked and valid serial datasets and writes cascadeFilters.json. The file is packaged with the extension build, compressed and versioned. At runtime the extension loads it, asks the Node.js backend for a certificate's serial on each tab load, hashes it, and checks the blacklist: not in it means allow. If it is, a whitelist check decides between allow as a false positive and block, which redirects to blocked.html. Errors loading the filters or reaching the backend also end in a block.</desc>
+<defs>
+<marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#9a8c7c"/></marker>
+<marker id="b" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,1 L9,5 L0,9 z" fill="#9a8c7c"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#fe8019"/></marker>
+<marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8ec07c"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#b8bb26"/></marker>
+</defs>
+<rect width="1120" height="950" fill="#1d2021"/>
+<rect x="20" y="20" width="1080" height="270" rx="3" fill="none" stroke="#9a8c7c" stroke-opacity="0.45" stroke-width="1"/>
+<text x="32" y="40" font-size="12" fill="#9a8c7c" font-weight="600" text-anchor="start">OFFLINE GENERATION</text>
+<rect x="55" y="67" width="190" height="66" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="150" y="96.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Revoked serial</text>
+<text x="150" y="112.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">dataset (simulated)</text>
+<rect x="55" y="182" width="190" height="66" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="150" y="211.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Valid serial</text>
+<text x="150" y="227.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">dataset (simulated)</text>
+<rect x="315" y="116" width="190" height="84" rx="4" fill="#282828" stroke="#8ec07c" stroke-width="1.5"/>
+<text x="410" y="146.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">bloomFilter.py</text>
+<text x="410" y="162.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">MurmurHash3,</text>
+<text x="410" y="178.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">k hash seeds</text>
+<rect x="585" y="67" width="190" height="66" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="680" y="96.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Blacklist Bloom</text>
+<text x="680" y="112.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">filter (level 1)</text>
+<rect x="585" y="182" width="190" height="66" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="680" y="211.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Whitelist Bloom</text>
+<text x="680" y="227.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">filter (level 2)</text>
+<rect x="855" y="116" width="190" height="84" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="950" y="146.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">cascadeFilters.json</text>
+<text x="950" y="162.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">bit arrays + metadata:</text>
+<text x="950" y="178.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">m, k, seeds, version</text>
+<path d="M245,100 L280,100 L280,158 L315,158" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M245,215 L280,215 L280,158 L315,158" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M505,158 L545,158 L545,100 L585,100" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M505,158 L545,158 L545,215 L585,215" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M775,100 L815,100 L815,158 L855,158" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M775,215 L815,215 L815,158 L855,158" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="20" y="310" width="1080" height="150" rx="3" fill="none" stroke="#9a8c7c" stroke-opacity="0.45" stroke-width="1"/>
+<text x="32" y="330" font-size="12" fill="#9a8c7c" font-weight="600" text-anchor="start">DISTRIBUTION</text>
+<rect x="55" y="350" width="190" height="84" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="150" y="380.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">cascadeFilters.json</text>
+<text x="150" y="396.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">packaged with the</text>
+<text x="150" y="412.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">extension build</text>
+<rect x="315" y="369" width="190" height="46" rx="23" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="410" y="396.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">compressed / versioned</text>
+<path d="M950,200 L950,300 L150,300 L150,350" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M245,392 L315,392" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="20" y="480" width="1080" height="450" rx="3" fill="none" stroke="#9a8c7c" stroke-opacity="0.45" stroke-width="1"/>
+<text x="32" y="500" font-size="12" fill="#9a8c7c" font-weight="600" text-anchor="start">RUNTIME: BROWSER</text>
+<rect x="55" y="525" width="150" height="70" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="130" y="548.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Extension loads</text>
+<text x="130" y="564.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">cascadeFilters.json</text>
+<text x="130" y="580.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">on startup</text>
+<rect x="230" y="525" width="150" height="70" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="305" y="548.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">On tab load:</text>
+<text x="305" y="564.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">request cert serial</text>
+<text x="305" y="580.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">from the backend</text>
+<rect x="405" y="525" width="150" height="70" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="480" y="548.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Hash serial</text>
+<text x="480" y="564.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">(SHA-256 + seeds)</text>
+<text x="480" y="580.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">blacklist check</text>
+<polygon points="575,560 591,520 719,520 735,560 719,600 591,600" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+<text x="655" y="564.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">in blacklist?</text>
+<rect x="775" y="537" width="110" height="46" rx="23" fill="#282828" stroke="#b8bb26" stroke-width="1.5"/>
+<text x="830" y="564.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Allow</text>
+<rect x="65" y="664" width="130" height="52" rx="26" fill="#282828" stroke="#fe8019" stroke-width="1.5"/>
+<text x="130" y="686.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Error loading</text>
+<text x="130" y="702.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">filters</text>
+<rect x="230" y="655" width="150" height="70" rx="4" fill="#282828" stroke="#b8bb26" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="305" y="678.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Node.js backend:</text>
+<text x="305" y="694.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">TLS socket fetch,</text>
+<text x="305" y="710.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">returns serial</text>
+<rect x="580" y="662" width="150" height="56" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="655" y="686.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Whitelist</text>
+<text x="655" y="702.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Bloom check</text>
+<polygon points="750,690 766,650 894,650 910,690 894,730 766,730" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+<text x="830" y="694.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">in whitelist?</text>
+<rect x="940" y="662" width="130" height="56" rx="28" fill="#282828" stroke="#b8bb26" stroke-width="1.5"/>
+<text x="1005" y="686.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Allow (false</text>
+<text x="1005" y="702.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">positive)</text>
+<rect x="217" y="787" width="176" height="56" rx="28" fill="#282828" stroke="#fe8019" stroke-width="1.5"/>
+<text x="305" y="811.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Backend</text>
+<text x="305" y="827.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">communication error</text>
+<rect x="755" y="785" width="150" height="60" rx="30" fill="#282828" stroke="#fe8019" stroke-width="1.5"/>
+<text x="830" y="811.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Block (redirect</text>
+<text x="830" y="827.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">to blocked.html)</text>
+<path d="M190,434 L190,525" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M205,560 L230,560" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M380,560 L405,560" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M555,560 L575,560" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M735,560 L775,560" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="755" y="554" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">no</text>
+<path d="M655,600 L655,662" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="659" y="635" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">yes</text>
+<path d="M730,690 L750,690" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M910,690 L940,690" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="925" y="684" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">yes</text>
+<path d="M830,730 L830,785" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="834" y="761.5" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">no</text>
+<path d="M130,595 L130,664" fill="none" stroke="#fe8019" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ao)"/>
+<path d="M283,595 L283,655" fill="none" stroke="#8ec07c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#am)"/>
+<path d="M327,655 L327,595" fill="none" stroke="#8ec07c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#am)"/>
+<text x="275" y="629" font-size="12" fill="#8ec07c" text-anchor="end" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">request serial</text>
+<text x="335" y="629" font-size="12" fill="#8ec07c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">serial + cert metadata</text>
+<path d="M305,725 L305,787" fill="none" stroke="#fe8019" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ao)"/>
+<path d="M130,716 L130,877 L830,877 L830,845" fill="none" stroke="#fe8019" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ao)"/>
+<path d="M393,815 L755,815" fill="none" stroke="#fe8019" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ao)"/>
+</svg>

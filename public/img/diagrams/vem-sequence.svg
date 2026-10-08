@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1146 1376" width="1146" height="1376" role="img" aria-labelledby="t d" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace">
+<title id="t">Virtual Emotion Mirror: one session</title>
+<desc id="d">A sequence diagram across the user, the frontend, the NestJS gateway, the emotion detection and genre mapping services, MongoDB, Spotify and IMDB. The user logs in and captures a face image, which goes to the gateway. In parallel the emotion detection service returns the emotion, which is logged and shown, and the genre mapping service maps it to music and movie genres using the user's content history. The gateway then fetches a playlist from Spotify and movies from IMDB. Negative emotions get uplifting or calming music and positive movies, positive emotions get high-energy music and feel-good movies. The frontend shows the recommendations and the user can give feedback.</desc>
+<defs>
+<marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#9a8c7c"/></marker>
+<marker id="b" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,1 L9,5 L0,9 z" fill="#9a8c7c"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#fe8019"/></marker>
+<marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8ec07c"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#b8bb26"/></marker>
+</defs>
+<rect width="1146" height="1376" fill="#1d2021"/>
+<rect x="14" y="8" width="124" height="54" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="76" y="39.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">User</text>
+<rect x="156" y="8" width="124" height="54" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="218" y="39.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Frontend</text>
+<rect x="298" y="8" width="124" height="54" rx="4" fill="#282828" stroke="#b8bb26" stroke-width="1.5"/>
+<text x="360" y="31.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">NestJS</text>
+<text x="360" y="47.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">gateway</text>
+<rect x="440" y="8" width="124" height="54" rx="4" fill="#282828" stroke="#d3869b" stroke-width="1.5"/>
+<text x="502" y="23.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Emotion</text>
+<text x="502" y="39.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">detection</text>
+<text x="502" y="55.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">service</text>
+<rect x="582" y="8" width="124" height="54" rx="4" fill="#282828" stroke="#8ec07c" stroke-width="1.5"/>
+<text x="644" y="23.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Genre</text>
+<text x="644" y="39.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">mapping</text>
+<text x="644" y="55.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">service</text>
+<rect x="724" y="8" width="124" height="54" rx="4" fill="#282828" stroke="#fe8019" stroke-width="1.5"/>
+<text x="786" y="39.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">MongoDB</text>
+<rect x="866" y="8" width="124" height="54" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="928" y="39.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Spotify API</text>
+<rect x="1008" y="8" width="124" height="54" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="1070" y="39.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">IMDB API</text>
+<line x1="76" y1="62" x2="76" y2="1284" stroke="#83a598" stroke-opacity="0.45" stroke-dasharray="3 5"/>
+<line x1="218" y1="62" x2="218" y2="1284" stroke="#83a598" stroke-opacity="0.45" stroke-dasharray="3 5"/>
+<line x1="360" y1="62" x2="360" y2="1284" stroke="#b8bb26" stroke-opacity="0.45" stroke-dasharray="3 5"/>
+<line x1="502" y1="62" x2="502" y2="1284" stroke="#d3869b" stroke-opacity="0.45" stroke-dasharray="3 5"/>
+<line x1="644" y1="62" x2="644" y2="1284" stroke="#8ec07c" stroke-opacity="0.45" stroke-dasharray="3 5"/>
+<line x1="786" y1="62" x2="786" y2="1284" stroke="#fe8019" stroke-opacity="0.45" stroke-dasharray="3 5"/>
+<line x1="928" y1="62" x2="928" y2="1284" stroke="#9a8c7c" stroke-opacity="0.45" stroke-dasharray="3 5"/>
+<line x1="1070" y1="62" x2="1070" y2="1284" stroke="#9a8c7c" stroke-opacity="0.45" stroke-dasharray="3 5"/>
+<rect x="36" y="246" width="806" height="512" rx="3" fill="#fabd2f" fill-opacity="0.04" stroke="#fabd2f" stroke-opacity="0.55" stroke-dasharray="6 4"/>
+<rect x="36" y="246" width="41" height="20" fill="#282828" stroke="#fabd2f" stroke-opacity="0.55"/>
+<text x="43" y="260" font-size="12" fill="#fabd2f" font-weight="600" text-anchor="start">par</text>
+<text x="87" y="260" font-size="12" fill="#fabd2f" font-weight="400" text-anchor="start">Analyze emotion and map genres</text>
+<text x="48" y="1002" font-size="12" fill="#fabd2f" font-weight="400" text-anchor="start">Emotion is negative (sad…)</text>
+<text x="48" y="1084" font-size="12" fill="#fabd2f" font-weight="400" text-anchor="start">Emotion is positive (happy…)</text>
+<rect x="36" y="968" width="806" height="172" rx="3" fill="#fabd2f" fill-opacity="0.04" stroke="#fabd2f" stroke-opacity="0.55" stroke-dasharray="6 4"/>
+<rect x="36" y="968" width="41" height="20" fill="#282828" stroke="#fabd2f" stroke-opacity="0.55"/>
+<text x="43" y="982" font-size="12" fill="#fabd2f" font-weight="600" text-anchor="start">alt</text>
+<text x="87" y="982" font-size="12" fill="#fabd2f" font-weight="400" text-anchor="start"></text>
+<line x1="36" y1="1060" x2="842" y2="1060" stroke="#fabd2f" stroke-opacity="0.55" stroke-dasharray="6 4"/>
+<path d="M76,112 L218,112" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="147" y="105" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">1. Log in</text>
+<path d="M76,160 L218,160" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="147" y="153" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">2. Capture face image</text>
+<path d="M218,208 L360,208" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="289" y="201" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">3. Send base64 image</text>
+<path d="M360,288 L502,288" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="431" y="281" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">4. Analyze face image for emotion</text>
+<path d="M502,336 L786,336" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="644" y="329" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">5. Log emotion detection event</text>
+<path d="M502,384 L360,384" fill="none" stroke="#8ec07c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#am)"/>
+<text x="431" y="377" font-size="12" fill="#8ec07c" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">6. Return detected emotion</text>
+<path d="M360,432 L218,432" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="289" y="425" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">7. Send detected emotion to UI</text>
+<path d="M218,480 L76,480" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="147" y="473" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">8. Display detected emotion</text>
+<path d="M360,528 L644,528" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="502" y="521" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">9. Request genre mapping for detected emotion</text>
+<path d="M644,576 L786,576" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="715" y="569" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">10. Retrieve user content history</text>
+<path d="M644,624 L692,624 L692,648 L644,648" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="702" y="640" font-size="12" fill="#bdae93" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">11. Map emotion to music and movie genres</text>
+<path d="M644,680 L786,680" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="715" y="673" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">12. Cache genre mapping result</text>
+<path d="M644,728 L360,728" fill="none" stroke="#8ec07c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#am)"/>
+<text x="502" y="721" font-size="12" fill="#8ec07c" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">13. Return suitable genres for music and movies</text>
+<path d="M360,790 L928,790" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="644" y="783" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">14. Fetch playlist for the genres</text>
+<path d="M928,838 L360,838" fill="none" stroke="#8ec07c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#am)"/>
+<text x="644" y="831" font-size="12" fill="#8ec07c" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">15. Return playlist</text>
+<path d="M360,886 L1070,886" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="715" y="879" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">16. Fetch movies for the genres</text>
+<path d="M1070,934 L360,934" fill="none" stroke="#8ec07c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#am)"/>
+<text x="715" y="927" font-size="12" fill="#8ec07c" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">17. Return movies</text>
+<path d="M360,1032 L218,1032" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="289" y="1025" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">18. Recommend uplifting or calming music and positive movies</text>
+<path d="M360,1114 L218,1114" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="289" y="1107" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">19. Recommend high-energy music and feel-good movies</text>
+<path d="M218,1168 L76,1168" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="147" y="1161" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">20. Display recommendations</text>
+<path d="M76,1216 L218,1216" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="147" y="1209" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">21. Give feedback</text>
+<rect x="14" y="1286" width="124" height="54" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="76" y="1317.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">User</text>
+<rect x="156" y="1286" width="124" height="54" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="218" y="1317.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Frontend</text>
+<rect x="298" y="1286" width="124" height="54" rx="4" fill="#282828" stroke="#b8bb26" stroke-width="1.5"/>
+<text x="360" y="1309.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">NestJS</text>
+<text x="360" y="1325.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">gateway</text>
+<rect x="440" y="1286" width="124" height="54" rx="4" fill="#282828" stroke="#d3869b" stroke-width="1.5"/>
+<text x="502" y="1301.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Emotion</text>
+<text x="502" y="1317.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">detection</text>
+<text x="502" y="1333.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">service</text>
+<rect x="582" y="1286" width="124" height="54" rx="4" fill="#282828" stroke="#8ec07c" stroke-width="1.5"/>
+<text x="644" y="1301.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Genre</text>
+<text x="644" y="1317.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">mapping</text>
+<text x="644" y="1333.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">service</text>
+<rect x="724" y="1286" width="124" height="54" rx="4" fill="#282828" stroke="#fe8019" stroke-width="1.5"/>
+<text x="786" y="1317.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">MongoDB</text>
+<rect x="866" y="1286" width="124" height="54" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="928" y="1317.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Spotify API</text>
+<rect x="1008" y="1286" width="124" height="54" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="1070" y="1317.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">IMDB API</text>
+</svg>

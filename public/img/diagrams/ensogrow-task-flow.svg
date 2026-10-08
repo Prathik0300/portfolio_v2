@@ -1,0 +1,208 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1281" width="1000" height="1281" role="img" aria-labelledby="t d" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace">
+<title id="t">EnsoGrow task flow</title>
+<desc id="d">Four tasks drawn as step sequences. Sign in and set up: Google sign-in, then city, dimensions and sunlight, with inline validation if a field is missing, then Gemini recommendations with a retry path. Start growing a plant: browse, pick, view the plan, start growing and add it to the dashboard. Update plant health: choose a status, add notes and save. Diagnose with the plant doctor: camera permission or an upload fallback, capture and confirm a photo with a retake path, send to Gemini, ask follow-up questions if the diagnosis is uncertain, show a cure plan, then save or apply the fix.</desc>
+<defs>
+<marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#9a8c7c"/></marker>
+<marker id="b" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,1 L9,5 L0,9 z" fill="#9a8c7c"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#fe8019"/></marker>
+<marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8ec07c"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#b8bb26"/></marker>
+</defs>
+<rect width="1000" height="1281" fill="#1d2021"/>
+<text x="30" y="34" font-size="15" fill="#fabd2f" font-weight="600" text-anchor="start">1  Sign in and set up</text>
+<rect x="30" y="66" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="95" y="92.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Click “Sign in</text>
+<text x="95" y="108.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">with Google”</text>
+<text x="30" y="60" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">authentication</text>
+<rect x="190" y="66" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="255" y="92.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Google</text>
+<text x="255" y="108.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">consent</text>
+<rect x="350" y="66" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="415" y="92.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Return</text>
+<text x="415" y="108.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">to app</text>
+<rect x="510" y="66" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="575" y="92.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Enter</text>
+<text x="575" y="108.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">city</text>
+<text x="510" y="60" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">onboarding input</text>
+<rect x="670" y="66" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="735" y="92.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Enter</text>
+<text x="735" y="108.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">dimensions</text>
+<rect x="830" y="66" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="895" y="92.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Enter sunlight</text>
+<text x="895" y="108.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">hours</text>
+<path d="M160,96 L190,96" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M320,96 L350,96" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M480,96 L510,96" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M640,96 L670,96" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M800,96 L830,96" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="30" y="180" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="95" y="214.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Submit</text>
+<polygon points="190,210 206,178 304,178 320,210 304,242 206,242" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+<text x="255" y="206.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">All fields</text>
+<text x="255" y="222.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">filled?</text>
+<rect x="350" y="180" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="415" y="206.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Request</text>
+<text x="415" y="222.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">recommendations</text>
+<text x="350" y="174" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">recommendations</text>
+<polygon points="502,210 518,178 632,178 648,210 632,242 518,242" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+<text x="575" y="206.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Gemini returned</text>
+<text x="575" y="222.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">recommendations?</text>
+<rect x="670" y="180" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="735" y="206.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Show</text>
+<text x="735" y="222.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">recommendations</text>
+<path d="M960,96 L976,96 L976,142 L95,142 L95,180" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M160,210 L190,210" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M320,210 L350,210" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="335" y="204" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">yes</text>
+<rect x="190" y="271" width="130" height="50" rx="4" fill="#282828" stroke="#fe8019" stroke-width="1.5"/>
+<text x="255" y="292.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Show inline</text>
+<text x="255" y="308.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">validation</text>
+<path d="M255,242 L255,271" fill="none" stroke="#fe8019" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ao)"/>
+<text x="259" y="260.5" font-size="12" fill="#fe8019" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">no</text>
+<text x="255" y="335" font-size="11" fill="#9a8c7c" font-weight="400" text-anchor="middle">back to the form</text>
+<path d="M480,210 L502,210" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M648,210 L670,210" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="659" y="204" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">yes</text>
+<rect x="510" y="271" width="130" height="50" rx="4" fill="#282828" stroke="#fe8019" stroke-width="1.5"/>
+<text x="575" y="292.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Show retry and</text>
+<text x="575" y="308.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">edit setup</text>
+<path d="M575,242 L575,271" fill="none" stroke="#fe8019" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ao)"/>
+<text x="579" y="260.5" font-size="12" fill="#fe8019" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">no</text>
+<text x="575" y="335" font-size="11" fill="#9a8c7c" font-weight="400" text-anchor="middle">back to setup</text>
+<text x="30" y="389" font-size="15" fill="#fabd2f" font-weight="600" text-anchor="start">2  Start growing a plant</text>
+<rect x="30" y="421" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="95" y="447.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Browse</text>
+<text x="95" y="463.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">plant list</text>
+<text x="30" y="415" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">browse recommendations</text>
+<rect x="190" y="421" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="255" y="447.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Tap</text>
+<text x="255" y="463.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">plant card</text>
+<rect x="350" y="421" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="415" y="447.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">View step-by-</text>
+<text x="415" y="463.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">step plan</text>
+<text x="350" y="415" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">view plant details</text>
+<rect x="510" y="421" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="575" y="447.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Click</text>
+<text x="575" y="463.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Start Growing</text>
+<rect x="670" y="421" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="735" y="439.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Confirm start</text>
+<text x="735" y="455.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">date and</text>
+<text x="735" y="471.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">reminders</text>
+<rect x="830" y="421" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="895" y="447.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Plant added</text>
+<text x="895" y="463.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">to dashboard</text>
+<text x="830" y="415" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">dashboard update</text>
+<path d="M160,451 L190,451" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M320,451 L350,451" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M480,451 L510,451" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M640,451 L670,451" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M800,451 L830,451" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="30" y="549" font-size="15" fill="#fabd2f" font-weight="600" text-anchor="start">3  Update plant health</text>
+<rect x="30" y="581" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="95" y="607.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Select</text>
+<text x="95" y="623.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">plant</text>
+<text x="30" y="575" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">dashboard</text>
+<rect x="190" y="581" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="255" y="607.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Click</text>
+<text x="255" y="623.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Update Health</text>
+<rect x="350" y="581" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="415" y="607.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Choose</text>
+<text x="415" y="623.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">status</text>
+<text x="350" y="575" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">update health</text>
+<rect x="510" y="581" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="575" y="607.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Add optional</text>
+<text x="575" y="623.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">notes</text>
+<rect x="670" y="581" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="735" y="615.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Save</text>
+<rect x="830" y="581" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="895" y="607.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Dashboard</text>
+<text x="895" y="623.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">updates growth</text>
+<text x="830" y="575" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">progress update</text>
+<path d="M160,611 L190,611" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M320,611 L350,611" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M480,611 L510,611" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M640,611 L670,611" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M800,611 L830,611" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="30" y="709" font-size="15" fill="#fabd2f" font-weight="600" text-anchor="start">4  Diagnose with the plant doctor</text>
+<rect x="30" y="741" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="95" y="767.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Click</text>
+<text x="95" y="783.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Doctor AI</text>
+<text x="30" y="735" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">diagnosis start</text>
+<polygon points="190,771 206,739 304,739 320,771 304,803 206,803" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+<text x="255" y="759.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Camera</text>
+<text x="255" y="775.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">permission</text>
+<text x="255" y="791.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">granted?</text>
+<rect x="350" y="741" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="415" y="767.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Open</text>
+<text x="415" y="783.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">camera</text>
+<rect x="510" y="741" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="575" y="767.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Capture</text>
+<text x="575" y="783.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">plant photo</text>
+<text x="510" y="735" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">capture image</text>
+<rect x="670" y="741" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="735" y="767.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Confirm</text>
+<text x="735" y="783.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">photo</text>
+<polygon points="830,771 846,739 944,739 960,771 944,803 846,803" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+<text x="895" y="767.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Photo</text>
+<text x="895" y="783.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">quality OK?</text>
+<path d="M160,771 L190,771" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M320,771 L350,771" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="335" y="765" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">yes</text>
+<rect x="190" y="832" width="130" height="50" rx="4" fill="#282828" stroke="#fe8019" stroke-width="1.5"/>
+<text x="255" y="853.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Show upload</text>
+<text x="255" y="869.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">image fallback</text>
+<path d="M255,803 L255,832" fill="none" stroke="#fe8019" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ao)"/>
+<text x="259" y="821.5" font-size="12" fill="#fe8019" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">no</text>
+<path d="M320,857 L575,857 L575,801" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M480,771 L510,771" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M640,771 L670,771" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M800,771 L830,771" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="830" y="832" width="130" height="50" rx="4" fill="#282828" stroke="#fe8019" stroke-width="1.5"/>
+<text x="895" y="853.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Prompt</text>
+<text x="895" y="869.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">retake</text>
+<path d="M895,803 L895,832" fill="none" stroke="#fe8019" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ao)"/>
+<text x="899" y="821.5" font-size="12" fill="#fe8019" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">no</text>
+<path d="M830,857 L575,857 L575,801" fill="none" stroke="#fe8019" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ao)"/>
+<rect x="30" y="936" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="95" y="962.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Send to</text>
+<text x="95" y="978.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Gemini</text>
+<text x="105" y="930" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">diagnosis</text>
+<rect x="190" y="936" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="255" y="962.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Gemini returns</text>
+<text x="255" y="978.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">diagnosis</text>
+<polygon points="350,966 366,934 464,934 480,966 464,998 366,998" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+<text x="415" y="962.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Diagnosis</text>
+<text x="415" y="978.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">certain?</text>
+<rect x="510" y="936" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="575" y="962.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Show</text>
+<text x="575" y="978.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">cure plan</text>
+<rect x="670" y="936" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="735" y="954.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Click Save to</text>
+<text x="735" y="970.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">plant history</text>
+<text x="735" y="986.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">or Apply Fix</text>
+<text x="670" y="930" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">save result</text>
+<rect x="830" y="936" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="895" y="954.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Dashboard shows</text>
+<text x="895" y="970.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">care action</text>
+<text x="895" y="986.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">suggested</text>
+<path d="M960,771 L976,771 L976,898 L95,898 L95,936" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M160,966 L190,966" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M320,966 L350,966" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M480,966 L510,966" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="495" y="960" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">yes</text>
+<rect x="350" y="1027" width="130" height="50" rx="4" fill="#282828" stroke="#fe8019" stroke-width="1.5"/>
+<text x="415" y="1048.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Ask follow-up</text>
+<text x="415" y="1064.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">questions</text>
+<path d="M415,998 L415,1027" fill="none" stroke="#fe8019" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ao)"/>
+<text x="419" y="1016.5" font-size="12" fill="#fe8019" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">no</text>
+<path d="M480,1052 L575,1052 L575,996" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M640,966 L670,966" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M800,966 L830,966" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="50" y="1141" width="90" height="40" rx="20" fill="#282828" stroke="#b8bb26" stroke-width="1.5"/>
+<text x="95" y="1165.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">End</text>
+<path d="M960,966 L976,966 L976,1093 L95,1093 L95,1141" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<polygon points="30,1253 38,1245 54,1245 62,1253 54,1261 38,1261" fill="none" stroke="#fabd2f" stroke-width="1.5"/>
+<text x="74" y="1257" font-size="12" fill="#bdae93" font-weight="400" text-anchor="start">decision</text>
+<rect x="180" y="1245" width="24" height="16" rx="3" fill="none" stroke="#fe8019" stroke-width="1.5"/>
+<text x="216" y="1257" font-size="12" fill="#bdae93" font-weight="400" text-anchor="start">problem or retry path</text>
+</svg>

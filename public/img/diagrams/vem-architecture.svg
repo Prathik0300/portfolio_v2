@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 540" width="1000" height="540" role="img" aria-labelledby="t d" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace">
+<title id="t">Virtual Emotion Mirror system architecture</title>
+<desc id="d">A webcam feeds the React app, which sends a base64 image to the NestJS API gateway. The gateway sends the image data to a Python inference service and gets an emotion result back, passes the emotion to Spotify and IMDB connectors that fetch playlists and movies, and stores predictions and recommendations in MongoDB. The emotion dashboard queries MongoDB for analytics.</desc>
+<defs>
+<marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#9a8c7c"/></marker>
+<marker id="b" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,1 L9,5 L0,9 z" fill="#9a8c7c"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#fe8019"/></marker>
+<marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8ec07c"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#b8bb26"/></marker>
+</defs>
+<rect width="1000" height="540" fill="#1d2021"/>
+<rect x="20" y="50" width="250" height="470" rx="3" fill="none" stroke="#83a598" stroke-opacity="0.5"/>
+<text x="32" y="70" font-size="12" fill="#83a598" font-weight="600" text-anchor="start">FRONTEND LAYER</text>
+<rect x="330" y="50" width="430" height="470" rx="3" fill="none" stroke="#b8bb26" stroke-opacity="0.5"/>
+<text x="342" y="70" font-size="12" fill="#b8bb26" font-weight="600" text-anchor="start">BACKEND LAYER</text>
+<rect x="790" y="50" width="195" height="150" rx="3" fill="none" stroke="#fe8019" stroke-opacity="0.5"/>
+<text x="802" y="70" font-size="12" fill="#fe8019" font-weight="600" text-anchor="start">DATA LAYER</text>
+<rect x="50" y="105" width="190" height="50" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="145" y="134.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Emotion dashboard</text>
+<rect x="50" y="275" width="190" height="50" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="145" y="304.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Webcam integration</text>
+<rect x="50" y="395" width="190" height="50" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="145" y="424.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">React app</text>
+<rect x="345" y="225" width="140" height="70" rx="4" fill="#282828" stroke="#b8bb26" stroke-width="1.5"/>
+<text x="415" y="256.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">NestJS API</text>
+<text x="415" y="272.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">gateway</text>
+<rect x="595" y="225" width="150" height="70" rx="4" fill="#282828" stroke="#d3869b" stroke-width="1.5"/>
+<text x="670" y="256.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Python inference</text>
+<text x="670" y="272.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">service</text>
+<rect x="595" y="342" width="150" height="56" rx="4" fill="#282828" stroke="#b8bb26" stroke-width="1.5"/>
+<text x="670" y="366.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Spotify API</text>
+<text x="670" y="382.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">connector</text>
+<rect x="595" y="432" width="150" height="56" rx="4" fill="#282828" stroke="#b8bb26" stroke-width="1.5"/>
+<text x="670" y="456.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">IMDB API</text>
+<text x="670" y="472.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">connector</text>
+<rect x="822" y="90" width="130" height="70" rx="4" fill="#282828" stroke="#fe8019" stroke-width="1.5"/>
+<text x="887" y="129.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">MongoDB</text>
+<rect x="825" y="342" width="130" height="56" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="890" y="374.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Spotify API</text>
+<rect x="825" y="432" width="130" height="56" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="890" y="464.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">IMDB API</text>
+<path d="M145,325 L145,395" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="149" y="364" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">capture image</text>
+<path d="M240,420 L324,420 L324,260 L345,260" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="318" y="414" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">base64 image</text>
+<path d="M485,246 L595,246" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="540" y="240" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">image data</text>
+<path d="M595,274 L485,274" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="540" y="268" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">emotion result</text>
+<path d="M385,295 L385,370 L595,370" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="490" y="364" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">emotion</text>
+<path d="M385,295 L385,460 L595,460" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="490" y="454" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">emotion</text>
+<path d="M745,370 L825,370" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="785" y="364" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">fetch playlist</text>
+<path d="M745,460 L825,460" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="785" y="454" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">fetch movies</text>
+<path d="M240,130 L260,110 L822,110" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="701" y="104" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">query analytics</text>
+<path d="M415,225 L415,150 L822,150" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="638.5" y="144" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">store predictions and recommendations</text>
+</svg>
