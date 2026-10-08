@@ -58,6 +58,13 @@ a {
   a { transition: background-size 200ms var(--ease), color 120ms; }
 }
 
+/* "copied" note over a mailto link after it is clicked */
+a[href^="mailto:"] { position: relative; }
+a[data-copied]::after {
+  content: attr(data-copied); position: absolute; left: 0; bottom: 100%; margin-bottom: 4px; padding: 0 6px;
+  background: var(--green); color: var(--bg); font-size: 12px; line-height: 1.6; white-space: nowrap; pointer-events: none;
+}
+
 ::selection { background: var(--yellow); color: var(--bg); }
 :focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
 
