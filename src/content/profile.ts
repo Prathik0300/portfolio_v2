@@ -27,7 +27,6 @@ export const stackItems = [
   "TypeScript",
   "NestJS",
   "Next.js",
-  "Go",
   "Python",
   "SQL",
   "Cassandra",
