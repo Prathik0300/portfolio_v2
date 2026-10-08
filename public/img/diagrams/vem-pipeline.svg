@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 495" width="1000" height="495" role="img" aria-labelledby="t d" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace">
+<title id="t">Virtual Emotion Mirror emotion recognition pipeline</title>
+<desc id="d">The video stream goes to face detection. If no face is found the frame is skipped and detection runs again. Otherwise facial landmarks are isolated and expression features extracted, a deep learning model predicts the emotion with confidence scores, predictions are aggregated over time into a smoothed emotion, a confidence-based decision is made, and the result feeds personalization and recommendations.</desc>
+<defs>
+<marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#9a8c7c"/></marker>
+<marker id="b" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,1 L9,5 L0,9 z" fill="#9a8c7c"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#fe8019"/></marker>
+<marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8ec07c"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#b8bb26"/></marker>
+</defs>
+<rect width="1000" height="495" fill="#1d2021"/>
+<rect x="35.1" y="46" width="119.8" height="40" rx="20" fill="#282828" stroke="#b8bb26" stroke-width="1.5"/>
+<text x="95" y="62.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Start video</text>
+<text x="95" y="78.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">stream</text>
+<rect x="190" y="36" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="255" y="62.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Face</text>
+<text x="255" y="78.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">detection</text>
+<polygon points="350,66 366,34 464,34 480,66 464,98 366,98" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+<text x="415" y="62.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Face</text>
+<text x="415" y="78.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">detected?</text>
+<rect x="510" y="36" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="575" y="62.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Isolate facial</text>
+<text x="575" y="78.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">landmarks</text>
+<text x="510" y="30" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">feature extraction</text>
+<rect x="670" y="36" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="735" y="54.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Extract</text>
+<text x="735" y="70.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">expression</text>
+<text x="735" y="86.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">features</text>
+<path d="M154.9,66 L190,66" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M320,66 L350,66" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M480,66 L510,66" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="495" y="60" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">yes</text>
+<rect x="350" y="127" width="130" height="50" rx="4" fill="#282828" stroke="#fe8019" stroke-width="1.5"/>
+<text x="415" y="148.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Skip</text>
+<text x="415" y="164.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">frame</text>
+<path d="M415,98 L415,127" fill="none" stroke="#fe8019" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ao)"/>
+<text x="419" y="116.5" font-size="12" fill="#fe8019" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">no</text>
+<path d="M350,152 L255,152 L255,96" fill="none" stroke="#fe8019" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ao)"/>
+<path d="M640,66 L670,66" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="30" y="231" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="95" y="249.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Deep learning</text>
+<text x="95" y="265.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">model</text>
+<text x="95" y="281.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">prediction</text>
+<text x="105" y="225" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">emotion classification</text>
+<rect x="190" y="231" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="255" y="249.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Probabilistic</text>
+<text x="255" y="265.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">output</text>
+<text x="255" y="281.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">(confidence)</text>
+<rect x="350" y="231" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="415" y="249.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Aggregate</text>
+<text x="415" y="265.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">predictions</text>
+<text x="415" y="281.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">over time</text>
+<text x="350" y="225" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">temporal smoothing</text>
+<rect x="510" y="231" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="575" y="249.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Output smoothed</text>
+<text x="575" y="265.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">emotion</text>
+<text x="575" y="281.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">prediction</text>
+<rect x="670" y="231" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="735" y="249.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Confidence-</text>
+<text x="735" y="265.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">based decision</text>
+<text x="735" y="281.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">making</text>
+<path d="M800,66 L816,66 L816,193 L95,193 L95,231" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M160,261 L190,261" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M320,261 L350,261" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M480,261 L510,261" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M640,261 L670,261" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="30" y="355" width="310" height="40" rx="20" fill="#282828" stroke="#b8bb26" stroke-width="1.5"/>
+<text x="185" y="379.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Personalization or recommendation</text>
+<path d="M800,261 L816,261 L816,307 L185,307 L185,355" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<polygon points="30,467 38,459 54,459 62,467 54,475 38,475" fill="none" stroke="#fabd2f" stroke-width="1.5"/>
+<text x="74" y="471" font-size="12" fill="#bdae93" font-weight="400" text-anchor="start">decision</text>
+<rect x="180" y="459" width="24" height="16" rx="3" fill="none" stroke="#fe8019" stroke-width="1.5"/>
+<text x="216" y="471" font-size="12" fill="#bdae93" font-weight="400" text-anchor="start">problem or retry path</text>
+</svg>

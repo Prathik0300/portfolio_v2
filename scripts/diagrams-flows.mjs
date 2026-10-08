@@ -1,6 +1,6 @@
 // Flowcharts redrawn from the projects' original diagrams (CRLite+ and EnsoGrow), in the same theme as the rest.
 // Same nodes and the same paths as the originals; only the drawing is new.
-import { C, anchors, connect, flowNode, lane, lineLabel, svg, text } from "./diagrams-lib.mjs";
+import { C, anchors, arrow, connect, flowNode, lane, lineLabel, svg, text } from "./diagrams-lib.mjs";
 
 const A = anchors;
 
@@ -258,11 +258,74 @@ export function ensogrowUserFlow() {
 }
 
 // ---------------------------------------------------------------- EnsoGrow task flow
-export function ensogrowTaskFlow() {
-  const W = 1000, X0 = 30, PITCH = 160, NW = 130, NH = 60, TAG = 16;
+/**
+ * Step sequences in rows of up to six, wrapped with an elbow. A node may be a decision (hexagon) with a branch node below it
+ * that loops back to, or joins, another node in the same row. Used by the EnsoGrow task flow and the Emotion Mirror pipeline.
+ */
+function flowRows(tasks, { W = 1000, title, desc }) {
+  const X0 = 30, PITCH = 160, NW = 130, NH = 60, TAG = 16;
   const b = [];
   let y = 20;
 
+  for (const task of tasks) {
+    if (task.title) {
+      b.push(text(X0, y + 14, task.title, { fill: C.yellow, weight: 600, size: 15 }));
+      y += 30;
+    }
+    let prev = null; // last node of the previous row, to draw the wrap-around arrow
+    task.rows.forEach((row, ri) => {
+      const hasBranch = row.some((n) => n.branch);
+      const cy = y + TAG + NH / 2;
+      const branchCy = cy + NH / 2 + 56;
+      const bottom = hasBranch ? branchCy + 25 : cy + NH / 2;
+      const yWrap = bottom + 16;
+      const nodes = row.map((n, i) => {
+        const lines = Array.isArray(n.l) ? n.l : [n.l];
+        const fit = Math.max(90, Math.min(NW, Math.max(...lines.map((t) => t.length)) * 7.8 + 34));
+        const w = n.w ?? (n.pill ? fit : NW);
+        const cx = X0 + (n.pill && n.w ? n.w : NW) / 2 + i * PITCH;
+        const h = n.pill ? 40 : n.decision ? NH + 4 : NH;
+        const kind = n.decision ? "decision" : n.pill ? "pill" : "box";
+        b.push(flowNode(cx, cy, w, h, n.l, { kind, color: n.pill ? C.green : undefined }));
+        if (n.tag) b.push(lineLabel(i === 0 && ri > 0 ? cx + 10 : cx - NW / 2, cy - NH / 2 - 6, n.tag, { fill: C.faint, anchor: "start" }));
+        return { ...n, a: A(cx, cy, w, h) };
+      });
+      if (prev) {
+        const first = nodes[0].a;
+        b.push(connect(prev.r, first.t, { via: [[prev.r[0] + 16, prev.r[1]], [prev.r[0] + 16, prev.yWrap], [first.cx, prev.yWrap]] }));
+      }
+      nodes.forEach((n, i) => {
+        if (i < nodes.length - 1) b.push(connect(n.a.r, nodes[i + 1].a.l, { label: n.decision ? "yes" : undefined }));
+        if (!n.branch) return;
+        const bn = A(n.a.cx, branchCy, NW, 50);
+        b.push(flowNode(bn.cx, bn.cy, bn.w, bn.h, n.branch.l, { color: C.orange }));
+        b.push(connect(n.a.b, bn.t, { label: n.branch.edge, style: "err" }));
+        if (n.branch.loop !== undefined) {
+          const t = nodes[n.branch.loop].a;
+          b.push(connect(bn.l, t.b, { style: "err", via: [[t.cx, bn.cy]] }));
+        }
+        if (n.branch.join !== undefined) {
+          const t = nodes[n.branch.join].a;
+          b.push(connect(bn.r, t.b, { style: "flow", via: [[t.cx, bn.cy]] }));
+        }
+        if (n.branch.note) b.push(text(bn.cx, bn.cy + 25 + 14, n.branch.note, { fill: C.faint, size: 11, anchor: "middle" }));
+      });
+      prev = { r: nodes[nodes.length - 1].a.r, yWrap };
+      y = yWrap + 22;
+    });
+    y += 16;
+  }
+  // key
+  const ky = y;
+  b.push(`<polygon points="${X0},${ky + 8} ${X0 + 8},${ky} ${X0 + 24},${ky} ${X0 + 32},${ky + 8} ${X0 + 24},${ky + 16} ${X0 + 8},${ky + 16}" fill="none" stroke="${C.yellow}" stroke-width="1.5"/>`);
+  b.push(text(X0 + 44, ky + 12, "decision", { fill: C.dim, size: 12 }));
+  b.push(`<rect x="${X0 + 150}" y="${ky}" width="24" height="16" rx="3" fill="none" stroke="${C.orange}" stroke-width="1.5"/>`);
+  b.push(text(X0 + 186, ky + 12, "problem or retry path", { fill: C.dim, size: 12 }));
+  return svg({ w: W, h: y + 36, title, desc, body: b.join("\n") });
+}
+
+// ---------------------------------------------------------------- EnsoGrow task flow
+export function ensogrowTaskFlow() {
   const tasks = [
     {
       title: "1  Sign in and set up",
@@ -334,60 +397,174 @@ export function ensogrowTaskFlow() {
     },
   ];
 
-  for (const task of tasks) {
-    b.push(text(X0, y + 14, task.title, { fill: C.yellow, weight: 600, size: 15 }));
-    y += 30;
-    let prev = null; // last node of the previous row, to draw the wrap-around arrow
-    task.rows.forEach((row) => {
-      const hasBranch = row.some((n) => n.branch);
-      const cy = y + TAG + NH / 2;
-      const branchCy = cy + NH / 2 + 56;
-      const bottom = hasBranch ? branchCy + 25 : cy + NH / 2;
-      const yWrap = bottom + 16;
-      const nodes = row.map((n, i) => {
-        const cx = X0 + NW / 2 + i * PITCH;
-        const w = n.pill ? 90 : (n.w ?? NW);
-        const h = n.pill ? 40 : n.decision ? NH + 4 : NH;
-        const kind = n.decision ? "decision" : n.pill ? "pill" : "box";
-        b.push(flowNode(cx, cy, w, h, n.l, { kind, color: n.pill ? C.green : undefined }));
-        if (n.tag) b.push(text(cx - NW / 2, cy - NH / 2 - 6, n.tag, { fill: C.faint, size: 11 }));
-        return { ...n, a: A(cx, cy, w, h) };
-      });
-      if (prev) {
-        const first = nodes[0].a;
-        b.push(connect(prev.r, first.t, { via: [[prev.r[0] + 16, prev.r[1]], [prev.r[0] + 16, prev.yWrap], [first.cx, prev.yWrap]] }));
-      }
-      nodes.forEach((n, i) => {
-        if (i < nodes.length - 1) b.push(connect(n.a.r, nodes[i + 1].a.l, { label: n.decision ? "yes" : undefined }));
-        if (!n.branch) return;
-        const bn = A(n.a.cx, branchCy, NW, 50);
-        b.push(flowNode(bn.cx, bn.cy, bn.w, bn.h, n.branch.l, { color: C.orange }));
-        b.push(connect(n.a.b, bn.t, { label: n.branch.edge, style: "err" }));
-        if (n.branch.loop !== undefined) {
-          const t = nodes[n.branch.loop].a;
-          b.push(connect(bn.l, t.b, { style: "err", via: [[t.cx, bn.cy]] }));
-        }
-        if (n.branch.join !== undefined) {
-          const t = nodes[n.branch.join].a;
-          b.push(connect(bn.r, t.b, { style: "flow", via: [[t.cx, bn.cy]] }));
-        }
-        if (n.branch.note) b.push(text(bn.cx, bn.cy + 25 + 14, n.branch.note, { fill: C.faint, size: 11, anchor: "middle" }));
-      });
-      prev = { r: nodes[nodes.length - 1].a.r, yWrap };
-      y = yWrap + 22;
-    });
-    y += 16;
-  }
-  // key
-  const ky = y;
-  b.push(`<polygon points="${X0},${ky + 8} ${X0 + 8},${ky} ${X0 + 24},${ky} ${X0 + 32},${ky + 8} ${X0 + 24},${ky + 16} ${X0 + 8},${ky + 16}" fill="none" stroke="${C.yellow}" stroke-width="1.5"/>`);
-  b.push(text(X0 + 44, ky + 12, "decision", { fill: C.dim, size: 12 }));
-  b.push(`<rect x="${X0 + 150}" y="${ky}" width="24" height="16" rx="3" fill="none" stroke="${C.orange}" stroke-width="1.5"/>`);
-  b.push(text(X0 + 186, ky + 12, "problem or retry path", { fill: C.dim, size: 12 }));
-  return svg({
-    w: W, h: y + 36,
+  return flowRows(tasks, {
     title: "EnsoGrow task flow",
     desc: "Four tasks drawn as step sequences. Sign in and set up: Google sign-in, then city, dimensions and sunlight, with inline validation if a field is missing, then Gemini recommendations with a retry path. Start growing a plant: browse, pick, view the plan, start growing and add it to the dashboard. Update plant health: choose a status, add notes and save. Diagnose with the plant doctor: camera permission or an upload fallback, capture and confirm a photo with a retake path, send to Gemini, ask follow-up questions if the diagnosis is uncertain, show a cure plan, then save or apply the fix.",
+  });
+}
+
+// ---------------------------------------------------------------- Virtual Emotion Mirror: system architecture
+export function vemArchitecture() {
+  const W = 1000, b = [];
+  const FE = C.blue, BE = C.green;
+  const group = (x, y, w, h, name, color) =>
+    b.push(`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="3" fill="none" stroke="${color}" stroke-opacity="0.5"/>`, text(x + 12, y + 20, name, { fill: color, weight: 600, size: 12 }));
+  group(20, 50, 250, 470, "FRONTEND LAYER", FE);
+  group(330, 50, 430, 470, "BACKEND LAYER", BE);
+  group(790, 50, 195, 150, "DATA LAYER", C.orange);
+
+  const dash = A(145, 130, 190, 50), cam = A(145, 300, 190, 50), react = A(145, 420, 190, 50);
+  const nest = A(415, 260, 140, 70), py = A(670, 260, 150, 70), spc = A(670, 370, 150, 56), imc = A(670, 460, 150, 56);
+  const mongo = A(887, 125, 130, 70), spapi = A(890, 370, 130, 56), imapi = A(890, 460, 130, 56);
+  b.push(flowNode(dash.cx, dash.cy, dash.w, dash.h, "Emotion dashboard", { color: FE }));
+  b.push(flowNode(cam.cx, cam.cy, cam.w, cam.h, "Webcam integration", { color: FE }));
+  b.push(flowNode(react.cx, react.cy, react.w, react.h, "React app", { color: FE }));
+  b.push(flowNode(nest.cx, nest.cy, nest.w, nest.h, ["NestJS API", "gateway"], { color: BE }));
+  b.push(flowNode(py.cx, py.cy, py.w, py.h, ["Python inference", "service"], { color: C.purple }));
+  b.push(flowNode(spc.cx, spc.cy, spc.w, spc.h, ["Spotify API", "connector"], { color: BE }));
+  b.push(flowNode(imc.cx, imc.cy, imc.w, imc.h, ["IMDB API", "connector"], { color: BE }));
+  b.push(flowNode(mongo.cx, mongo.cy, mongo.w, mongo.h, "MongoDB", { color: C.orange }));
+  b.push(flowNode(spapi.cx, spapi.cy, spapi.w, spapi.h, "Spotify API"));
+  b.push(flowNode(imapi.cx, imapi.cy, imapi.w, imapi.h, "IMDB API"));
+
+  b.push(connect(cam.b, react.t, { label: "capture image" }));
+  b.push(connect(react.r, nest.l, { label: "base64 image", via: [[330 - 6, react.cy], [330 - 6, nest.cy]], labelAt: 0, labelDx: 36 }));
+  b.push(connect([nest.r[0], nest.cy - 14], [py.l[0], py.cy - 14], { label: "image data" }));
+  b.push(connect([py.l[0], py.cy + 14], [nest.r[0], nest.cy + 14], { label: "emotion result" }));
+  b.push(connect([nest.cx - 30, nest.b[1]], spc.l, { label: "emotion", via: [[nest.cx - 30, spc.cy]], labelAt: 1 }));
+  b.push(connect([nest.cx - 30, nest.b[1]], imc.l, { label: "emotion", via: [[nest.cx - 30, imc.cy]], labelAt: 1 }));
+  b.push(connect(spc.r, spapi.l, { label: "fetch playlist" }));
+  b.push(connect(imc.r, imapi.l, { label: "fetch movies" }));
+  b.push(connect(dash.r, [mongo.l[0], 110], { label: "query analytics", via: [[dash.r[0] + 20, 110]], labelDx: 160, labelAt: 1 }));
+  b.push(connect(nest.t, [mongo.l[0], 150], { label: "store predictions and recommendations", via: [[nest.cx, 150]], labelAt: 1, labelDx: 20 }));
+  return svg({
+    w: W, h: 540,
+    title: "Virtual Emotion Mirror system architecture",
+    desc: "A webcam feeds the React app, which sends a base64 image to the NestJS API gateway. The gateway sends the image data to a Python inference service and gets an emotion result back, passes the emotion to Spotify and IMDB connectors that fetch playlists and movies, and stores predictions and recommendations in MongoDB. The emotion dashboard queries MongoDB for analytics.",
     body: b.join("\n"),
+  });
+}
+
+// ---------------------------------------------------------------- Virtual Emotion Mirror: emotion recognition pipeline
+export function vemPipeline() {
+  const tasks = [
+    {
+      rows: [
+        [
+          { l: ["Start video", "stream"], pill: true },
+          { l: ["Face", "detection"] },
+          { l: ["Face", "detected?"], decision: true, branch: { l: ["Skip", "frame"], edge: "no", loop: 1 } },
+          { l: ["Isolate facial", "landmarks"], tag: "feature extraction" },
+          { l: ["Extract", "expression", "features"] },
+        ],
+        [
+          { l: ["Deep learning", "model", "prediction"], tag: "emotion classification" },
+          { l: ["Probabilistic", "output", "(confidence)"] },
+          { l: ["Aggregate", "predictions", "over time"], tag: "temporal smoothing" },
+          { l: ["Output smoothed", "emotion", "prediction"] },
+          { l: ["Confidence-", "based decision", "making"] },
+        ],
+        [{ l: "Personalization or recommendation", pill: true, w: 310 }],
+      ],
+    },
+  ];
+  return flowRows(tasks, {
+    W: 1000,
+    title: "Virtual Emotion Mirror emotion recognition pipeline",
+    desc: "The video stream goes to face detection. If no face is found the frame is skipped and detection runs again. Otherwise facial landmarks are isolated and expression features extracted, a deep learning model predicts the emotion with confidence scores, predictions are aggregated over time into a smoothed emotion, a confidence-based decision is made, and the result feeds personalization and recommendations.",
+  });
+}
+
+// ---------------------------------------------------------------- Virtual Emotion Mirror: one session, end to end
+export function vemSequence() {
+  const cols = [
+    { name: ["User"], color: C.blue },
+    { name: ["Frontend"], color: C.blue },
+    { name: ["NestJS", "gateway"], color: C.green },
+    { name: ["Emotion", "detection", "service"], color: C.purple },
+    { name: ["Genre", "mapping", "service"], color: C.aqua },
+    { name: ["MongoDB"], color: C.orange },
+    { name: ["Spotify API"], color: C.faint },
+    { name: ["IMDB API"], color: C.faint },
+  ];
+  const PITCH = 142, X0 = 76, W = X0 * 2 + PITCH * 7, HEAD = 62, ROW = 48;
+  const cx = (i) => X0 + i * PITCH;
+  const b = [];
+  const body = [];
+  let y = HEAD + 50, n = 0;
+
+  const msg = (from, to, label, { dash = false } = {}) => {
+    n += 1;
+    const x1 = cx(from), x2 = cx(to);
+    body.push(arrow([[x1, y], [x2, y]], { color: dash ? C.aqua : C.faint, dash }));
+    body.push(lineLabel((x1 + x2) / 2, y - 7, `${n}. ${label}`, { fill: dash ? C.aqua : C.dim }));
+    y += ROW;
+  };
+  const self = (at, label) => {
+    n += 1;
+    const x = cx(at);
+    body.push(arrow([[x, y], [x + 48, y], [x + 48, y + 24], [x, y + 24]]));
+    body.push(lineLabel(x + 58, y + 16, `${n}. ${label}`, { anchor: "start" }));
+    y += ROW + 8;
+  };
+  const frame = (x0, x1, y0, y1, tag, title) => {
+    b.push(`<rect x="${x0}" y="${y0}" width="${x1 - x0}" height="${y1 - y0}" rx="3" fill="${C.yellow}" fill-opacity="0.04" stroke="${C.yellow}" stroke-opacity="0.55" stroke-dasharray="6 4"/>`);
+    b.push(`<rect x="${x0}" y="${y0}" width="${tag.length * 9 + 14}" height="20" fill="${C.card}" stroke="${C.yellow}" stroke-opacity="0.55"/>`);
+    b.push(text(x0 + 7, y0 + 14, tag, { fill: C.yellow, size: 12, weight: 600 }));
+    b.push(text(x0 + tag.length * 9 + 24, y0 + 14, title, { fill: C.yellow, size: 12 }));
+  };
+
+  // the session, in order
+  msg(0, 1, "Log in");
+  msg(0, 1, "Capture face image");
+  msg(1, 2, "Send base64 image");
+  y += 14;
+  const parTop = y - 24;
+  y += 18;
+  msg(2, 3, "Analyze face image for emotion");
+  msg(3, 5, "Log emotion detection event");
+  msg(3, 2, "Return detected emotion", { dash: true });
+  msg(2, 1, "Send detected emotion to UI");
+  msg(1, 0, "Display detected emotion");
+  msg(2, 4, "Request genre mapping for detected emotion");
+  msg(4, 5, "Retrieve user content history");
+  self(4, "Map emotion to music and movie genres");
+  msg(4, 5, "Cache genre mapping result");
+  msg(4, 2, "Return suitable genres for music and movies", { dash: true });
+  const parBottom = y - 18;
+  frame(cx(0) - 40, cx(5) + 56, parTop, parBottom, "par", "Analyze emotion and map genres");
+  y += 14;
+  msg(2, 6, "Fetch playlist for the genres");
+  msg(6, 2, "Return playlist", { dash: true });
+  msg(2, 7, "Fetch movies for the genres");
+  msg(7, 2, "Return movies", { dash: true });
+  y += 8;
+  const altTop = y - 22;
+  y += 12;
+  b.push(text(cx(0) - 40 + 12, y, "Emotion is negative (sad…)", { fill: C.yellow, size: 12 }));
+  y += 30;
+  msg(2, 1, "Recommend uplifting or calming music and positive movies");
+  const split = y - 20;
+  y += 4;
+  b.push(text(cx(0) - 40 + 12, y, "Emotion is positive (happy…)", { fill: C.yellow, size: 12 }));
+  y += 30;
+  msg(2, 1, "Recommend high-energy music and feel-good movies");
+  const altBottom = y - 22;
+  frame(cx(0) - 40, cx(5) + 56, altTop, altBottom, "alt", "");
+  b.push(`<line x1="${cx(0) - 40}" y1="${split}" x2="${cx(5) + 56}" y2="${split}" stroke="${C.yellow}" stroke-opacity="0.55" stroke-dasharray="6 4"/>`);
+  y += 6;
+  msg(1, 0, "Display recommendations");
+  msg(0, 1, "Give feedback");
+
+  const bottomHead = y + 20;
+  const H = bottomHead + HEAD + 30;
+  // lifelines first, then frames, then messages, so lines sit behind
+  const life = cols.map((c, i) => `<line x1="${cx(i)}" y1="${HEAD}" x2="${cx(i)}" y2="${bottomHead}" stroke="${c.color}" stroke-opacity="0.45" stroke-dasharray="3 5"/>`).join("\n");
+  const head = (top) => cols.map((c, i) => flowNode(cx(i), top + HEAD / 2 - 2, 124, HEAD - 8, c.name, { color: c.color })).join("\n");
+  return svg({
+    w: W, h: H,
+    title: "Virtual Emotion Mirror: one session",
+    desc: "A sequence diagram across the user, the frontend, the NestJS gateway, the emotion detection and genre mapping services, MongoDB, Spotify and IMDB. The user logs in and captures a face image, which goes to the gateway. In parallel the emotion detection service returns the emotion, which is logged and shown, and the genre mapping service maps it to music and movie genres using the user's content history. The gateway then fetches a playlist from Spotify and movies from IMDB. Negative emotions get uplifting or calming music and positive movies, positive emotions get high-energy music and feel-good movies. The frontend shows the recommendations and the user can give feedback.",
+    body: [head(6), life, b.join("\n"), body.join("\n"), head(bottomHead)].join("\n"),
   });
 }

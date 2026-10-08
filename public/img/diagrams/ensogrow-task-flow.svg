@@ -13,7 +13,7 @@
 <rect x="30" y="66" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
 <text x="95" y="92.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Click “Sign in</text>
 <text x="95" y="108.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">with Google”</text>
-<text x="30" y="60" font-size="11" fill="#9a8c7c" font-weight="400" text-anchor="start">authentication</text>
+<text x="30" y="60" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">authentication</text>
 <rect x="190" y="66" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
 <text x="255" y="92.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Google</text>
 <text x="255" y="108.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">consent</text>
@@ -23,7 +23,7 @@
 <rect x="510" y="66" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
 <text x="575" y="92.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Enter</text>
 <text x="575" y="108.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">city</text>
-<text x="510" y="60" font-size="11" fill="#9a8c7c" font-weight="400" text-anchor="start">onboarding input</text>
+<text x="510" y="60" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">onboarding input</text>
 <rect x="670" y="66" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
 <text x="735" y="92.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Enter</text>
 <text x="735" y="108.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">dimensions</text>
@@ -43,7 +43,7 @@
 <rect x="350" y="180" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
 <text x="415" y="206.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Request</text>
 <text x="415" y="222.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">recommendations</text>
-<text x="350" y="174" font-size="11" fill="#9a8c7c" font-weight="400" text-anchor="start">recommendations</text>
+<text x="350" y="174" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">recommendations</text>
 <polygon points="502,210 518,178 632,178 648,210 632,242 518,242" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
 <text x="575" y="206.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Gemini returned</text>
 <text x="575" y="222.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">recommendations?</text>
@@ -73,14 +73,14 @@
 <rect x="30" y="421" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
 <text x="95" y="447.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Browse</text>
 <text x="95" y="463.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">plant list</text>
-<text x="30" y="415" font-size="11" fill="#9a8c7c" font-weight="400" text-anchor="start">browse recommendations</text>
+<text x="30" y="415" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">browse recommendations</text>
 <rect x="190" y="421" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
 <text x="255" y="447.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Tap</text>
 <text x="255" y="463.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">plant card</text>
 <rect x="350" y="421" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
 <text x="415" y="447.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">View step-by-</text>
 <text x="415" y="463.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">step plan</text>
-<text x="350" y="415" font-size="11" fill="#9a8c7c" font-weight="400" text-anchor="start">view plant details</text>
+<text x="350" y="415" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">view plant details</text>
 <rect x="510" y="421" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
 <text x="575" y="447.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Click</text>
 <text x="575" y="463.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Start Growing</text>
@@ -91,7 +91,7 @@
 <rect x="830" y="421" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
 <text x="895" y="447.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Plant added</text>
 <text x="895" y="463.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">to dashboard</text>
-<text x="830" y="415" font-size="11" fill="#9a8c7c" font-weight="400" text-anchor="start">dashboard update</text>
+<text x="830" y="415" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">dashboard update</text>
 <path d="M160,451 L190,451" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
 <path d="M320,451 L350,451" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
 <path d="M480,451 L510,451" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
@@ -101,14 +101,14 @@
 <rect x="30" y="581" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
 <text x="95" y="607.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Select</text>
 <text x="95" y="623.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">plant</text>
-<text x="30" y="575" font-size="11" fill="#9a8c7c" font-weight="400" text-anchor="start">dashboard</text>
+<text x="30" y="575" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">dashboard</text>
 <rect x="190" y="581" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
 <text x="255" y="607.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Click</text>
 <text x="255" y="623.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Update Health</text>
 <rect x="350" y="581" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
 <text x="415" y="607.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Choose</text>
 <text x="415" y="623.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">status</text>
-<text x="350" y="575" font-size="11" fill="#9a8c7c" font-weight="400" text-anchor="start">update health</text>
+<text x="350" y="575" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">update health</text>
 <rect x="510" y="581" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
 <text x="575" y="607.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Add optional</text>
 <text x="575" y="623.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">notes</text>
@@ -117,7 +117,7 @@
 <rect x="830" y="581" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
 <text x="895" y="607.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Dashboard</text>
 <text x="895" y="623.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">updates growth</text>
-<text x="830" y="575" font-size="11" fill="#9a8c7c" font-weight="400" text-anchor="start">progress update</text>
+<text x="830" y="575" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">progress update</text>
 <path d="M160,611 L190,611" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
 <path d="M320,611 L350,611" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
 <path d="M480,611 L510,611" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
@@ -127,7 +127,7 @@
 <rect x="30" y="741" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
 <text x="95" y="767.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Click</text>
 <text x="95" y="783.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Doctor AI</text>
-<text x="30" y="735" font-size="11" fill="#9a8c7c" font-weight="400" text-anchor="start">diagnosis start</text>
+<text x="30" y="735" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">diagnosis start</text>
 <polygon points="190,771 206,739 304,739 320,771 304,803 206,803" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
 <text x="255" y="759.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Camera</text>
 <text x="255" y="775.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">permission</text>
@@ -138,7 +138,7 @@
 <rect x="510" y="741" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
 <text x="575" y="767.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Capture</text>
 <text x="575" y="783.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">plant photo</text>
-<text x="510" y="735" font-size="11" fill="#9a8c7c" font-weight="400" text-anchor="start">capture image</text>
+<text x="510" y="735" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">capture image</text>
 <rect x="670" y="741" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
 <text x="735" y="767.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Confirm</text>
 <text x="735" y="783.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">photo</text>
@@ -166,7 +166,7 @@
 <rect x="30" y="936" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
 <text x="95" y="962.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Send to</text>
 <text x="95" y="978.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Gemini</text>
-<text x="30" y="930" font-size="11" fill="#9a8c7c" font-weight="400" text-anchor="start">diagnosis</text>
+<text x="105" y="930" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">diagnosis</text>
 <rect x="190" y="936" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
 <text x="255" y="962.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Gemini returns</text>
 <text x="255" y="978.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">diagnosis</text>
@@ -180,7 +180,7 @@
 <text x="735" y="954.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Click Save to</text>
 <text x="735" y="970.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">plant history</text>
 <text x="735" y="986.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">or Apply Fix</text>
-<text x="670" y="930" font-size="11" fill="#9a8c7c" font-weight="400" text-anchor="start">save result</text>
+<text x="670" y="930" font-size="12" fill="#9a8c7c" text-anchor="start" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">save result</text>
 <rect x="830" y="936" width="130" height="60" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
 <text x="895" y="954.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Dashboard shows</text>
 <text x="895" y="970.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">care action</text>

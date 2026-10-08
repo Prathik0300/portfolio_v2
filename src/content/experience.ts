@@ -134,7 +134,7 @@ export const experienceItems: ExperienceItem[] = [
   },
 ];
 
-/** Newest first. GPAs from the resume; everything else from the LinkedIn profile. */
+/** Newest first. GPAs from the resume, MS coursework from the UIC transcript, everything else from the LinkedIn profile. */
 export const educationItems: EducationItem[] = [
   {
     id: "uic-ms",
@@ -148,7 +148,15 @@ export const educationItems: EducationItem[] = [
     points: [
       {
         lead: "GPA 4.00 out of 4.00.",
-        detail: "Focused on cloud computing, backend development and distributed systems.",
+        detail: "An A in every graded course.",
+      },
+      {
+        lead: "Systems and security coursework.",
+        detail: "Intro to Networking, Secure Computer Systems, Networked and Distributed Systems Security, and Foundations of Permissionless Systems.",
+      },
+      {
+        lead: "AI, data and design coursework.",
+        detail: "Language Processing, Advanced Computer Vision, Data and Algorithmic Fairness, Data Visualization and Analytics, and User Interface Design.",
       },
       {
         lead: "Wrote two research papers.",

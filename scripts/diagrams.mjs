@@ -3,7 +3,7 @@
 // Everything here comes from facts already in the write-ups or from the project's original diagrams; keep it that way when editing.
 import { mkdirSync, writeFileSync } from "node:fs";
 import { C, arrow, box, legend, svg, text } from "./diagrams-lib.mjs";
-import { crliteArchitecture, crliteDataFlow, ensogrowTaskFlow, ensogrowUserFlow } from "./diagrams-flows.mjs";
+import { crliteArchitecture, crliteDataFlow, ensogrowTaskFlow, ensogrowUserFlow, vemArchitecture, vemPipeline, vemSequence } from "./diagrams-flows.mjs";
 
 // columns and rows shared by the two snake-shaped flow diagrams
 const W = 270, H = 92, X = [50, 360, 670], Y = [30, 170, 310];
@@ -142,6 +142,9 @@ const out = {
   "crlite-data-flow": crliteDataFlow(),
   "ensogrow-user-flow": ensogrowUserFlow(),
   "ensogrow-task-flow": ensogrowTaskFlow(),
+  "vem-architecture": vemArchitecture(),
+  "vem-pipeline": vemPipeline(),
+  "vem-sequence": vemSequence(),
   "program-repair-pipeline": repairPipeline(),
   "program-repair-results": repairResults(),
   "rebuild-pipeline": rebuildPipeline(),
