@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" role="img" aria-labelledby="t d" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace">
+<title id="t">CRLite+ system architecture</title>
+<desc id="d">The Chrome extension talks to a Node.js backend. The backend sends serial numbers to the static cascade filters file and filtered serials to the dynamic filter file, both Bloom filters, and filtered serials down to the Python static filter generator.</desc>
+<defs>
+<marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#9a8c7c"/></marker>
+<marker id="b" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,1 L9,5 L0,9 z" fill="#9a8c7c"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#fe8019"/></marker>
+<marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8ec07c"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#b8bb26"/></marker>
+</defs>
+<rect width="960" height="520" fill="#1d2021"/>
+<text x="24" y="28" font-size="15" fill="#fabd2f" font-weight="600" text-anchor="start">CRLite+ system architecture</text>
+<rect x="20" y="44" width="920" height="456" rx="3" fill="none" stroke="#9a8c7c" stroke-opacity="0.5"/>
+<rect x="670" y="76" width="250" height="296" rx="3" fill="none" stroke="#83a598" stroke-opacity="0.6" stroke-width="1.5"/>
+<text x="795" y="356" font-size="12" fill="#83a598" font-weight="600" text-anchor="middle">BLOOM FILTERS</text>
+<rect x="45" y="152" width="210" height="96" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="150" y="188.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Chrome extension</text>
+<text x="150" y="204.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">(frontend)</text>
+<text x="150" y="220.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Manifest V3</text>
+<rect x="345" y="152" width="210" height="96" rx="4" fill="#282828" stroke="#b8bb26" stroke-width="1.5"/>
+<text x="450" y="188.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Node.js backend</text>
+<text x="450" y="204.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">TLS fetch and</text>
+<text x="450" y="220.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">revocation lists</text>
+<rect x="345" y="352" width="210" height="96" rx="4" fill="#282828" stroke="#d3869b" stroke-width="1.5"/>
+<text x="450" y="388.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Static filter</text>
+<text x="450" y="404.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">generator</text>
+<text x="450" y="420.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">(Python)</text>
+<rect x="690" y="112" width="210" height="76" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="795" y="146.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">cascadeFilters.json</text>
+<text x="795" y="162.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">static cascade</text>
+<rect x="690" y="262" width="210" height="76" rx="4" fill="#282828" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="795" y="296.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">dynamicFilter.json</text>
+<text x="795" y="312.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">dynamic updates</text>
+<path d="M255,200 L345,200" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M555,200 L560,200 L560,150 L690,150" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="625" y="144" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">serial numbers</text>
+<path d="M555,200 L560,200 L560,300 L690,300" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="625" y="294" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">filtered serials</text>
+<path d="M450,248 L450,352" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="454" y="304" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">filtered serials</text>
+</svg>

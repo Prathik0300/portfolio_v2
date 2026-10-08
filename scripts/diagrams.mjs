@@ -1,55 +1,9 @@
-// Draws the diagrams that did not exist on the old site, as plain SVG in the site's own colors.
+// Draws the diagrams that did not exist on the old site, and redraws the ones that did, as plain SVG in the site's own colors.
 // Run with: node scripts/diagrams.mjs   (writes public/img/diagrams/*.svg)
-// Everything here comes from facts already in the write-ups; keep it that way when editing.
+// Everything here comes from facts already in the write-ups or from the project's original diagrams; keep it that way when editing.
 import { mkdirSync, writeFileSync } from "node:fs";
-
-const C = {
-  bg: "#1d2021", card: "#282828", fg: "#ebdbb2", dim: "#bdae93", faint: "#9a8c7c", line: "#3c3836",
-  yellow: "#fabd2f", purple: "#d3869b", aqua: "#8ec07c", blue: "#83a598", orange: "#fe8019", green: "#b8bb26",
-};
-const FONT = `ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace`;
-const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-const text = (x, y, s, { size = 13, fill = C.fg, weight = 400, anchor = "start", rotate } = {}) =>
-  `<text x="${x}" y="${y}" font-size="${size}" fill="${fill}" font-weight="${weight}" text-anchor="${anchor}"${
-    rotate ? ` transform="rotate(${rotate} ${x} ${y})"` : ""
-  }>${esc(s)}</text>`;
-
-/** A step: colored border, numbered title, dim detail lines. */
-function box(x, y, w, h, { color = C.faint, num, title, lines = [] }) {
-  const out = [`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="3" fill="${C.card}" stroke="${color}" stroke-width="1.5"/>`];
-  const head = (num ? `${num}  ` : "") + title;
-  if (num) out.push(text(x + 14, y + 28, num, { fill: C.yellow, weight: 600, size: 15 }));
-  out.push(text(x + 14 + (num ? 28 : 0), y + 28, title, { fill: C.fg, weight: 600, size: 15 }));
-  void head;
-  lines.forEach((l, i) => out.push(text(x + 14, y + 52 + i * 18, l, { fill: C.dim, size: 13 })));
-  return out.join("\n");
-}
-
-/** A line with an arrowhead at the end (and at the start if `both`). */
-function arrow(points, { color = C.faint, both = false, dash = false } = {}) {
-  const d = points.map((p, i) => `${i ? "L" : "M"}${p[0]},${p[1]}`).join(" ");
-  return `<path d="${d}" fill="none" stroke="${color}" stroke-width="1.5"${dash ? ' stroke-dasharray="5 4"' : ""} marker-end="url(#a)"${both ? ' marker-start="url(#b)"' : ""}/>`;
-}
-
-function svg({ w, h, title, desc, body }) {
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" role="img" aria-labelledby="t d" font-family="${FONT}">
-<title id="t">${esc(title)}</title>
-<desc id="d">${esc(desc)}</desc>
-<defs>
-<marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="${C.faint}"/></marker>
-<marker id="b" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,1 L9,5 L0,9 z" fill="${C.faint}"/></marker>
-</defs>
-<rect width="${w}" height="${h}" fill="${C.bg}"/>
-${body}
-</svg>
-`;
-}
-
-const legend = (x, y, items) =>
-  items
-    .map(([color, label], i) => `<rect x="${x}" y="${y + i * 24}" width="14" height="14" rx="2" fill="none" stroke="${color}" stroke-width="1.5"/>\n${text(x + 24, y + 12 + i * 24, label, { fill: C.dim, size: 13 })}`)
-    .join("\n");
+import { C, arrow, box, legend, svg, text } from "./diagrams-lib.mjs";
+import { crliteArchitecture, crliteDataFlow, ensogrowTaskFlow, ensogrowUserFlow } from "./diagrams-flows.mjs";
 
 // columns and rows shared by the two snake-shaped flow diagrams
 const W = 270, H = 92, X = [50, 360, 670], Y = [30, 170, 310];
@@ -183,7 +137,16 @@ function deliveryPath() {
 }
 
 mkdirSync("public/img/diagrams", { recursive: true });
-const out = { "program-repair-pipeline": repairPipeline(), "program-repair-results": repairResults(), "rebuild-pipeline": rebuildPipeline(), "delivery-path": deliveryPath() };
+const out = {
+  "crlite-architecture": crliteArchitecture(),
+  "crlite-data-flow": crliteDataFlow(),
+  "ensogrow-user-flow": ensogrowUserFlow(),
+  "ensogrow-task-flow": ensogrowTaskFlow(),
+  "program-repair-pipeline": repairPipeline(),
+  "program-repair-results": repairResults(),
+  "rebuild-pipeline": rebuildPipeline(),
+  "delivery-path": deliveryPath(),
+};
 for (const [name, s] of Object.entries(out)) {
   writeFileSync(`public/img/diagrams/${name}.svg`, s);
   console.log(`public/img/diagrams/${name}.svg  ${(s.length / 1024).toFixed(1)} KB`);

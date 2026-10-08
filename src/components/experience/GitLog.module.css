@@ -1,10 +1,10 @@
 .legend { display: flex; flex-wrap: wrap; gap: 0 22px; margin-bottom: 28px; color: var(--dim); font-size: 13px; }
 
 .log { margin: 0; padding: 0; list-style: none; }
-.commit { display: grid; grid-template-columns: 6.5ch minmax(0, 1fr); column-gap: 1.5ch; }
+.commit { display: grid; grid-template-columns: 8ch minmax(0, 1fr); column-gap: 1.5ch; }
 
 /* the graph: one thin colored line per lane, a * on the commit row */
-.graph { display: grid; grid-template-columns: repeat(4, 1.5ch); }
+.graph { display: grid; grid-template-columns: repeat(5, 1.5ch); }
 .lane { position: relative; }
 .on::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: currentColor; transform: translateX(-50%); }
 .top::before { top: 0.9em; }
@@ -35,8 +35,8 @@
 .lead .num { font-weight: 600; }
 
 @media (min-width: 640px) {
-  .commit { grid-template-columns: 8ch minmax(0, 1fr); column-gap: 2ch; }
-  .graph { grid-template-columns: repeat(4, 2ch); }
+  .commit { grid-template-columns: 10ch minmax(0, 1fr); column-gap: 2ch; }
+  .graph { grid-template-columns: repeat(5, 2ch); }
 }
 
 /* ---- motion: everything below is optional. The finished state above is what you see without it. ---- */
@@ -60,7 +60,8 @@
   .log:has(.commit[data-lane="uic"]:hover) .on[data-lane="uic"]::before,
   .log:has(.commit[data-lane="radiofx"]:hover) .on[data-lane="radiofx"]::before,
   .log:has(.commit[data-lane="bfhl"]:hover) .on[data-lane="bfhl"]::before,
-  .log:has(.commit[data-lane="ubs"]:hover) .on[data-lane="ubs"]::before { opacity: 1; width: 2px; }
+  .log:has(.commit[data-lane="ubs"]:hover) .on[data-lane="ubs"]::before,
+  .log:has(.commit[data-lane="vit"]:hover) .on[data-lane="vit"]::before { opacity: 1; width: 2px; }
   .commit:hover .lane b { text-shadow: 0 0 10px currentColor; }
 }
 @media (prefers-reduced-motion: no-preference) {

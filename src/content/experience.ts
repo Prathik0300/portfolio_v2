@@ -134,18 +134,57 @@ export const experienceItems: ExperienceItem[] = [
   },
 ];
 
+/** Newest first. GPAs from the resume; everything else from the LinkedIn profile. */
 export const educationItems: EducationItem[] = [
   {
+    id: "uic-ms",
     school: "University of Illinois Chicago",
     degree: "MS, Computer Science",
+    title: "MS in Computer Science",
+    location: "Chicago, IL",
     start: "2024-08",
     end: "2026-05",
     note: "4.0 GPA",
+    points: [
+      {
+        lead: "GPA 4.00 out of 4.00.",
+        detail: "Focused on cloud computing, backend development and distributed systems.",
+      },
+      {
+        lead: "Wrote two research papers.",
+        detail: "CRLite+, a Chrome extension for certificate revocation (CS588), and a study of fixing crashing C programs with fuzzing and an LLM. Both are on the projects page.",
+      },
+      {
+        lead: "Built agentic AI infrastructure on the side.",
+        detail: "Orchon, a DAG-based multi-agent dev orchestration platform with human-in-the-loop approval gates, and NLGraph, a 12-stage NLP-first pipeline that breaks a query down before any LLM call.",
+      },
+    ],
   },
   {
+    id: "vit-btech",
     school: "Vellore Institute of Technology",
     degree: "BTech, Computer Science",
+    title: "B.Tech in Computer Science",
+    location: "Vellore, India",
     start: "2018-07",
     end: "2022-05",
+    note: "3.6 / 4.0 GPA",
+    points: [
+      {
+        lead: "GPA 3.6 out of 4.0.",
+      },
+      {
+        lead: "Head of the web development team at Heritage Club.",
+        detail: "Jan 2021 – Jan 2022.",
+      },
+      {
+        lead: "Back-end developer on ProjectF.",
+        detail: "A Node.js and MongoDB backend for an e-commerce platform where artists and designers start their own brands: vendor products, the Mongoose schema, and the hookup to the frontend. Sep – Oct 2020.",
+      },
+      {
+        lead: "Core committee member at the Entrepreneurship Cell.",
+        detail: "Dec 2018 – Feb 2020. Ran sessions for aspiring entrepreneurs, piloted Futurepreneurs and Udaan with about 1,000 participants each, guided 3 startup ideas into VIT's Technology Business Incubator, and helped manage the annual E-Summit (about 6,000 participants).",
+      },
+    ],
   },
 ];

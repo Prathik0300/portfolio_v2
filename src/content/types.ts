@@ -13,11 +13,18 @@ export interface ExperienceItem {
 }
 
 export interface EducationItem {
+  id: string;
   school: string;
+  /** short form for lists, e.g. "MS, Computer Science" */
   degree: string;
+  /** full name used as the commit title on /experience */
+  title: string;
+  location: string;
   start: string;
   end: string;
+  /** one short line for the about page, e.g. the GPA */
   note?: string;
+  points: Array<{ lead: string; detail?: string }>;
 }
 
 /** A picture on the page. `diagram` and `screenshot` are counted separately for the media line on /projects. */

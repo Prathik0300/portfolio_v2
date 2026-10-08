@@ -9,12 +9,14 @@ const LANES = [
   { key: "radiofx", label: "radiofx", color: "var(--green)" },
   { key: "bfhl", label: "bajaj-finserv-health", color: "var(--orange)" },
   { key: "ubs", label: "ubs", color: "var(--purple)" },
+  { key: "vit", label: "vit-btech", color: "var(--dim)" },
 ] as const;
+
+/** A degree is a lane that ran from its start to its end date, so it can run beside the jobs held during it. */
+const DEGREE_LANE: Record<string, string> = { "uic-ms": "uic", "vit-btech": "vit" };
 
 type Point = { lead: string; detail?: string };
 type Commit = { id: string; lane: number; start: string; when: string; title: string; org: string; where?: string; body: Point[] };
-
-const [masters] = educationItems;
 
 function buildCommits(): Commit[] {
   const roles: Commit[] = experienceItems.map((r) => ({
@@ -27,23 +29,23 @@ function buildCommits(): Commit[] {
     where: r.location,
     body: r.points,
   }));
-  const ms: Commit = {
-    id: "uic-ms",
-    lane: 0,
-    start: masters.start,
-    when: formatRange(masters.start, masters.end),
-    title: "MS in Computer Science",
-    org: masters.school,
-    where: "Chicago, IL",
-    body: masters.note ? [{ lead: masters.note }] : [],
-  };
-  return [...roles, ms].sort((a, b) => b.start.localeCompare(a.start));
+  const degrees: Commit[] = educationItems.map((e) => ({
+    id: e.id,
+    lane: LANES.findIndex((l) => l.key === DEGREE_LANE[e.id]),
+    start: e.start,
+    when: formatRange(e.start, e.end),
+    title: e.title,
+    org: e.school,
+    where: e.location,
+    body: e.points,
+  }));
+  return [...roles, ...degrees].sort((a, b) => b.start.localeCompare(a.start));
 }
 
-/** Numbers and metrics stand out in yellow, so the results are what the eye lands on. */
+/** Numbers and metrics stand out in yellow, so the results are what the eye lands on. Years are dates, not results. */
 function Highlight({ text }: { text: string }): ReactNode {
-  return text.split(/(\d[\d,.]*\+?%?(?: ms| minutes| KB)?)/).map((part, i) =>
-    i % 2 === 1 ? (
+  return text.split(/((?<![A-Za-z])\d[\d,.]*\+?%?(?: ms| minutes| KB)?)/).map((part, i) =>
+    i % 2 === 1 && !/^(19|20)\d\d$/.test(part) ? (
       <span key={i} className={styles.num}>
         {part}
       </span>
@@ -55,10 +57,12 @@ function Highlight({ text }: { text: string }): ReactNode {
 
 export function GitLog() {
   const commits = buildCommits();
-  // Each lane is drawn from its newest to its oldest commit. The MS lane ran until May 2026, past every other row, so it starts at the top.
-  const span = LANES.map((_, lane) => {
+  // Each lane runs from its newest to its oldest commit. A degree lane starts higher up: at the first row that began before the degree ended.
+  const span = LANES.map((l, lane) => {
     const rows = commits.map((c, i) => (c.lane === lane ? i : -1)).filter((i) => i >= 0);
-    return { first: lane === 0 ? 0 : rows[0], last: rows[rows.length - 1] };
+    const degree = educationItems.find((e) => DEGREE_LANE[e.id] === l.key);
+    const first = degree ? Math.max(0, commits.findIndex((c) => c.start <= degree.end)) : rows[0];
+    return { first, last: rows[rows.length - 1] };
   });
 
   return (

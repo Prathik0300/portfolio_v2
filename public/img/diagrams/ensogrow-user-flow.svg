@@ -1,0 +1,203 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 1682" width="1120" height="1682" role="img" aria-labelledby="t d" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace">
+<title id="t">EnsoGrow user flow</title>
+<desc id="d">A swimlane diagram with three lanes: the user, the front end, and Gemini. The user signs in with Google, fills an onboarding form, gets plant recommendations from Gemini, picks a plant and adds it to the dashboard with an optional reminder, then updates its health or opens the Doctor AI. The Doctor AI opens the camera, the user captures and confirms a photo, Gemini returns a diagnosis, and the user applies the fix, which is saved to history. Auth, camera permission and Gemini errors have their own paths.</desc>
+<defs>
+<marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#9a8c7c"/></marker>
+<marker id="b" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,1 L9,5 L0,9 z" fill="#9a8c7c"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#fe8019"/></marker>
+<marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8ec07c"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#b8bb26"/></marker>
+</defs>
+<rect width="1120" height="1682" fill="#1d2021"/>
+<rect x="20" y="40" width="290" height="1622" rx="3" fill="none" stroke="#8ec07c" stroke-opacity="0.45" stroke-width="1"/>
+<text x="32" y="60" font-size="12" fill="#8ec07c" font-weight="600" text-anchor="start">USER</text>
+<rect x="330" y="40" width="490" height="1622" rx="3" fill="none" stroke="#83a598" stroke-opacity="0.45" stroke-width="1"/>
+<text x="342" y="60" font-size="12" fill="#83a598" font-weight="600" text-anchor="start">FRONT END</text>
+<rect x="840" y="40" width="260" height="1622" rx="3" fill="none" stroke="#d3869b" stroke-opacity="0.45" stroke-width="1"/>
+<text x="852" y="60" font-size="12" fill="#d3869b" font-weight="600" text-anchor="start">GEMINI</text>
+<rect x="95" y="70" width="140" height="40" rx="20" fill="#282828" stroke="#8ec07c" stroke-width="1.5"/>
+<text x="165" y="94.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Landing</text>
+<rect x="65" y="139" width="200" height="46" rx="4" fill="#282828" stroke="#8ec07c" stroke-width="1.5"/>
+<text x="165" y="158.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Click “Sign in</text>
+<text x="165" y="174.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">with Google”</text>
+<rect x="95" y="214" width="140" height="40" rx="20" fill="#282828" stroke="#fe8019" stroke-width="1.5"/>
+<text x="165" y="238.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Auth error</text>
+<rect x="85" y="286" width="160" height="40" rx="4" fill="#282828" stroke="#8ec07c" stroke-width="1.5"/>
+<text x="165" y="310.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Retry auth</text>
+<rect x="65" y="355" width="200" height="46" rx="4" fill="#282828" stroke="#8ec07c" stroke-width="1.5"/>
+<text x="165" y="374.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Fill onboarding</text>
+<text x="165" y="390.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">form</text>
+<rect x="65" y="430" width="200" height="40" rx="4" fill="#282828" stroke="#8ec07c" stroke-width="1.5"/>
+<text x="165" y="454.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Submit onboarding</text>
+<rect x="65" y="571" width="200" height="46" rx="4" fill="#282828" stroke="#8ec07c" stroke-width="1.5"/>
+<text x="165" y="590.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Browse</text>
+<text x="165" y="606.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">recommendations</text>
+<rect x="65" y="646" width="200" height="40" rx="4" fill="#282828" stroke="#8ec07c" stroke-width="1.5"/>
+<text x="165" y="670.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Select plant</text>
+<rect x="65" y="715" width="200" height="46" rx="4" fill="#282828" stroke="#8ec07c" stroke-width="1.5"/>
+<text x="165" y="734.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">View plant</text>
+<text x="165" y="750.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">details</text>
+<rect x="65" y="790" width="200" height="40" rx="4" fill="#282828" stroke="#8ec07c" stroke-width="1.5"/>
+<text x="165" y="814.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Start growing</text>
+<rect x="65" y="859" width="200" height="46" rx="4" fill="#282828" stroke="#8ec07c" stroke-width="1.5"/>
+<text x="165" y="878.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Set reminder</text>
+<text x="165" y="894.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">(optional)</text>
+<rect x="65" y="934" width="200" height="40" rx="4" fill="#282828" stroke="#8ec07c" stroke-width="1.5"/>
+<text x="165" y="958.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">View dashboard</text>
+<rect x="65" y="1006" width="200" height="40" rx="4" fill="#282828" stroke="#8ec07c" stroke-width="1.5"/>
+<text x="165" y="1030.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Update health</text>
+<rect x="65" y="1078" width="200" height="40" rx="4" fill="#282828" stroke="#8ec07c" stroke-width="1.5"/>
+<text x="165" y="1102.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Open Doctor AI</text>
+<rect x="90" y="1150" width="150" height="40" rx="20" fill="#282828" stroke="#fe8019" stroke-width="1.5"/>
+<text x="165" y="1174.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Camera denied</text>
+<rect x="65" y="1222" width="200" height="40" rx="4" fill="#282828" stroke="#8ec07c" stroke-width="1.5"/>
+<text x="165" y="1246.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Capture image</text>
+<rect x="65" y="1294" width="200" height="40" rx="4" fill="#282828" stroke="#8ec07c" stroke-width="1.5"/>
+<text x="165" y="1318.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Confirm image</text>
+<rect x="65" y="1366" width="200" height="40" rx="4" fill="#282828" stroke="#8ec07c" stroke-width="1.5"/>
+<text x="165" y="1390.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Retake image</text>
+<rect x="65" y="1438" width="200" height="40" rx="4" fill="#282828" stroke="#8ec07c" stroke-width="1.5"/>
+<text x="165" y="1462.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Apply fix</text>
+<rect x="65" y="1507" width="200" height="46" rx="4" fill="#282828" stroke="#8ec07c" stroke-width="1.5"/>
+<text x="165" y="1526.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Ongoing care</text>
+<text x="165" y="1542.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">loop</text>
+<rect x="110" y="1582" width="110" height="40" rx="20" fill="#282828" stroke="#8ec07c" stroke-width="1.5"/>
+<text x="165" y="1606.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">End</text>
+<rect x="360" y="142" width="220" height="40" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="470" y="166.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Google SSO</text>
+<polygon points="375,234 391,206 549,206 565,234 549,262 391,262" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+<text x="470" y="238.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Signed in?</text>
+<rect x="360" y="355" width="220" height="46" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="470" y="374.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Show</text>
+<text x="470" y="390.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">onboarding</text>
+<rect x="360" y="430" width="220" height="40" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="470" y="454.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Submit context</text>
+<rect x="360" y="502" width="220" height="40" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="470" y="526.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Show loading</text>
+<rect x="360" y="571" width="220" height="46" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="470" y="590.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Show</text>
+<text x="470" y="606.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">recommendations</text>
+<rect x="360" y="646" width="220" height="40" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="470" y="670.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Show plant details</text>
+<rect x="360" y="718" width="220" height="40" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="470" y="742.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Show guide</text>
+<rect x="360" y="790" width="220" height="40" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="470" y="814.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Add to dashboard</text>
+<rect x="360" y="934" width="220" height="40" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="470" y="958.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Show dashboard</text>
+<rect x="360" y="1078" width="220" height="40" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="470" y="1102.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Open camera</text>
+<rect x="360" y="1438" width="220" height="40" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="470" y="1462.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Show diagnosis</text>
+<rect x="360" y="1510" width="220" height="40" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="470" y="1534.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Save to history</text>
+<rect x="660" y="859" width="150" height="46" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="735" y="878.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Show</text>
+<text x="735" y="894.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">reminder</text>
+<rect x="660" y="931" width="150" height="46" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="735" y="950.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Show plant</text>
+<text x="735" y="966.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">profile</text>
+<rect x="660" y="1003" width="150" height="46" rx="4" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+<text x="735" y="1022.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Show health</text>
+<text x="735" y="1038.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">update</text>
+<rect x="660" y="1072" width="150" height="52" rx="26" fill="#282828" stroke="#fe8019" stroke-width="1.5"/>
+<text x="735" y="1094.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Camera</text>
+<text x="735" y="1110.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">permission denied</text>
+<rect x="660" y="1582" width="150" height="40" rx="4" fill="#282828" stroke="#fe8019" stroke-width="1.5"/>
+<text x="735" y="1606.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Gemini error</text>
+<rect x="870" y="427" width="200" height="46" rx="4" fill="#282828" stroke="#d3869b" stroke-width="1.5"/>
+<text x="970" y="446.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Analyze</text>
+<text x="970" y="462.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">context</text>
+<rect x="870" y="571" width="200" height="46" rx="23" fill="#282828" stroke="#d3869b" stroke-width="1.5"/>
+<text x="970" y="590.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Return</text>
+<text x="970" y="606.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">recommendations</text>
+<rect x="870" y="1291" width="200" height="46" rx="4" fill="#282828" stroke="#d3869b" stroke-width="1.5"/>
+<text x="970" y="1310.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Analyze</text>
+<text x="970" y="1326.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">image</text>
+<rect x="870" y="1435" width="200" height="46" rx="23" fill="#282828" stroke="#d3869b" stroke-width="1.5"/>
+<text x="970" y="1454.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Return</text>
+<text x="970" y="1470.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">diagnosis</text>
+<rect x="890" y="1582" width="160" height="40" rx="20" fill="#282828" stroke="#fe8019" stroke-width="1.5"/>
+<text x="970" y="1606.5" font-size="13" fill="#ebdbb2" font-weight="400" text-anchor="middle">Gemini error</text>
+<path d="M165,110 L165,139" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M265,162 L360,162" fill="none" stroke="#8ec07c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#am)"/>
+<text x="312.5" y="156" font-size="12" fill="#8ec07c" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">sign in</text>
+<path d="M470,182 L470,206" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M470,262 L470,355" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="474" y="312.5" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">yes</text>
+<path d="M375,234 L235,234" fill="none" stroke="#fe8019" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ao)"/>
+<text x="305" y="228" font-size="12" fill="#fe8019" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">no</text>
+<path d="M165,254 L165,286" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M85,306 L42,306 L42,162 L65,162" fill="none" stroke="#fe8019" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ao)"/>
+<path d="M360,378 L265,378" fill="none" stroke="#8ec07c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#am)"/>
+<text x="312.5" y="372" font-size="12" fill="#8ec07c" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">show form</text>
+<path d="M165,401 L165,430" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M265,450 L360,450" fill="none" stroke="#8ec07c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#am)"/>
+<text x="312.5" y="444" font-size="12" fill="#8ec07c" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">submit</text>
+<path d="M580,450 L870,450" fill="none" stroke="#8ec07c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#am)"/>
+<text x="725" y="444" font-size="12" fill="#8ec07c" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">send context</text>
+<path d="M470,470 L470,502" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M970,473 L970,571" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M870,594 L580,594" fill="none" stroke="#8ec07c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#am)"/>
+<text x="725" y="588" font-size="12" fill="#8ec07c" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">recommendations</text>
+<path d="M470,542 L470,571" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M165,470 L165,571" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M360,594 L265,594" fill="none" stroke="#8ec07c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#am)"/>
+<text x="312.5" y="588" font-size="12" fill="#8ec07c" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">show list</text>
+<path d="M165,617 L165,646" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M165,686 L165,715" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M165,761 L165,790" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M165,830 L165,859" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M165,905 L165,934" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M265,666 L360,666" fill="none" stroke="#8ec07c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#am)"/>
+<text x="312.5" y="660" font-size="12" fill="#8ec07c" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">select</text>
+<path d="M470,686 L470,718" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M360,738 L265,738" fill="none" stroke="#8ec07c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#am)"/>
+<text x="312.5" y="732" font-size="12" fill="#8ec07c" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">guide</text>
+<path d="M265,810 L360,810" fill="none" stroke="#8ec07c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#am)"/>
+<text x="312.5" y="804" font-size="12" fill="#8ec07c" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">add</text>
+<path d="M470,830 L470,934" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M265,882 L660,882" fill="none" stroke="#8ec07c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#am)"/>
+<text x="462.5" y="876" font-size="12" fill="#8ec07c" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">set</text>
+<path d="M360,954 L265,954" fill="none" stroke="#8ec07c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#am)"/>
+<text x="312.5" y="948" font-size="12" fill="#8ec07c" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">show</text>
+<path d="M580,954 L660,954" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="620" y="948" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">profile</text>
+<path d="M165,974 L165,1006" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M65,954 L52,954 L52,1098 L65,1098" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M265,1026 L660,1026" fill="none" stroke="#8ec07c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#am)"/>
+<text x="462.5" y="1020" font-size="12" fill="#8ec07c" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">update</text>
+<path d="M265,1098 L360,1098" fill="none" stroke="#8ec07c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#am)"/>
+<text x="312.5" y="1092" font-size="12" fill="#8ec07c" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">open</text>
+<path d="M580,1098 L660,1098" fill="none" stroke="#fe8019" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ao)"/>
+<text x="620" y="1092" font-size="12" fill="#fe8019" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">denied</text>
+<path d="M735,1124 L735,1170 L240,1170" fill="none" stroke="#fe8019" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ao)"/>
+<path d="M470,1118 L470,1242 L265,1242" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="367.5" y="1236" font-size="12" fill="#bdae93" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">granted</text>
+<path d="M165,1262 L165,1294" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M265,1314 L870,1314" fill="none" stroke="#8ec07c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#am)"/>
+<text x="567.5" y="1308" font-size="12" fill="#8ec07c" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">analyze</text>
+<path d="M165,1334 L165,1366" fill="none" stroke="#fe8019" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ao)"/>
+<text x="169" y="1354" font-size="12" fill="#fe8019" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">retake</text>
+<path d="M65,1386 L42,1386 L42,1242 L65,1242" fill="none" stroke="#fe8019" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ao)"/>
+<path d="M970,1337 L970,1435" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M870,1458 L580,1458" fill="none" stroke="#8ec07c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#am)"/>
+<text x="725" y="1452" font-size="12" fill="#8ec07c" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">diagnosis</text>
+<path d="M360,1458 L265,1458" fill="none" stroke="#8ec07c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#am)"/>
+<text x="312.5" y="1452" font-size="12" fill="#8ec07c" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">show fix</text>
+<path d="M470,1478 L470,1510" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M360,1530 L265,1530" fill="none" stroke="#8ec07c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#am)"/>
+<text x="312.5" y="1524" font-size="12" fill="#8ec07c" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">saved</text>
+<path d="M165,1478 L165,1507" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M165,1553 L165,1582" fill="none" stroke="#9a8c7c" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M1070,1314 L1090,1314 L1090,1602 L1050,1602" fill="none" stroke="#fe8019" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ao)"/>
+<text x="1064" y="1462" font-size="12" fill="#fe8019" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">fails</text>
+<path d="M890,1602 L810,1602" fill="none" stroke="#fe8019" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ao)"/>
+<text x="850" y="1596" font-size="12" fill="#fe8019" text-anchor="middle" stroke="#1d2021" stroke-width="5" paint-order="stroke" stroke-linejoin="round">error</text>
+<path d="M560,1204 L596,1204" stroke="#9a8c7c" stroke-width="1.5"/>
+<text x="608" y="1208" font-size="12" fill="#bdae93" font-weight="400" text-anchor="start">step to step</text>
+<path d="M560,1226 L596,1226" stroke="#8ec07c" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="608" y="1230" font-size="12" fill="#bdae93" font-weight="400" text-anchor="start">message between lanes</text>
+<path d="M560,1248 L596,1248" stroke="#fe8019" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="608" y="1252" font-size="12" fill="#bdae93" font-weight="400" text-anchor="start">error or retry</text>
+</svg>
