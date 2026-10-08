@@ -38,7 +38,7 @@ export const stackItems = [
 export const aboutPage = {
   body: [
     "I build the infrastructure that lets AI systems ship safely and fast, and I have the research background to know why that matters.",
-    "I finished an MS in Computer Science at the University of Illinois Chicago in May 2026 (4.0 GPA), focused on cloud computing, backend development and distributed systems. My BTech in Computer Science is from Vellore Institute of Technology.",
+    "I finished an MS in Computer Science at the University of Illinois Chicago in May 2026 (4.0 GPA), with coursework in systems, security and AI. My BTech in Computer Science is from Vellore Institute of Technology.",
     "From 2022 to 2024 I worked at Bajaj Finserv Health in Pune, starting as an intern and ending as a software development engineer II. I built a medical image annotation platform used by 80,000+ doctors, and replaced synchronous calls between services with event-driven messaging on Azure Service Bus.",
     "In 2025 I was at RadioFX. I owned the infrastructure architecture, moved the team from Jenkins to a GitOps setup on GKE (Terraform and ArgoCD), and built an AI pipeline that rebuilds a customer's website.",
     "On the side I'm building Orchon, a DAG-based multi-agent dev orchestration platform with human-in-the-loop approval gates, and NLGraph, a 12-stage NLP-first pipeline that breaks queries down before any LLM call.",

@@ -147,7 +147,7 @@ export const educationItems: EducationItem[] = [
     note: "4.0 GPA",
     points: [
       {
-        lead: "GPA 4.00 out of 4.00.",
+        lead: "GPA 4.0.",
         detail: "An A in every graded course.",
       },
       {
@@ -176,10 +176,10 @@ export const educationItems: EducationItem[] = [
     location: "Vellore, India",
     start: "2018-07",
     end: "2022-05",
-    note: "3.6 / 4.0 GPA",
+    note: "3.6 GPA",
     points: [
       {
-        lead: "GPA 3.6 out of 4.0.",
+        lead: "GPA 3.6.",
       },
       {
         lead: "Head of the web development team at Heritage Club.",
