@@ -35,6 +35,34 @@ export const stackItems = [
   "ELK",
 ];
 
+/** The full skills list, grouped the same way as the resume so the two always match. */
+export const skillGroups: Array<{ label: string; items: string[] }> = [
+  {
+    label: "Languages and backend",
+    items: ["Python", "TypeScript", "JavaScript", "SQL", "Bash", "Shell scripting", "Linux", "NestJS", "Node.js", "Fastify", "REST APIs", "GraphQL"],
+  },
+  {
+    label: "Cloud and infrastructure",
+    items: ["GCP", "AWS", "Azure", "Kubernetes", "GKE", "Docker", "Terraform", "Helm", "NGINX", "Load balancing", "VPC networking"],
+  },
+  {
+    label: "CI/CD and platform",
+    items: ["GitHub Actions", "Jenkins", "Argo CD", "GitOps", "KEDA", "Workload Identity Federation", "NetworkPolicies", "Secrets management"],
+  },
+  {
+    label: "Observability and messaging",
+    items: ["Prometheus", "Grafana", "OpenTelemetry", "ELK Stack", "Kafka", "RabbitMQ", "Azure Service Bus"],
+  },
+  {
+    label: "AI and agentic systems",
+    items: ["LangChain", "RAG", "Vector search", "Embeddings", "Multi-agent orchestration", "DAG task decomposition", "Gemini API", "OpenAI API"],
+  },
+  {
+    label: "Databases",
+    items: ["PostgreSQL", "MongoDB", "Redis", "Cassandra", "Qdrant", "FAISS", "ChromaDB"],
+  },
+];
+
 export const aboutPage = {
   body: [
     "I build the infrastructure that lets AI systems ship safely and fast, and I have the research background to know why that matters.",

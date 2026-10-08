@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Prompt } from "@/components/shell/Shell";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { aboutPage, certifications, languages, siteLinks } from "@/content/profile";
+import { aboutPage, certifications, languages, siteLinks, skillGroups } from "@/content/profile";
 import { educationItems } from "@/content/experience";
 import { breadcrumb, graph } from "@/lib/seo";
 import { absoluteUrl, SITE_URL } from "@/lib/site";
@@ -32,6 +32,15 @@ export default function AboutPage() {
       </article>
 
       <section className="md" style={{ marginTop: 36 }}>
+        <h2 id="skills">Skills</h2>
+        <dl className={styles.skills}>
+          {skillGroups.map((g) => (
+            <div key={g.label}>
+              <dt>{g.label}</dt>
+              <dd>{g.items.join(", ")}</dd>
+            </div>
+          ))}
+        </dl>
         <h2>Education</h2>
         <ul>
           {educationItems.map((e) => (

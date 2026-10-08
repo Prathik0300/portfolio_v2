@@ -41,6 +41,9 @@ export default function HomePage() {
       <section className={styles.block} aria-label="Stack">
         <Prompt cmd="cat stack.txt" />
         <p className={styles.stackText}>{stackItems.join(", ")}</p>
+        <p className="faint" style={{ marginTop: 16 }}>
+          <Link href="/about#skills">all skills</Link>
+        </p>
       </section>
 
       <p className={styles.mail}>

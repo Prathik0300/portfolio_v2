@@ -107,7 +107,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 /* keep reading lines at a comfortable length even though the page is wide */
 .md p, .md ul, .md ol { max-width: 82ch; }
 .md h1::before { content: "# "; color: var(--faint); }
-.md h2 { font-size: 1.02rem; margin: 30px 0 10px; color: var(--yellow); }
+.md h2 { font-size: 1.02rem; margin: 30px 0 10px; color: var(--yellow); scroll-margin-top: 84px; }
 .md h2::before { content: "## "; color: var(--faint); }
 .md p + p, .md p + ul, .md p + ol, .md ul + p, .md ol + p { margin-top: 14px; }
 .md ul { display: grid; gap: 8px; }

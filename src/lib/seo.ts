@@ -1,5 +1,5 @@
 import { absoluteUrl, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
-import { siteLinks, stackItems } from "@/content/profile";
+import { siteLinks, skillGroups } from "@/content/profile";
 import type { Project } from "@/content/types";
 
 const personId = `${SITE_URL}/#person`;
@@ -24,7 +24,7 @@ export const personSchema = {
     { "@type": "CollegeOrUniversity", name: "University of Illinois Chicago" },
     { "@type": "CollegeOrUniversity", name: "Vellore Institute of Technology" },
   ],
-  knowsAbout: stackItems,
+  knowsAbout: skillGroups.flatMap((g) => g.items),
 };
 
 export const websiteSchema = {

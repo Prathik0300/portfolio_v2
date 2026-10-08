@@ -4,3 +4,12 @@
 .block > p:first-child { margin-bottom: 20px; }
 .stackText { color: var(--dim); }
 .mail { margin-top: 48px; }
+
+/* skills on /about: a label column and a comma-separated list, one row per group */
+.skills { margin: 0; display: grid; gap: 14px; max-width: 82ch; }
+.skills dt { color: var(--faint); font-size: 13px; }
+.skills dd { margin: 0; color: var(--dim); }
+@media (min-width: 640px) {
+  .skills > div { display: grid; grid-template-columns: 28ch minmax(0, 1fr); gap: 0 2ch; }
+  .skills dt { font-size: inherit; }
+}
