@@ -4,8 +4,8 @@ export const C = {
   bg: "#1d2021", card: "#282828", fg: "#ebdbb2", dim: "#bdae93", faint: "#9a8c7c", line: "#3c3836",
   yellow: "#fabd2f", purple: "#d3869b", aqua: "#8ec07c", blue: "#83a598", orange: "#fe8019", green: "#b8bb26",
 };
-export const FONT = `ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace`;
-export const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const FONT = `ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace`;
+const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 export const text = (x, y, s, { size = 13, fill = C.fg, weight = 400, anchor = "start", rotate } = {}) =>
   `<text x="${x}" y="${y}" font-size="${size}" fill="${fill}" font-weight="${weight}" text-anchor="${anchor}"${

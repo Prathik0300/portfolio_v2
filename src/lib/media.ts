@@ -1,7 +1,7 @@
 import type { Block, Figure, Project } from "@/content/types";
 
 /** Every picture on a page in reading order: single figures and gallery items. */
-export function figuresOf(p: Project): Figure[] {
+function figuresOf(p: Project): Figure[] {
   const out: Figure[] = [];
   for (const s of p.sections)
     for (const b of s.blocks) {

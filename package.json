@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "budget": "node scripts/js-budget.mjs",
+    "diagrams": "node scripts/diagrams.mjs",
     "lh": "node scripts/lh.mjs"
   },
   "dependencies": {

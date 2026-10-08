@@ -49,7 +49,7 @@ export type Block =
   /** a one-line takeaway under a section */
   | { type: "callout"; text: string };
 
-export interface Section {
+interface Section {
   title: string;
   /** a dim line under the heading */
   subtitle?: string;
