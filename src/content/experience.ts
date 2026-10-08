@@ -182,24 +182,12 @@ export const educationItems: EducationItem[] = [
         lead: "GPA 3.6.",
       },
       {
-        lead: "Core CS coursework.",
-        detail: "Data Structures and Algorithms, Database Management Systems, Software Engineering, Theory of Computation and Compiler Design, Discrete Mathematics and Graph Theory, plus Java and object-oriented programming.",
+        lead: "Core CS and systems coursework.",
+        detail: "Data Structures and Algorithms, Operating Systems, Computer Architecture, Databases, Networks, Parallel and Distributed Computing, and Theory of Computation and Compiler Design.",
       },
       {
-        lead: "Systems and networks coursework.",
-        detail: "Operating Systems, Computer Architecture, Digital Logic, Microprocessors, Networks, and Parallel and Distributed Computing.",
-      },
-      {
-        lead: "Security coursework.",
-        detail: "Blockchain and Cryptocurrency Technologies, Digital Forensics, Information Security Management, and Security Analysis and Audit.",
-      },
-      {
-        lead: "AI and data coursework.",
-        detail: "Artificial Intelligence, Robotics, Web Mining, Social and Information Networks, and Data Visualization.",
-      },
-      {
-        lead: "Web and design coursework.",
-        detail: "Internet and Web Programming, and Human Computer Interaction.",
+        lead: "Security, AI and web coursework.",
+        detail: "Digital Forensics, Information Security Management, Blockchain, Artificial Intelligence, Web Mining, and Human Computer Interaction.",
       },
       {
         lead: "Head of the web development team at Heritage Club.",
@@ -207,11 +195,11 @@ export const educationItems: EducationItem[] = [
       },
       {
         lead: "Back-end developer on ProjectF.",
-        detail: "A Node.js and MongoDB backend for an e-commerce platform where artists and designers start their own brands: vendor products, the Mongoose schema, and the hookup to the frontend. Sep – Oct 2020.",
+        detail: "A Node.js and MongoDB backend for an e-commerce platform where artists and designers start their own brands. Sep – Oct 2020.",
       },
       {
         lead: "Core committee member at the Entrepreneurship Cell.",
-        detail: "Dec 2018 – Feb 2020. Ran sessions for aspiring entrepreneurs, piloted Futurepreneurs and Udaan with about 1,000 participants each, guided 3 startup ideas into VIT's Technology Business Incubator, and helped manage the annual E-Summit (about 6,000 participants).",
+        detail: "Dec 2018 – Feb 2020. Ran sessions for aspiring entrepreneurs, guided 3 startup ideas into VIT's Technology Business Incubator, and helped manage the annual E-Summit (about 6,000 participants).",
       },
     ],
   },
